@@ -13,10 +13,12 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices
                 factory.Uri = new Uri("amqp://guest:guest@localhost:5672/asna-orders");
 
                 IConnection conn = factory.CreateConnection();
+
+                return true;
             }
             catch (Exception ex)
             {
-
+                return false;
             }
 
         }
