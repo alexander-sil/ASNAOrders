@@ -1,4 +1,4 @@
-﻿namespace ASNAOrders.Web.Administration.Server
+﻿namespace ASNAOrders.Web.Administration.Server.AbstrModels
 {
     /// <summary>
     /// Determines the configuraion of the ASNAOrders.Web API project. Issued by RabbitMQ.
@@ -45,6 +45,16 @@
         /// Determines the database connection string to be used.
         /// </summary>
         public string? ConnectionString { get; set; } = "";
+
+        #endregion
+
+        #region LoggingOptions
+
+        /// <summary>
+        /// Determines the Serilog logger sink to be used.
+        /// Possible values are "console" and "file*[filename]".
+        /// </summary>
+        public string? SinkSelector { get; set; } = "";
 
         #endregion
     }

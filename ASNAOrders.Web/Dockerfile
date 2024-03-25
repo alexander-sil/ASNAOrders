@@ -5,6 +5,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
+EXPOSE 5672
 
 # Build container
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build

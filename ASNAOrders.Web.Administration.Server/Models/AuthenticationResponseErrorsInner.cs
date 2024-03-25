@@ -3,9 +3,9 @@
     public class AuthenticationResponseErrorsInner
     {
         /// <summary>
-        /// Informational messages issued by controller.
+        /// Determines the unique identifier of the informational message.
         /// </summary>
-        public string Name { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// Informational message issued by upstream services.
