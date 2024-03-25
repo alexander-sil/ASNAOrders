@@ -13,6 +13,7 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
     [Table("Permissions")]
     public class UserPermissionsDataModel
     {
+        #region Special
         /// <summary>
         /// Determines the user the specified permissions are bound to. For service use only.
         /// Does not unset permissions.
@@ -26,6 +27,8 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
         /// </summary>
         [Column]
         public bool Operator { get; set; }
+
+        #endregion
 
         #region UserPermissions
 
