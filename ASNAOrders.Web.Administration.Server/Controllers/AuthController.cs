@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-﻿using ASNAOrders.Web.Administration.Server.Models;
+using ASNAOrders.Web.Administration.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-=======
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
->>>>>>> 6b5f351633e2f9cdffbd48e0d2611a745182f6a9
+
 
 namespace ASNAOrders.Web.Administration.Server.Controllers
 {
@@ -17,14 +11,10 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost]
-<<<<<<< HEAD
         public virtual IActionResult Authenticate([FromBody] AuthenticationRequest request)
         {
 
         }
-=======
-        [SwaggerResponse(500)]
-        public virtual IActionResult Authenticate([FromBody] )
->>>>>>> 6b5f351633e2f9cdffbd48e0d2611a745182f6a9
+
     }
 }
