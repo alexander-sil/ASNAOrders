@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
 {
     /// <summary>
-    /// Permissions issued upon registration. For client usage only.
+    /// Permissions issued upon registration. For native client usage only.
     /// </summary>
     [Table("Permissions")]
     public class UserPermissionsDataModel
