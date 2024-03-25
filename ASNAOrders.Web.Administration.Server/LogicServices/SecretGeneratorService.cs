@@ -5,9 +5,17 @@ using System.Text;
 
 namespace ASNAOrders.Web.Administration.Server.LogicServices
 {
+    /// <summary>
+    /// Logic service to generate and store private cryptographic credentials.
+    /// </summary>
     public class SecretGeneratorService
     {
-
+        /// <summary>
+        /// Gets a mutable token signing key from a file within the specified path.
+        /// </summary>
+        /// <param name="path">The file path to be used.</param>
+        /// <returns>The token issuer signing key retrieved.</returns>
+        /// <exception cref="PlatformNotSupportedException"></exception>
         public static byte[] GetIssuerSigningKey(string path)
         {
             if (!File.Exists(path) || new FileInfo(path).Length == 0)
