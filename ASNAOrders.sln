@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{C80ECC45-AB2B-4863-B782-3FF922882000}"
-	ProjectSection(SolutionItems) = preProject
-		IO.Swagger\IO.Swagger.csproj = IO.Swagger\IO.Swagger.csproj
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASNAOrders.Web", "ASNAOrders.Web\ASNAOrders.Web.csproj", "{B10B7E39-5903-4893-B7CF-7F87D34D1024}"
 EndProject
