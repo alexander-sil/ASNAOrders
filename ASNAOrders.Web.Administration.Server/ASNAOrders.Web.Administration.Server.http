@@ -1,0 +1,6 @@
+@ASNAOrders.Web.Administration.Server_HostAddress = http://localhost:5142
+
+GET {{ASNAOrders.Web.Administration.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

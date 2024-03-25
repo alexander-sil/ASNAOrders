@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  asnaorders.web:
+    image: ${DOCKER_REGISTRY-}asnaordersweb
+    build:
+      context: ..
+      dockerfile: ASNAOrders/ASNAOrders.Web/Dockerfile
+
+  asnaorders.web.administration.server:
+    image: ${DOCKER_REGISTRY-}asnaorderswebadministrationserver
+    build:
+      context: .
+      dockerfile: ASNAOrders.Web.Administration.Server/Dockerfile
+
