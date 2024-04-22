@@ -1,9 +1,6 @@
-﻿namespace ASNAOrders.Web.Administration.Server.AbstrModels
+﻿namespace ASNAOrders.Web.ConfigServiceExtensions
 {
-    /// <summary>
-    /// Determines the configuraion of the ASNAOrders.Web API project. Issued by RabbitMQ.
-    /// </summary>
-    public class IssuibleConfig
+    public class Config
     {
         #region SecretGeneratorServiceOptions
 
