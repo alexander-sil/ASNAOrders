@@ -5,6 +5,9 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using ASNAOrders.Web.ConfigServiceExtensions;
+using System.Collections.Generic;
+using Serilog;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -22,13 +25,23 @@ namespace ASNAOrders.Web.LogicServices
                 byte[] secret = new byte[32];
                 rng.GetBytes(secret);
 
-                string strScrt = Convert.ToHexString(SHA256.Create().ComputeHash(secret));
+                string hash = Convert.ToHexString(SHA256.Create().ComputeHash(secret));
                 File.Create(path).Dispose();
 
-                File.AppendAllText(path, strScrt + Environment.NewLine);
-                File.AppendAllText(path, Convert.ToBase64String(secret));
+                File.AppendAllText(path, hash + Environment.NewLine);
 
-                return strScrt;
+                if (StaticConfig.ClientSecretTransmissionMethod == "file-INSECURE")
+                {
+                    File.AppendAllText(path, Convert.ToBase64String(secret));
+                } else if (StaticConfig.ClientSecretTransmissionMethod == "file-TEMP")
+                {
+                    Log.Warning($"VERY IMPORTANT: Preserve your client secret immediately or it will be LOST FOREVER after restart! It is located at {Path.GetTempPath()}");
+                    File.AppendAllText(path, Convert.ToBase64String(secret));
+                }
+               
+                
+
+                return hash;
             }
 
             try
@@ -53,8 +66,17 @@ namespace ASNAOrders.Web.LogicServices
             {
                 RandomNumberGenerator rng = new RNGCryptoServiceProvider();
 
-                byte[] key = new byte[64];
-                rng.GetBytes(key);
+                byte[] key;
+
+                if (StaticConfig.IssuerSigningKeySetToAuto == true)
+                {
+                    key = new byte[64];
+                    rng.GetBytes(key);
+                } else
+                {
+                    key = Encoding.Latin1.GetBytes(StaticConfig.IssuerSigningKey);
+                }
+                
 
                 string encKey = Convert.ToHexString(ProtectedData.Protect(key, null, DataProtectionScope.CurrentUser));
 
@@ -71,7 +93,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <returns>The </returns>
         public static string GetClientId()
         {
-            return "ye-integration";
+            return StaticConfig.ClientIdSetToAuto ? "ye-integration" : StaticConfig.ClientId;
         }
     }
 }

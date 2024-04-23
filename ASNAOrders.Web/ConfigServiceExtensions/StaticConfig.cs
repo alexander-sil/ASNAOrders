@@ -1,39 +1,72 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
-namespace ASNAOrders.Web.Administration.Server.AbstrModels
+namespace ASNAOrders.Web.ConfigServiceExtensions
 {
     /// <summary>
-    /// Determines the configuraion of the ASNAOrders.Web API project. Issued by RabbitMQ.
+    /// Configuration class into which Config.cs contents are loaded upon application start.
     /// </summary>
-    public class IssuibleConfig
+    public static class StaticConfig
     {
-
         /// <summary>
-        /// Constructor method for Config, StaticConfig and IssuibleConfig service extension model classes.
+        /// (Utility method) Load a dynamic configuration (Config.cs) from a designated location.
         /// </summary>
-        public IssuibleConfig()
+        /// <param name="config">The dynamic configuration to be loaded.</param>
+        public static void Load(Config config)
         {
-            this.ConnectionString = this.DatabaseType == "sqlite" ? $"Data Source={this.SqliteDbCacheFilename};Cache=Shared" : $"Data Source={this.MssqlServerHost},{this.MssqlServerPort};Initial Catalog=AsnaOrdersDB;User ID={MssqlServerUsername};Password={MssqlServerPassword};TrustServerCertificate=True;App=ASNAOrders";
-            this.ErrorLogPrefix = $"hs_err_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
+            MQVHost = config.MQVHost;
+            MQHostname = config.MQHostname;
+            MQPort = config.MQPort;
+
+
+            IssuerSigningKeySetToAuto = config.IssuerSigningKeySetToAuto;
+            IssuerSigningKey = config.IssuerSigningKey;
+            SigningKeyFile = config.SigningKeyFile;
+            SigningKeyFileSetToAuto = config.SigningKeyFileSetToAuto;
+            ClientId = config.ClientId;
+            ClientIdSetToAuto = config.ClientIdSetToAuto;
+
+
+            DatabaseType = config.DatabaseType;
+
+            SqliteDbCacheFilename = config.SqliteDbCacheFilename;
+            MssqlServerHost = config.MssqlServerHost;
+            MssqlServerPort = config.MssqlServerPort;
+            MssqlServerUsername = config.MssqlServerUsername;
+            MssqlServerPassword = config.MssqlServerPassword;
+
+            ConnectionString = config.ConnectionString;
+
+
+            Sink = config.Sink;
+            ErrorLogPrefix = config.ErrorLogPrefix;
+
+            MailPassword = config.MailPassword;
+            MailHost = config.MailHost;
+            MailPort = config.MailPort;
+            MailSSLOptions = config.MailSSLOptions;
+
+
+            ClientSecretTransmissionMethod = config.ClientSecretTransmissionMethod;
         }
 
-#nullable enable
+        #nullable enable
         #region RabbitMQOptions 
 
         /// <summary>
         /// Determines the RabbitMQ Virtual Host to be used.
         /// </summary>
-        public string MQVHost { get; set; } = "asna-orders";
+        public static string MQVHost { get; set; } = "asna-orders";
 
         /// <summary>
         /// Determines the hostname of the RabbitMQ instance to be used.
         /// </summary>
-        public string MQHostname { get; set; } = "localhost";
+        public static string MQHostname { get; set; } = "localhost";
 
         /// <summary>
         /// Determines the listening port of the RabbitMQ instance to be used.
         /// </summary>
-        public ushort MQPort { get; set; } = 5672;
+        public static ushort MQPort { get; set; } = 5672;
 
         #endregion
 
@@ -42,32 +75,32 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// <summary>
         /// Determines whether the token issuer signing key is generated automatically.
         /// </summary>
-        public bool IssuerSigningKeySetToAuto { get; set; } = true;
+        public static bool IssuerSigningKeySetToAuto { get; set; } = true;
 
         /// <summary>
         /// Determines the token issuer signing key in case of manual generation.
         /// </summary>
-        public string? IssuerSigningKey { get; set; } = "";
-
-        /// <summary>
-        /// Determines whether the signing key storage file is named by the SecretGeneratorService.
-        /// </summary>
-        public bool SigningKeyFileSetToAuto { get; set; } = true;
-
-        /// <summary>
-        /// Determines the OAuth client ID in case of manual generation.
-        /// </summary>
-        public string? ClientId { get; set; } = "";
-
-        /// <summary>
-        /// Determines whether the OAuth client ID is named by the SecretGeneratorService.
-        /// </summary>
-        public bool ClientIdSetToAuto { get; set; } = true;
+        public static string? IssuerSigningKey { get; set; } = "";
 
         /// <summary>
         /// Determines the key storage file name in case of manual generation.
         /// </summary>
-        public string? SigningKeyFile { get; set; } = "local.txt";
+        public static string? SigningKeyFile { get; set; } = "local.txt";
+
+        /// <summary>
+        /// Determines whether the signing key storage file is named by the SecretGeneratorService.
+        /// </summary>
+        public static bool SigningKeyFileSetToAuto { get; set; } = true;
+
+        /// <summary>
+        /// Determines the OAuth client ID in case of manual generation.
+        /// </summary>
+        public static string? ClientId { get; set; } = "";
+
+        /// <summary>
+        /// Determines whether the OAuth client ID is named by the SecretGeneratorService.
+        /// </summary>
+        public static bool ClientIdSetToAuto { get; set; } = true;
 
         #endregion
 
@@ -77,7 +110,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the type of the database to be used by the server.
         /// Possible values are "sqlite" and "mssqlserver".
         /// </summary>
-        public string? DatabaseType { get; set; } = "sqlite";
+        public static string? DatabaseType { get; set; } = "sqlite";
 
         #region TypeSpecificDBOpts
 
@@ -85,7 +118,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the filename of the database cache to be used in case of SQLite.
         /// A ".db" extension is appended programmatically.
         /// </summary>
-        public string? SqliteDbCacheFilename { get; set; } = "App";
+        public static string? SqliteDbCacheFilename { get; set; } = "App";
 
         /// <summary>
         /// Determines the username to be used in case of Microsoft SQL Server.
@@ -96,35 +129,35 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the hostname to be used in case of Microsoft SQL Server.
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public string? MssqlServerHost { get; set; } = "localhost";
+        public static string? MssqlServerHost { get; set; } = "localhost";
 
         /// <summary>
         /// Determines the server port to be used in case of Microsoft SQL Server.
         /// By default, this property contains 1433.
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public ushort MssqlServerPort { get; set; } = 1433;
+        public static ushort MssqlServerPort { get; set; } = 1433;
 
         /// <summary>
         /// Determines the username to be used in case of Microsoft SQL Server.
         /// By default, this property contains an "sa".
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public string? MssqlServerUsername { get; set; } = "sa";
+        public static string? MssqlServerUsername { get; set; } = "sa";
 
         /// <summary>
         /// Determines the password to be used in case of Microsoft SQL Server.
         /// By default, this property contains an empty string.
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public string? MssqlServerPassword { get; set; } = "";
+        public static string? MssqlServerPassword { get; set; } = "";
+
+        #endregion
 
         /// <summary>
         /// Determines the database connection string to be used.
         /// </summary>
-        public string? ConnectionString { get; set; } = "";
-
-        #endregion
+        public static string? ConnectionString { get; set; } = "";
 
         #endregion
 
@@ -132,15 +165,15 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
 
         /// <summary>
         /// Determines the Serilog logger sink to be used.
-        /// Possible values are "eventlog", "eventlog+mail*[address]" and "file*[filename]".
+        /// Possible values are "eventlog", "eventlog+mail*[address|login]" and "file*[filename]".
         /// </summary>
-        public string? Sink { get; set; } = "eventlog";
+        public static string? Sink { get; set; } = "eventlog";
 
         /// <summary>
         /// Determines the prefix for error log files.
         /// By default, this property contains the current date of the system.
         /// </summary>
-        public string? ErrorLogPrefix { get; set; } = $"";
+        public static string? ErrorLogPrefix { get; set; } = "";
 
         #region MailLoggingOptions
 
@@ -148,26 +181,26 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the password to be used in case of mail logging.
         /// By default, this property contains an empty string.
         /// </summary>
-        public string? MailPassword { get; set; } = "";
+        public static string? MailPassword { get; set; } = "";
 
         /// <summary>
         /// Determines the SMTP server to be used in case of mail logging.
         /// By default, this property contains 127.0.0.1.
         /// </summary>
-        public string? MailHost { get; set; } = "127.0.0.1";
+        public static string? MailHost { get; set; } = "127.0.0.1";
 
         /// <summary>
         /// Determines the SMTP server port to be used in case of mail logging.
         /// By default, this property contains 25.
         /// </summary>
-        public string? MailPort { get; set; } = "25";
+        public static string? MailPort { get; set; } = "25";
 
         /// <summary>
         /// Determines the SMTP Secure Sockets Layer (SSL) options to be used in case of mail logging.
         /// By default, this property contains "auto".
         /// Possible values are
         /// </summary>
-        public string? MailSSLOptions { get; set; } = "auto";
+        public static string? MailSSLOptions { get; set; } = "auto";
 
         #endregion
 
@@ -178,7 +211,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Possible values are "file-INSECURE", "file-TEMP" and "email". 
         /// By default, this property contains "file-TEMP".
         /// </summary>
-        public string ClientSecretTransmissionMethod { get; set; } = "file-TEMP";
+        public static string ClientSecretTransmissionMethod { get; set; } = "file-TEMP";
 
         #endregion
 

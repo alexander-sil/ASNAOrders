@@ -54,6 +54,6 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
         /// Determines permissions issued by operator.
         /// </summary>
         [InverseProperty(nameof(UserPermissionsDataModel.UserBinding))]
-        public UserPermissionsDataModel Permissions { get; set; }
+        public UserPermissionsDataModel? Permissions { get; set; }
     }
 }

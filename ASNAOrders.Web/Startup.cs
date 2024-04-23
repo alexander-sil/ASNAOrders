@@ -40,6 +40,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 
 namespace ASNAOrders.Web
 {
@@ -68,6 +69,9 @@ namespace ASNAOrders.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            Log.Logger = 
+            services.AddSerilog();
+
             services.AddExceptionHandler<CustomExceptionHandler>();
             services.AddExceptionHandler<BadRequestErrorHandler>();
 

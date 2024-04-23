@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.IO;
 using ASNAOrders.Web.Filters;
+using ASNAOrders.Web.ConfigServiceExtensions;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -67,7 +68,7 @@ namespace ASNAOrders.Web.Controllers
             }
 
             string hash = Convert.ToHexString(SHA256.Create().ComputeHash(Convert.FromBase64String($"{clientSecret}")));
-            string etalonHash = SecretGeneratorService.GetClientSecretHash(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "keys.txt"));
+            string etalonHash = SecretGeneratorService.GetClientSecretHash(StaticConfig.SigningKeyFileSetToAuto ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "keys.txt") : StaticConfig.SigningKeyFile);
 
             if (hash == etalonHash && clientId == SecretGeneratorService.GetClientId())
             {

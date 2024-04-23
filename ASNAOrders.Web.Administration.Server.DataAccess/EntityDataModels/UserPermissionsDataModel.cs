@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,14 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
     public class UserPermissionsDataModel
     {
         #region Special
+
+        /// <summary>
+        /// Internal identifier of the permission model.
+        /// </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+
         /// <summary>
         /// Determines the user the specified permissions are bound to. For service use only.
         /// Does not unset permissions.
@@ -81,24 +90,41 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
         #region OrderPermissions 
 
         /// <summary>
-        /// Makes the user able to view, edit and clear order listings.
+        /// Makes the user able to view and/or clear order listings.
         /// Unsets lower tier.
         /// </summary>
         [Column]
-        public bool OrdersViewEditClear { get; set; }
-
-        /// <summary>
-        /// Makes the user able to view/edit order listings.
-        /// Unsets lower tier.
-        /// </summary>
-        [Column]
-        public bool OrdersViewEdit { get; set; }
+        public bool OrdersViewClear { get; set; }
 
         /// <summary>
         /// Makes the user able to view order listings.
         /// </summary>
         [Column]
         public bool OrdersView { get; set; }
+
+        #endregion
+
+        #region StockPermissions
+
+        /// <summary>
+        /// Makes the user able to view, edit and clear stock listings.
+        /// Unsets lower tier.
+        /// </summary>
+        [Column]
+        public bool StocksViewEditClear { get; set; }
+
+        /// <summary>
+        /// Makes the user able to view/edit stock listings.
+        /// Unsets lower tier.
+        /// </summary>
+        [Column]
+        public bool StocksViewEdit { get; set; }
+
+        /// <summary>
+        /// Makes the user able to view stock listings.
+        /// </summary>
+        [Column]
+        public bool StocksView { get; set; }
 
         #endregion
 
