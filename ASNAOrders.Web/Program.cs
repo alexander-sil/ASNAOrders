@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using System.Xml.Serialization;
 using System;
 using System.IO;
+using Serilog;
 
 namespace ASNAOrders.Web
 {
@@ -34,7 +35,7 @@ namespace ASNAOrders.Web
             }
 
             using FileStream dfile = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            StaticConfig.Load((Config)(new XmlSerializerFactory().CreateSerializer(typeof(Config)).Deserialize(dfile)));
+            StaticConfig.Load((Config)new XmlSerializerFactory().CreateSerializer(typeof(Config)).Deserialize(dfile));
 
             CreateHostBuilder(args).Build().Run();
 
@@ -44,6 +45,8 @@ namespace ASNAOrders.Web
             {
                 File.Delete(path);
             }
+
+            Log.CloseAndFlushAsync();
         }
 
         /// <summary>

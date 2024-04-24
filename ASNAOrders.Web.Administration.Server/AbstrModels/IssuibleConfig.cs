@@ -13,8 +13,8 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// </summary>
         public IssuibleConfig()
         {
-            this.ConnectionString = this.DatabaseType == "sqlite" ? $"Data Source={this.SqliteDbCacheFilename};Cache=Shared" : $"Data Source={this.MssqlServerHost},{this.MssqlServerPort};Initial Catalog=AsnaOrdersDB;User ID={MssqlServerUsername};Password={MssqlServerPassword};TrustServerCertificate=True;App=ASNAOrders";
-            this.ErrorLogPrefix = $"hs_err_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
+            this.ConnectionString = this.DatabaseType == "sqlite" ? $"Data Source={this.SqliteDbCacheFilename};Cache=Shared" : $"Data Source={this.MssqlServerHost},{this.MssqlServerPort};Initial Catalog={InitialCatalog};User ID={MssqlServerUsername};Password={MssqlServerPassword};TrustServerCertificate=True;App=ASNAOrders";
+            this.ErrorLogPrefix = $"hs_log_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
         }
 
 #nullable enable
@@ -124,6 +124,11 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// </summary>
         public string? ConnectionString { get; set; } = "";
 
+
+        /// <summary>
+        /// Determines the initial catalog database to be used.
+        /// </summary>
+        public string? InitialCatalog { get; set; } = "";
         #endregion
 
         #endregion
@@ -151,6 +156,12 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         public string? MailPassword { get; set; } = "";
 
         /// <summary>
+        /// Determines the email address for logging messages to be sent to.
+        /// By default, this property contains an empty string.
+        /// </summary>
+        public string? MailTo { get; set; } = "";
+
+        /// <summary>
         /// Determines the SMTP server to be used in case of mail logging.
         /// By default, this property contains 127.0.0.1.
         /// </summary>
@@ -160,7 +171,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the SMTP server port to be used in case of mail logging.
         /// By default, this property contains 25.
         /// </summary>
-        public string? MailPort { get; set; } = "25";
+        public ushort MailPort { get; set; } = 25;
 
         /// <summary>
         /// Determines the SMTP Secure Sockets Layer (SSL) options to be used in case of mail logging.

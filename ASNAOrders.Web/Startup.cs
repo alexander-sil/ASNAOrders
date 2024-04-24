@@ -41,6 +41,9 @@ using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using ASNAOrders.Web.ConfigServiceExtensions;
+using Serilog.Sinks.Email;
+using System.Net;
 
 namespace ASNAOrders.Web
 {
@@ -69,7 +72,20 @@ namespace ASNAOrders.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            Log.Logger = 
+            Log.Logger = StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}{StaticConfig.Sink.Split('*')[1]}").CreateLogger() : 
+                StaticConfig.Sink.Contains("mail") ? new LoggerConfiguration().WriteTo.Email(new EmailSinkOptions() 
+                { 
+                    From = StaticConfig.Sink.Split('*')[1],
+                    ConnectionSecurity = 
+                    StaticConfig.MailSSLOptions == "auto" ? MailKit.Security.SecureSocketOptions.Auto 
+                    : StaticConfig.MailSSLOptions == "STARTTLSavail" ? MailKit.Security.SecureSocketOptions.StartTlsWhenAvailable
+                    : MailKit.Security.SecureSocketOptions.None,
+                    To = new List<string>() { StaticConfig.MailTo },
+                    Host = StaticConfig.MailHost,
+                    Credentials = new NetworkCredential(StaticConfig.Sink.Split('*')[1], StaticConfig.MailPassword),
+                    Port = (int)StaticConfig.MailPort
+
+                }).CreateLogger() : 
             services.AddSerilog();
 
             services.AddExceptionHandler<CustomExceptionHandler>();

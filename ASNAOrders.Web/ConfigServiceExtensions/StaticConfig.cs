@@ -28,6 +28,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
 
             DatabaseType = config.DatabaseType;
+            InitialCatalog = config.InitialCatalog;
 
             SqliteDbCacheFilename = config.SqliteDbCacheFilename;
             MssqlServerHost = config.MssqlServerHost;
@@ -42,6 +43,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             ErrorLogPrefix = config.ErrorLogPrefix;
 
             MailPassword = config.MailPassword;
+            MailTo = config.MailTo;
             MailHost = config.MailHost;
             MailPort = config.MailPort;
             MailSSLOptions = config.MailSSLOptions;
@@ -159,6 +161,11 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// </summary>
         public static string? ConnectionString { get; set; } = "";
 
+        /// <summary>
+        /// Determines the initial catalog database to be used.
+        /// </summary>
+        public static string? InitialCatalog { get; set; } = "";
+
         #endregion
 
         #region LoggingOptions
@@ -184,6 +191,11 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         public static string? MailPassword { get; set; } = "";
 
         /// <summary>
+        /// Determines the email address for logging messages to be sent to.
+        /// By default, this property contains an empty string.
+        /// </summary>
+        public static string? MailTo { get; set; } = "";
+        /// <summary>
         /// Determines the SMTP server to be used in case of mail logging.
         /// By default, this property contains 127.0.0.1.
         /// </summary>
@@ -193,12 +205,12 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// Determines the SMTP server port to be used in case of mail logging.
         /// By default, this property contains 25.
         /// </summary>
-        public static string? MailPort { get; set; } = "25";
+        public static ushort MailPort { get; set; } = 25;
 
         /// <summary>
         /// Determines the SMTP Secure Sockets Layer (SSL) options to be used in case of mail logging.
         /// By default, this property contains "auto".
-        /// Possible values are
+        /// Possible values are "auto", "none" and "STARTTLSavail".
         /// </summary>
         public static string? MailSSLOptions { get; set; } = "auto";
 
