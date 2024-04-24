@@ -19,7 +19,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// <summary>
         /// Initializes the RabbitMQ listener service and sets the event handler to update the config file.
         /// </summary>
-        public void Initialize()
+        public static void Initialize()
         {
             var factory = new ConnectionFactory 
             { 
@@ -47,7 +47,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                                  consumer: consumer);
         }
 
-        private void OnReceived(object sender, BasicDeliverEventArgs e)
+        private static void OnReceived(object sender, BasicDeliverEventArgs e)
         {
             JToken root = JToken.Parse(Encoding.UTF8.GetString(e.Body.ToArray()));
 
@@ -78,6 +78,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 DatabaseType = (string)root["dbType"],
                 InitialCatalog = (string)root["initialCatalog"],
 
+                XMLStockPath = (string)root["xmlStockPath"],
                 SqliteDbCacheFilename = (string)root["sqliteDbCacheFilename"],
 
                 MssqlServerHost = (string)root["mssqlServerHost"],

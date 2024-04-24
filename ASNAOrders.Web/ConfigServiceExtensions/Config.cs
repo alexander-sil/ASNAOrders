@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -108,6 +109,12 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         public string? DatabaseType { get; set; } = "sqlite";
 
         #region TypeSpecificDBOpts
+
+        /// <summary>
+        /// Determines the directory for XML-formatted stock uploads.
+        /// By default, the directory is located in the user's profile directory.
+        /// </summary>
+        public string? XMLStockPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "XMLStock");
 
         /// <summary>
         /// Determines the filename of the database cache to be used in case of SQLite.

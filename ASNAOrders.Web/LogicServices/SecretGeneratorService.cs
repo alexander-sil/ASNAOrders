@@ -9,6 +9,9 @@ using ASNAOrders.Web.ConfigServiceExtensions;
 using System.Collections.Generic;
 using System.Net.Mail;
 using Serilog;
+using System.Reflection;
+using MailKit;
+using System.Net;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -33,15 +36,31 @@ namespace ASNAOrders.Web.LogicServices
 
                 if (StaticConfig.ClientSecretTransmissionMethod == "file-INSECURE")
                 {
+                    Log.Warning($"VERY IMPORTANT: A client secret has been written to the same location as its hash. This option is VERY insecure and should NEVER be used.");
                     File.AppendAllText(path, Convert.ToBase64String(secret));
                 } else if (StaticConfig.ClientSecretTransmissionMethod == "file-TEMP")
                 {
                     Log.Warning($"VERY IMPORTANT: Preserve your client secret immediately or it will be LOST FOREVER after restart! It is located at {Path.GetTempPath()}");
                     File.AppendAllText(Path.Combine(Path.GetTempPath(), path), Convert.ToBase64String(secret));
+                } else
+                {
+                    using MailMessage message = new MailMessage()
+                    {
+                        Subject = "OAuth 2 Client Secret transferred",
+                        From = new MailAddress(StaticConfig.Sink.Split("*")[1]),
+                        Body = $"This is your OAuth2 client secret for logging on to the {Assembly.GetExecutingAssembly().GetName().Name} application.{Environment.NewLine}It is very important you store the below string in a secure place.{Environment.NewLine}{Environment.NewLine}{Convert.ToBase64String(secret)}{Environment.NewLine}{Environment.NewLine}In case this secret becomes lost, you WILL NOT be able to log on to the service specified."
+                    };
+
+                    message.To.Add(StaticConfig.MailTo);
+
+                    using SmtpClient client = new SmtpClient(StaticConfig.MailHost, StaticConfig.MailPort);
+
+                    client.Credentials = new NetworkCredential(StaticConfig.Sink.Split("*")[1], StaticConfig.MailPassword);
+                    client.EnableSsl = StaticConfig.MailSSLOptions == "STARTTLSavail" ? true : StaticConfig.MailSSLOptions == "none" ? false : true;
+
+                    client.Send(message);
                 }
                
-                
-
                 return hash;
             }
 

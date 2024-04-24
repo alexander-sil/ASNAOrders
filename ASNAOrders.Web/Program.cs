@@ -37,14 +37,9 @@ namespace ASNAOrders.Web
             using FileStream dfile = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             StaticConfig.Load((Config)new XmlSerializerFactory().CreateSerializer(typeof(Config)).Deserialize(dfile));
 
+            RabbitMQConfigService.Initialize();
+
             CreateHostBuilder(args).Build().Run();
-
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tokenHashes.txt");
-
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
 
             Log.CloseAndFlushAsync();
         }

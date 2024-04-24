@@ -95,6 +95,13 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         #region DatabaseOptions
 
         /// <summary>
+        /// Determines the directory for XML-formatted stock uploads.
+        /// By default, the directory is located in the user's profile directory.
+        /// </summary>
+        public string? XMLStockPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "XMLStock");
+
+
+        /// <summary>
         /// Determines the type of the database to be used by the server.
         /// Possible values are "sqlite" and "mssqlserver".
         /// </summary>

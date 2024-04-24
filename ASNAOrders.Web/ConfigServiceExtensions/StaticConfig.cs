@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 
 namespace ASNAOrders.Web.ConfigServiceExtensions
 {
@@ -32,6 +33,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             ClientSecret = config.ClientSecret;
 
 
+            XMLStockPath = config.XMLStockPath;
             DatabaseType = config.DatabaseType;
             InitialCatalog = config.InitialCatalog;
 
@@ -134,6 +136,12 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         #endregion
 
         #region DatabaseOptions
+
+        /// <summary>
+        /// Determines the directory for XML-formatted stock uploads.
+        /// By default, the directory is located in the user's profile directory.
+        /// </summary>
+        public static string? XMLStockPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "XMLStock");
 
         /// <summary>
         /// Determines the type of the database to be used by the server.
