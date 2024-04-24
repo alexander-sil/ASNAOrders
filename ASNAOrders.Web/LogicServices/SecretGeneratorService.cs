@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using ASNAOrders.Web.ConfigServiceExtensions;
 using System.Collections.Generic;
+using System.Net.Mail;
 using Serilog;
 
 namespace ASNAOrders.Web.LogicServices
@@ -36,7 +37,7 @@ namespace ASNAOrders.Web.LogicServices
                 } else if (StaticConfig.ClientSecretTransmissionMethod == "file-TEMP")
                 {
                     Log.Warning($"VERY IMPORTANT: Preserve your client secret immediately or it will be LOST FOREVER after restart! It is located at {Path.GetTempPath()}");
-                    File.AppendAllText(path, Convert.ToBase64String(secret));
+                    File.AppendAllText(Path.Combine(Path.GetTempPath(), path), Convert.ToBase64String(secret));
                 }
                
                 

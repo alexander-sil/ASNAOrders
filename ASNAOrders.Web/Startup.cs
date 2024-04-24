@@ -85,7 +85,7 @@ namespace ASNAOrders.Web
                     Credentials = new NetworkCredential(StaticConfig.Sink.Split('*')[1], StaticConfig.MailPassword),
                     Port = (int)StaticConfig.MailPort
 
-                }).CreateLogger() : 
+                }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(Assembly.GetExecutingAssembly().GetName().Name).CreateLogger();
             services.AddSerilog();
 
             services.AddExceptionHandler<CustomExceptionHandler>();
@@ -123,7 +123,7 @@ namespace ASNAOrders.Web
                     ValidateLifetime = true,
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.Latin1.GetBytes("711c22448e721e5491d8245b49425aa861f1fc4a15287f0735e203799b65cffec50b5abd0fddd91cd643aeb3b530d48f05e258e7e230a94ed5025c1387bb4e1b"))
+                    IssuerSigningKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(StaticConfig.SigningKeyFileSetToAuto ? "skey" : StaticConfig.SigningKeyFile))
                 };
             });
 

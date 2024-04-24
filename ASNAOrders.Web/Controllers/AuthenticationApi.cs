@@ -68,11 +68,11 @@ namespace ASNAOrders.Web.Controllers
             }
 
             string hash = Convert.ToHexString(SHA256.Create().ComputeHash(Convert.FromBase64String($"{clientSecret}")));
-            string etalonHash = SecretGeneratorService.GetClientSecretHash(StaticConfig.SigningKeyFileSetToAuto ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "keys.txt") : StaticConfig.SigningKeyFile);
+            string etalonHash = SecretGeneratorService.GetClientSecretHash(StaticConfig.ClientSecretFilenameSetToAuto ? "client-secret-hash" : StaticConfig.ClientSecretFilename);
 
             if (hash == etalonHash && clientId == SecretGeneratorService.GetClientId())
             {
-                var secretKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tokenHashes.txt")));
+                var secretKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(StaticConfig.SigningKeyFileSetToAuto ? "skey" : StaticConfig.SigningKeyFile));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]

@@ -28,7 +28,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// <summary>
         /// Determines the hostname of the RabbitMQ instance to be used.
         /// </summary>
-        public string MQHostname { get; set; } = "localhost";
+        public string MQHostname { get; set; } = "rabbitmq.local";
 
         /// <summary>
         /// Determines the listening port of the RabbitMQ instance to be used.
@@ -67,7 +67,28 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// <summary>
         /// Determines the key storage file name in case of manual generation.
         /// </summary>
-        public string? SigningKeyFile { get; set; } = "local.txt";
+        public string? SigningKeyFile { get; set; } = "skey";
+
+        /// <summary>
+        /// Determines whether the client secret storage file name is generated programmatically.
+        /// </summary>
+        public bool ClientSecretSetToAuto { get; set; } = true;
+
+        /// <summary>
+        /// Determines the client secret data in case of manual generation.
+        /// Must be a valid Base64 string.
+        /// </summary>
+        public string? ClientSecret { get; set; } = "";
+
+        /// <summary>
+        /// Determines whether the client secret hash storage file name is generated programmatically.
+        /// </summary>
+        public bool ClientSecretFilenameSetToAuto { get; set; } = true;
+
+        /// <summary>
+        /// Determines the client secret hash storage file name in case of manual generation.
+        /// </summary>
+        public string? ClientSecretFilename { get; set; } = "client-secret-hash";
 
         #endregion
 

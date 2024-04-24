@@ -26,6 +26,11 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             ClientId = config.ClientId;
             ClientIdSetToAuto = config.ClientIdSetToAuto;
 
+            ClientSecretFilenameSetToAuto = config.ClientSecretFilenameSetToAuto;
+            ClientSecretFilename = config.ClientSecretFilename;
+            ClientSecretSetToAuto = config.ClientSecretSetToAuto;
+            ClientSecret = config.ClientSecret;
+
 
             DatabaseType = config.DatabaseType;
             InitialCatalog = config.InitialCatalog;
@@ -87,7 +92,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// <summary>
         /// Determines the key storage file name in case of manual generation.
         /// </summary>
-        public static string? SigningKeyFile { get; set; } = "local.txt";
+        public static string? SigningKeyFile { get; set; } = "skey";
 
         /// <summary>
         /// Determines whether the signing key storage file is named by the SecretGeneratorService.
@@ -103,6 +108,28 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// Determines whether the OAuth client ID is named by the SecretGeneratorService.
         /// </summary>
         public static bool ClientIdSetToAuto { get; set; } = true;
+
+        /// <summary>
+        /// Determines whether the client secret storage file name is generated programmatically.
+        /// </summary>
+        public static bool ClientSecretSetToAuto { get; set; } = true;
+
+        /// <summary>
+        /// Determines the client secret data in case of manual generation.
+        /// Must be a valid Base64 string.
+        /// </summary>
+        public static string? ClientSecret { get; set; } = "";
+
+        /// <summary>
+        /// Determines whether the client secret storage file name is generated programmatically.
+        /// </summary>
+        public static bool ClientSecretFilenameSetToAuto { get; set; } = true;
+
+        /// <summary>
+        /// Determines the client secret storage file name in case of manual generation.
+        /// </summary>
+        public static string? ClientSecretFilename { get; set; } = "client-secret-hash";
+
 
         #endregion
 

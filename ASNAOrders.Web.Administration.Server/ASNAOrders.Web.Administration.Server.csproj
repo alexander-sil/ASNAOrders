@@ -15,4 +15,8 @@
 		<PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\ASNAOrders.Web.Administration.Server.DataAccess\ASNAOrders.Web.Administration.Server.DataAccess.csproj" />
+	</ItemGroup>
+
 </Project>
