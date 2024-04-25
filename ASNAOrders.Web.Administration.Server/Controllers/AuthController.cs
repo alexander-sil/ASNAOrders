@@ -37,7 +37,7 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
 
                 if (hash == account.PasswordHash)
                 {
-                    var secretKey = new SymmetricSecurityKey(Encoding.Latin1.GetBytes("s57orD2PaPliTWSy0T0g"));
+                    var secretKey = new SymmetricSecurityKey(Encoding.Latin1.GetBytes(""));
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
                         Subject = new ClaimsIdentity(new[]
