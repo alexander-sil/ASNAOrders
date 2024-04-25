@@ -7,7 +7,6 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using System.IO;
 using System.Xml.Serialization;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace ASNAOrders.Web.ConfigServiceExtensions
 {

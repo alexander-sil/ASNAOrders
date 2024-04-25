@@ -39,6 +39,7 @@
 		<PackageReference Include="Serilog.Sinks.Email" Version="3.0.0" />
 		<PackageReference Include="Serilog.Sinks.EventLog" Version="3.1.0" />
 		<PackageReference Include="Silitsky.AspNetCore.SwaggerUI" Version="6.5.0" />
+		<PackageReference Include="Standard.Licensing" Version="1.1.7" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.4.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
 		<PackageReference Include="JsonSubTypes" Version="1.8.0" />
@@ -50,5 +51,8 @@
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.1" />
 
 		<PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Data\Stocks\" />
 	</ItemGroup>
 </Project>

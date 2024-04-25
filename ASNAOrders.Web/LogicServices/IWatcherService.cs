@@ -11,6 +11,8 @@ namespace ASNAOrders.Web.LogicServices
         public ASNAOrdersDbContext Context { get; set; }
 
         public FileSystemWatcher Watcher { get; set; }
+
+        private void OnUpload(object sender, FileSystemEventArgs e) { }
         
     }
 }
