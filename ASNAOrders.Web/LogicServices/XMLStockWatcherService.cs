@@ -1,6 +1,9 @@
 ﻿using ASNAOrders.Web.ConfigServiceExtensions;
 using ASNAOrders.Web.Data;
+using System;
+using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace ASNAOrders.Web.LogicServices
@@ -17,7 +20,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// Constructor for native instantiation. DI use only.
         /// </summary>
-        /// <param name="context">Database context to write to. Stocks table is used.</param>
+        /// <param name="context">Database context to write to. NativeStocks table is used.</param>
         public XMLStockWatcherService(ASNAOrdersDbContext context) 
         { 
             Context = context;
@@ -25,6 +28,18 @@ namespace ASNAOrders.Web.LogicServices
             if (!Directory.Exists(StaticConfig.XMLStockPath))
             {
                 Directory.CreateDirectory(StaticConfig.XMLStockPath);
+            }
+
+            foreach (FileInfo file in new DirectoryInfo(StaticConfig.XMLStockPath).EnumerateFiles())
+            {
+                DateTime date = DateTime.Parse(Regex.Replace(file.Name, @"_.*\.xml", string.Empty), new CultureInfo("nl-NL"));
+                XDocument document = XDocument.Parse(File.ReadAllText(file.FullName));
+
+                foreach (XElement element in document.Elements())
+                {
+
+                    
+                }
             }
 
             Watcher = new FileSystemWatcher(StaticConfig.XMLStockPath);
@@ -39,16 +54,14 @@ namespace ASNAOrders.Web.LogicServices
         /// <param name="e">Event arguments object for </param>
         private void OnUpload(object sender, FileSystemEventArgs e)
         {
-            foreach (FileInfo file in new DirectoryInfo(StaticConfig.XMLStockPath).EnumerateFiles())
-            {
-                XDocument document = XDocument.Parse(File.ReadAllText(file.FullName));
+            XDocument document = XDocument.Parse(File.ReadAllText(e.FullPath));
                 
-                foreach(XElement element in document.Elements())
-                {
+            foreach(XElement element in document.Elements())
+            {
 
-                    element.Element("org_id");
-                }
+                element.Element("org_id");
             }
+           
         }
     }
 }

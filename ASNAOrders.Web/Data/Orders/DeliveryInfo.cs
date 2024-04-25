@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using ASNAOrders.Web.Models;
 
 namespace ASNAOrders.Web.Data.Orders
 {
@@ -9,8 +10,24 @@ namespace ASNAOrders.Web.Data.Orders
     /// <summary>
     /// .NET Entity Framework Core 8 data model for storing order delivery information. This schema is inner.
     /// </summary>
+    [Table("DeliveryInfos")]
     public class DeliveryInfo
     {
+        /// <summary>
+        /// System identifier for ASNAOrders database entries.
+        /// </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Determines the type of the record schema.
+        /// Possible values are YANDEX, MARKETPLACE and PICKUP.
+        /// </summary>
+        [Column]
+        [Required]
+        [StringLength(50)]
+        public string Discriminator { get; set; }
+
         /// <summary>
         /// Имя клиента в сервисе Яндекс Еда
         /// </summary>
@@ -18,6 +35,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>Иванов Иван Иванович</example>
         [Column]
         [Required]
+        [StringLength(128)]
         public string ClientName { get; set; }
 
         /// <summary>
@@ -27,15 +45,45 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>+74732006745 доб. 12099</example>
         [Column]
         [Required]
+        [StringLength(50)]
         public string PhoneNumber { get; set; }
 
         /// <summary>
         /// Дата, когда придет клиент в магазин, в формате RFC3339 с дробной частью секунд (Y-m-d\\TH:i:s.uP)
+        /// Заполняется при дискриминаторе PICKUP.
         /// </summary>
         /// <value>Дата, когда придет клиент в магазин, в формате RFC3339 с дробной частью секунд (Y-m-d\\TH:i:s.uP)</value>
         /// <example>1970-01-01T00:00:27.870+00:20</example>
         [Column]
-        [Required]
         public DateTime ClientArrivementDate { get; set; }
+
+        /// <summary>
+        /// Дата, когда придет курьер в торговую точку, в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP). Обязательно добавляйте дробную часть секунд.
+        /// Заполняется при дискриминаторе YANDEX.
+        /// </summary>
+        /// <value>Дата, когда придет курьер в торговую точку, в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP). Обязательно добавляйте дробную часть секунд.</value>
+        /// <example>1970-01-01T00:00:27.870+00:20</example>
+        [Column]
+        public DateTime CourierArrivementDate { get; set; }
+
+        /// <summary>
+        /// Дата доставки (к которой клиент ожидает доставку заказа), в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP)
+        /// </summary>
+        /// <value>Дата доставки (к которой клиент ожидает доставку заказа), в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP)</value>
+        /// <example>1970-01-01T00:00:27.870+00:20</example>
+        [Column]
+        public DateTime DeliveryDate { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DeliverySlot.
+        /// Filled in case of MARKETPLACE discriminator.
+        /// </summary>
+        public DeliverySlot DeliverySlot { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DeliveryAddress.
+        /// Filled in case of MARKETPLACE discriminator.
+        /// </summary>
+        public DeliveryAddress DeliveryAddress { get; set; }
     }
 }

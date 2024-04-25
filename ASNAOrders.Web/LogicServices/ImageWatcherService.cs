@@ -10,7 +10,14 @@ namespace ASNAOrders.Web.LogicServices
     /// </summary>
     public class ImageWatcherService : IWatcherService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ASNAOrdersDbContext Context { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public FileSystemWatcher Watcher { get; set; }
 
         /// <summary>
@@ -26,6 +33,11 @@ namespace ASNAOrders.Web.LogicServices
                 Directory.CreateDirectory(Path.Combine(StaticConfig.XMLStockPath, "images"));
             }
 
+            foreach (FileInfo file in new DirectoryInfo(Path.Combine(StaticConfig.XMLStockPath, "images")).EnumerateFiles())
+            {
+
+            }
+
             Watcher = new FileSystemWatcher(Path.Combine(StaticConfig.XMLStockPath, "images"));
 
             Watcher.Created += OnUpload;
@@ -33,10 +45,7 @@ namespace ASNAOrders.Web.LogicServices
 
         private void OnUpload(object sender, FileSystemEventArgs e)
         {
-            foreach (FileInfo file in new DirectoryInfo(Path.Combine(StaticConfig.XMLStockPath, "images")).EnumerateFiles())
-            {
-
-            }
+            
         }
     }
 }

@@ -79,6 +79,7 @@ namespace ASNAOrders.Web
                     ConnectionSecurity = 
                     StaticConfig.MailSSLOptions == "auto" ? MailKit.Security.SecureSocketOptions.Auto 
                     : StaticConfig.MailSSLOptions == "STARTTLSavail" ? MailKit.Security.SecureSocketOptions.StartTlsWhenAvailable
+                    : StaticConfig.MailSSLOptions == "SSL" ? MailKit.Security.SecureSocketOptions.SslOnConnect
                     : MailKit.Security.SecureSocketOptions.None,
                     To = new List<string>() { StaticConfig.MailTo },
                     Host = StaticConfig.MailHost,

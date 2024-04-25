@@ -14,6 +14,11 @@ namespace ASNAOrders.Web.Data.Orders
     [Table("Orders")]
     public class Order
     {
+        /// <summary>
+        /// System identifier for ASNAOrders database entries.
+        /// </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         /// <summary>
         /// Идентификатор платформы, DC - Delivery Club, YE - Yandex Eda
@@ -21,6 +26,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <value>Идентификатор платформы, DC - Delivery Club, YE - Yandex Eda</value>
         /// <example>YE</example>
         [Column]
+        [Required]
         [StringLength(4)]
         public string Platform { get; set; }
 
@@ -63,22 +69,20 @@ namespace ASNAOrders.Web.Data.Orders
         /// Gets or Sets PaymentInfo
         /// </summary>
         [Required]
-        [DataMember(Name = "paymentInfo", EmitDefaultValue = false)]
-        public PickupOrderV1PaymentInfo PaymentInfo { get; set; }
+        public PaymentInfo PaymentInfo { get; set; }
 
         /// <summary>
         /// Gets or Sets Items
         /// </summary>
         [Required]
-        [DataMember(Name = "items", EmitDefaultValue = false)]
-        public List<PickupOrderV1ItemsInner> Items { get; set; }
+        public List<Item> Items { get; set; }
 
         /// <summary>
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
         /// <example>0</example>
-        [DataMember(Name = "persons", EmitDefaultValue = true)]
+        [Column]
         public int Persons { get; set; }
 
         /// <summary>
@@ -86,16 +90,15 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Дополнительная информация о заказе</value>
         /// <example>Дополнительная информация о заказе: ...</example>
-        [Required]
-        [DataMember(Name = "comment", EmitDefaultValue = false)]
+        [Column]
+        [StringLength(512)]
         public string Comment { get; set; }
 
         /// <summary>
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
-        [Required]
-        [DataMember(Name = "promos", EmitDefaultValue = false)]
-        public List<PickupOrderV1PromosInner> Promos { get; set; }
+        [InverseProperty(nameof(Promo.Owner))]
+        public List<Promo> Promos { get; set; }
     }
 }

@@ -211,9 +211,9 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// <summary>
         /// Determines the SMTP Secure Sockets Layer (SSL) options to be used in case of mail logging.
         /// By default, this property contains "auto".
-        /// Possible values are
+        /// Possible values are "none", "auto", "SSL" and "STARTTLSavail".
         /// </summary>
-        public string? MailSSLOptions { get; set; } = "auto";
+        public string? MailSSLOptions { get; set; } = "SSL";
 
         #endregion
 

@@ -20,6 +20,12 @@ namespace ASNAOrders.Web.LogicServices
     /// </summary>
     public class SecretGeneratorService
     {
+        
+        /// <summary>
+        /// POCO method to receive a client secret hash from a filename and, optionally, securely transmit it to the network operator.
+        /// </summary>
+        /// <param name="path">Relative path (aka filename) to store the client secret hash at.</param>
+        /// <returns>A hexadecimal string representation of the client secret hash.</returns>
         public static string GetClientSecretHash(string path)
         {
             if (!File.Exists(path) || new FileInfo(path).Length == 0)
@@ -56,7 +62,7 @@ namespace ASNAOrders.Web.LogicServices
                     using SmtpClient client = new SmtpClient(StaticConfig.MailHost, StaticConfig.MailPort);
 
                     client.Credentials = new NetworkCredential(StaticConfig.Sink.Split("*")[1], StaticConfig.MailPassword);
-                    client.EnableSsl = StaticConfig.MailSSLOptions == "STARTTLSavail" ? true : StaticConfig.MailSSLOptions == "none" ? false : true;
+                    client.EnableSsl = StaticConfig.MailSSLOptions == "STARTTLSavail" ? false : StaticConfig.MailSSLOptions == "SSL" ? true : StaticConfig.MailSSLOptions == "none" ? false : true;
 
                     client.Send(message);
                 }
