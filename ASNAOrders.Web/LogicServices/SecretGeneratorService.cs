@@ -52,7 +52,7 @@ namespace ASNAOrders.Web.LogicServices
                 {
                     using MailMessage message = new MailMessage()
                     {
-                        Subject = "OAuth 2 Client Secret transferred",
+                        Subject = Properties.Resources.SecretMailSubj,
                         From = new MailAddress(StaticConfig.Sink.Split("*")[1]),
                         Body = $"This is your OAuth2 client secret for logging on to the {Assembly.GetExecutingAssembly().GetName().Name} application.{Environment.NewLine}It is very important you store the below string in a secure place.{Environment.NewLine}{Environment.NewLine}{Convert.ToBase64String(secret)}{Environment.NewLine}{Environment.NewLine}In case this secret becomes lost, you WILL NOT be able to log on to the service specified."
                     };
@@ -76,7 +76,7 @@ namespace ASNAOrders.Web.LogicServices
             }
             catch (IndexOutOfRangeException)
             {
-                return "[ERRORERRORERRORERRORERRORERROR]";
+                return Properties.Resources.ErrorSecret;
             }
         }
 
@@ -119,7 +119,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <returns>The </returns>
         public static string GetClientId()
         {
-            return StaticConfig.ClientIdSetToAuto ? "ye-integration" : StaticConfig.ClientId;
+            return StaticConfig.ClientIdSetToAuto ? Properties.Resources.ProgrammaticClientId : StaticConfig.ClientId;
         }
     }
 }

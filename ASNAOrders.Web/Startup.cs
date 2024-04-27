@@ -124,7 +124,7 @@ namespace ASNAOrders.Web
                     ValidateLifetime = true,
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(StaticConfig.SigningKeyFileSetToAuto ? "skey" : StaticConfig.SigningKeyFile))
+                    IssuerSigningKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(StaticConfig.SigningKeyFileSetToAuto ? Properties.Resources.ConfigSigningKeyFile : StaticConfig.SigningKeyFile))
                 };
             });
 

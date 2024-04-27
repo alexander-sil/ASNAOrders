@@ -36,11 +36,11 @@ namespace ASNAOrders.Web.LogicServices
 
                     if (!context.Request.Headers.ContainsKey("Authorization"))
                     {
-                        reason = "Missing or invalid token.";
+                        reason = Properties.Resources.MissingOrInvalidTokenString;
                     }
                     else
                     {
-                        reason = "Access token has been expired.";
+                        reason = Properties.Resources.AccessTokenExpiredString;
                     }
 
                     var response = new AuthorizationRequiredResponse()
@@ -67,7 +67,7 @@ namespace ASNAOrders.Web.LogicServices
                         new ErrorListV1Inner()
                         {
                             Code = 401,
-                            Description = "Unauthorized",
+                            Description = Properties.Resources.UnauthorizedString,
                         }
                     };
 

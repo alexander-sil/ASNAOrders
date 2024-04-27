@@ -19,7 +19,6 @@ namespace ASNAOrders.Web.Data.Orders
         /// <summary>
         /// Owner record for InversePropertyAttribute at Data\Order.cs
         /// </summary>
-        [Column]
         public virtual Order Owner { get; set; }
 
         /// <summary>

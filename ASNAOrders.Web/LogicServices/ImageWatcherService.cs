@@ -1,7 +1,16 @@
 ﻿using ASNAOrders.Web.ConfigServiceExtensions;
 using ASNAOrders.Web.Data;
+using Microsoft.AspNetCore.Http;
+using MimeKit;
 using System;
 using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Net.WebRequestMethods;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -28,24 +37,92 @@ namespace ASNAOrders.Web.LogicServices
         {
             Context = context;
 
-            if (!Directory.Exists(Path.Combine(StaticConfig.XMLStockPath, "images")))
+            if (!Directory.Exists(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath)))
             {
-                Directory.CreateDirectory(Path.Combine(StaticConfig.XMLStockPath, "images"));
+                Directory.CreateDirectory(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath));
             }
 
-            foreach (FileInfo file in new DirectoryInfo(Path.Combine(StaticConfig.XMLStockPath, "images")).EnumerateFiles())
+            if (!System.IO.File.Exists(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)))
             {
-
+                System.IO.File.Create(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)).Dispose();
             }
 
-            Watcher = new FileSystemWatcher(Path.Combine(StaticConfig.XMLStockPath, "images"));
+            if (new FileInfo(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)).Length == 0)
+            {
+                foreach (FileInfo file in new DirectoryInfo(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath)).EnumerateFiles())
+                {
+                    using HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, "https://tinystash.undef.im/upload/file");
+                    using HttpClient client = new HttpClient();
+
+                    message.Content = new ByteArrayContent(System.IO.File.ReadAllBytes(file.FullName));
+
+                    message.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(file.FullName));
+                    message.Content.Headers.ContentLength = file.Length;
+
+                    message.Headers.Add(Properties.Resources.ASNAAppIdKey, Properties.Resources.ASNAAppIdValue);
+
+                    HttpResponseMessage response = client.Send(message);
+                    string url = response.EnsureSuccessStatusCode().Content.ToString();
+
+                    System.IO.File.AppendAllText(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(file.Name, file.Extension, string.Empty)}\t{url}{Environment.NewLine}");
+                }
+            }
+
+
+            Watcher = new FileSystemWatcher(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath));
 
             Watcher.Created += OnUpload;
         }
 
         private void OnUpload(object sender, FileSystemEventArgs e)
         {
-            
+            using HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, Properties.Resources.ASNATinystashUploadUri);
+            using HttpClient client = new HttpClient();
+
+            message.Content = new ByteArrayContent(System.IO.File.ReadAllBytes(e.FullPath));
+
+            message.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(e.FullPath));
+            message.Content.Headers.ContentLength = new FileInfo(e.FullPath).Length;
+
+            message.Headers.Add(Properties.Resources.ASNAAppIdKey, Properties.Resources.ASNAAppIdValue);
+
+            HttpResponseMessage response = client.Send(message);
+            string url = response.EnsureSuccessStatusCode().Content.ToString();
+
+            System.IO.File.AppendAllText(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
+        }
+
+        /// <summary>
+        /// Gets the Tinystash.undef.im image link for the specified product.
+        /// </summary>
+        /// <param name="unicode"></param>
+        /// <returns></returns>
+        public static string GetImageTinystash(string unicode)
+        {
+            string[] data = System.IO.File.ReadAllLines(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath));
+
+            foreach (string line in data)
+            {
+                if (line.Contains(unicode))
+                {
+                    return line.Split("\t")[1].Trim();
+                }
+            }
+
+            return Properties.Resources.ASNADefaultCategoryPlaceholder;
+        }
+
+        public static string GetImageSha1(string unicode)
+        {
+            foreach (FileInfo file in new DirectoryInfo(Path.Combine(StaticConfig.XMLStockPath, "images")).EnumerateFiles())
+            {
+                if (file.Name.Contains(unicode))
+                {
+                    return Convert.ToHexString(SHA1.Create().ComputeHash(System.IO.File.ReadAllBytes(file.FullName)));
+                }
+            }
+
+            return "deadfacedeadfacedeadfacedeadfacedeadface";
         }
     }
 }

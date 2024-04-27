@@ -17,6 +17,11 @@ namespace ASNAOrders.Web.Data.Orders
         public int Id { get; set; }
 
         /// <summary>
+        /// Owner property for relationships. Used as foreign key for InversePropertyAttribute.
+        /// </summary>
+        public virtual Item Owner { get; set; } 
+
+        /// <summary>
         /// Наименование модификатора
         /// </summary>
         /// <value>Наименование модификатора</value>

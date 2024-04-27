@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ASNAOrders.Web.Data
 {
@@ -42,6 +43,51 @@ namespace ASNAOrders.Web.Data
         /// 
         /// </summary>
         public DbSet<Orders.DeliverySlot> DeliverySlots { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.Barcode> Barcodes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.Category> Categories { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.CategoryImage> CategoryImages { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.Description> ItemDescs { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.ItemImage> ItemImages { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.Measure> ItemMeasures { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.Volume> YandexEatsVolumes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<YENomenclature.NomenclatureItem> YENomenclatureItems { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<Stocks.NativeStock> NativeStocks { get; set; }
 
         /// <summary>
         /// 

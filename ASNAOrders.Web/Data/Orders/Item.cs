@@ -23,7 +23,9 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Наименование товара</value>
         /// <example>Молоко Домик в деревне</example>
+        [Column]
         [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
         /// <summary>
@@ -31,6 +33,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Количество позиции в заказе</value>
         /// <example>3</example>
+        [Column]
         [Required]
         public float Quantity { get; set; }
 
@@ -39,6 +42,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Цена одной штуки товара. Для весовых товаров цена передается за 1 кг</value>
         /// <example>84</example>
+        [Column]
         [Required]
         public double Price { get; set; }
 
@@ -46,12 +50,14 @@ namespace ASNAOrders.Web.Data.Orders
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
+        [InverseProperty(nameof(Modification.Owner))]
         public List<Modification> Modifications { get; set; }
 
         /// <summary>
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
+        [InverseProperty(nameof(Promo.Owner))]
         public List<Promo> Promos { get; set; }
     }
 }

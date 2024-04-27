@@ -30,7 +30,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
-            channel.QueueDeclare(queue: "default",
+            channel.QueueDeclare(queue: Properties.Resources.AdministrationQueue,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -41,7 +41,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += OnReceived;
 
-            channel.BasicConsume(queue: "default",
+            channel.BasicConsume(queue: Properties.Resources.AdministrationQueue,
                                  autoAck: true,
                                  consumer: consumer);
         }
@@ -102,7 +102,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 ClientSecretTransmissionMethod = (string)root["clientSecretTransmissionMethod"]
             };
 
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
 
             if (File.Exists(filename))
             {
