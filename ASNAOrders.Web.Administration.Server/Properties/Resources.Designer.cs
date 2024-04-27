@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASNAOrders.Web.Properties {
+namespace ASNAOrders.Web.Administration.Server.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ASNAOrders.Web.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ASNAOrders.Web.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ASNAOrders.Web.Administration.Server.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -367,29 +367,11 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dd-mm-yyyy.
-        /// </summary>
-        internal static string DefaultDateFormatString {
-            get {
-                return ResourceManager.GetString("DefaultDateFormatString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to [ERRORERRORERRORERRORERRORERROR].
         /// </summary>
         internal static string ErrorSecret {
             get {
                 return ResourceManager.GetString("ErrorSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to licenses.
-        /// </summary>
-        internal static string LicensesPathString {
-            get {
-                return ResourceManager.GetString("LicensesPathString", resourceCulture);
             }
         }
         

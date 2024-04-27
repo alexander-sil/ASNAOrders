@@ -23,17 +23,17 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// <summary>
         /// Determines the RabbitMQ Virtual Host to be used.
         /// </summary>
-        public string MQVHost { get; set; } = "asna-orders";
+        public string MqVhost { get; set; } = Properties.Resources.ConfigMQVHost;
 
         /// <summary>
         /// Determines the hostname of the RabbitMQ instance to be used.
         /// </summary>
-        public string MQHostname { get; set; } = "rabbitmq.local";
+        public string MqHostname { get; set; } = Properties.Resources.ConfigMQHostname;
 
         /// <summary>
         /// Determines the listening port of the RabbitMQ instance to be used.
         /// </summary>
-        public ushort MQPort { get; set; } = 5672;
+        public ushort MqPort { get; set; } = ushort.Parse(Properties.Resources.ConfigMQPort);
 
         #endregion
 
@@ -55,19 +55,19 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         public bool SigningKeyFileSetToAuto { get; set; } = true;
 
         /// <summary>
-        /// Determines the OAuth client ID in case of manual generation.
-        /// </summary>
-        public string? ClientId { get; set; } = "";
-
-        /// <summary>
         /// Determines whether the OAuth client ID is named by the SecretGeneratorService.
         /// </summary>
         public bool ClientIdSetToAuto { get; set; } = true;
 
         /// <summary>
+        /// Determines the OAuth client ID in case of manual generation.
+        /// </summary>
+        public string? ClientId { get; set; } = "";
+
+        /// <summary>
         /// Determines the key storage file name in case of manual generation.
         /// </summary>
-        public string? SigningKeyFile { get; set; } = "skey";
+        public string? SigningKeyFile { get; set; } = Properties.Resources.ConfigSigningKeyFile;
 
         /// <summary>
         /// Determines whether the client secret storage file name is generated programmatically.
@@ -81,39 +81,39 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         public string? ClientSecret { get; set; } = "";
 
         /// <summary>
-        /// Determines whether the client secret hash storage file name is generated programmatically.
+        /// Determines whether the client secret storage file name is generated programmatically.
         /// </summary>
         public bool ClientSecretFilenameSetToAuto { get; set; } = true;
 
         /// <summary>
-        /// Determines the client secret hash storage file name in case of manual generation.
+        /// Determines the client secret storage file name in case of manual generation.
         /// </summary>
-        public string? ClientSecretFilename { get; set; } = "client-secret-hash";
+        public string? ClientSecretFilename { get; set; } = Properties.Resources.ConfigClientSecretFilename;
+
 
         #endregion
 
         #region DatabaseOptions
 
         /// <summary>
-        /// Determines the directory for XML-formatted stock uploads.
-        /// By default, the directory is located in the user's profile directory.
-        /// </summary>
-        public string? XMLStockPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "XMLStock");
-
-
-        /// <summary>
         /// Determines the type of the database to be used by the server.
         /// Possible values are "sqlite" and "mssqlserver".
         /// </summary>
-        public string? DatabaseType { get; set; } = "sqlite";
+        public string? DatabaseType { get; set; } = Properties.Resources.ConfigDatabaseType;
 
         #region TypeSpecificDBOpts
+
+        /// <summary>
+        /// Determines the directory for XML-formatted stock uploads.
+        /// By default, the directory is located in the user's profile directory.
+        /// </summary>
+        public string? XmlStockPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), Properties.Resources.ConfigXMLStockPath);
 
         /// <summary>
         /// Determines the filename of the database cache to be used in case of SQLite.
         /// A ".db" extension is appended programmatically.
         /// </summary>
-        public string? SqliteDbCacheFilename { get; set; } = "App";
+        public string? SqliteDbCacheFilename { get; set; } = Properties.Resources.ConfigSqliteDbCacheFilename;
 
         /// <summary>
         /// Determines the username to be used in case of Microsoft SQL Server.
@@ -124,21 +124,21 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the hostname to be used in case of Microsoft SQL Server.
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public string? MssqlServerHost { get; set; } = "localhost";
+        public string? MssqlServerHost { get; set; } = Properties.Resources.ConfigMssqlServerHost;
 
         /// <summary>
         /// Determines the server port to be used in case of Microsoft SQL Server.
         /// By default, this property contains 1433.
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public ushort MssqlServerPort { get; set; } = 1433;
+        public ushort MssqlServerPort { get; set; } = ushort.Parse(Properties.Resources.ConfigMssqlServerPort);
 
         /// <summary>
         /// Determines the username to be used in case of Microsoft SQL Server.
         /// By default, this property contains an "sa".
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public string? MssqlServerUsername { get; set; } = "sa";
+        public string? MssqlServerUsername { get; set; } = Properties.Resources.ConfigMssqlUsername;
 
         /// <summary>
         /// Determines the password to be used in case of Microsoft SQL Server.
@@ -152,11 +152,11 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// </summary>
         public string? ConnectionString { get; set; } = "";
 
-
         /// <summary>
         /// Determines the initial catalog database to be used.
         /// </summary>
         public string? InitialCatalog { get; set; } = "";
+
         #endregion
 
         #endregion
@@ -167,7 +167,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the Serilog logger sink to be used.
         /// Possible values are "eventlog", "eventlog+mail*[address]" and "file*[filename]".
         /// </summary>
-        public string? Sink { get; set; } = "eventlog";
+        public string? Sink { get; set; } = Properties.Resources.ConfigSerilogSink;
 
         /// <summary>
         /// Determines the prefix for error log files.
@@ -191,22 +191,22 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
 
         /// <summary>
         /// Determines the SMTP server to be used in case of mail logging.
-        /// By default, this property contains 127.0.0.1.
+        /// By default, this property contains localhost.
         /// </summary>
-        public string? MailHost { get; set; } = "127.0.0.1";
+        public string? MailHost { get; set; } = Properties.Resources.ConfigMailHost;
 
         /// <summary>
         /// Determines the SMTP server port to be used in case of mail logging.
         /// By default, this property contains 25.
         /// </summary>
-        public ushort MailPort { get; set; } = 25;
+        public ushort MailPort { get; set; } = ushort.Parse(Properties.Resources.ConfigMailPort);
 
         /// <summary>
         /// Determines the SMTP Secure Sockets Layer (SSL) options to be used in case of mail logging.
         /// By default, this property contains "auto".
         /// Possible values are "none", "auto", "SSL" and "STARTTLSavail".
         /// </summary>
-        public string? MailSSLOptions { get; set; } = "SSL";
+        public string? MailSslOptions { get; set; } = Properties.Resources.ConfigMailSSLOptions;
 
         #endregion
 
@@ -217,7 +217,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Possible values are "file-INSECURE", "file-TEMP" and "email". 
         /// By default, this property contains "file-TEMP".
         /// </summary>
-        public string ClientSecretTransmissionMethod { get; set; } = "file-TEMP";
+        public string ClientSecretTransmissionMethod { get; set; } = Properties.Resources.ConfigClientSecretTransmissionMethod;
 
         #endregion
 

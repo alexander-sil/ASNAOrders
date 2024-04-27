@@ -219,14 +219,8 @@
   <data name="ConfigXMLStockPath" xml:space="preserve">
     <value>XMLStock</value>
   </data>
-  <data name="DefaultDateFormatString" xml:space="preserve">
-    <value>dd-mm-yyyy</value>
-  </data>
   <data name="ErrorSecret" xml:space="preserve">
     <value>[ERRORERRORERRORERRORERRORERROR]</value>
-  </data>
-  <data name="LicensesPathString" xml:space="preserve">
-    <value>licenses</value>
   </data>
   <data name="MissingOrInvalidAccessCredsString" xml:space="preserve">
     <value>Missing or invalid access credentials.</value>

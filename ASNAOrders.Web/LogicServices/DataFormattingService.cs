@@ -26,6 +26,22 @@ namespace ASNAOrders.Web.LogicServices
         {
             Context = context;
 
+            if (Context.Categories.Count() == 0)
+            {
+                Context.Categories.Add(new Data.YENomenclature.Category()
+                {
+                    Name = Properties.Resources.ASNAYECategoryName,
+                    Images = new System.Collections.Generic.List<Data.YENomenclature.CategoryImage>
+                    {
+                        new Data.YENomenclature.CategoryImage()
+                        {
+                            Url = Properties.Resources.ASNAYECategoryDefaultImageUri,
+                            Hash = Properties.Resources.ASNAYECategoryDefaultImageHash
+                        }
+                    }
+                });
+            }
+
             Context.SavedChanges += OnSaveChanges;
         }
 
@@ -36,6 +52,17 @@ namespace ASNAOrders.Web.LogicServices
 
         private void OnSaveChanges(object sender, Microsoft.EntityFrameworkCore.SavedChangesEventArgs e)
         {
+            if (Context.YENomenclatureItems.Count() > 0)
+            {
+                foreach (var item in Context.YENomenclatureItems)
+                {
+                    if (Context.NativeStocks.Where(f => f.ItemName == item.Name).First().Qtty < 1)
+                    {
+                        Context.YENomenclatureItems.Remove(item);
+                    }
+                }
+            }
+
             if (Context.Categories.Count() == 0)
             {
                 Context.Categories.Add(new Data.YENomenclature.Category()
@@ -50,17 +77,6 @@ namespace ASNAOrders.Web.LogicServices
                         }
                     }
                 });  
-            }
-
-            if (Context.YENomenclatureItems.Count() > 0)
-            {
-                foreach (var item in Context.YENomenclatureItems)
-                {
-                    if (Context.NativeStocks.Where(f => f.ItemName == item.Name).First().Qtty < 1)
-                    {
-                        Context.YENomenclatureItems.Remove(item);
-                    }
-                }
             }
 
             foreach (var item in Context.NativeStocks)

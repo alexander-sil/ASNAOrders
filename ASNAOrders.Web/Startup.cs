@@ -44,6 +44,8 @@ using Serilog;
 using ASNAOrders.Web.ConfigServiceExtensions;
 using Serilog.Sinks.Email;
 using System.Net;
+using ASNAOrders.Web.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASNAOrders.Web
 {
@@ -87,12 +89,23 @@ namespace ASNAOrders.Web
                     Port = (int)StaticConfig.MailPort
 
                 }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(Assembly.GetExecutingAssembly().GetName().Name).CreateLogger();
+
             services.AddSerilog();
+
+            services.AddSingleton<DataFormattingService>();
+            services.AddSingleton<IWatcherService, XMLStockWatcherService>();
+            services.AddSingleton<IWatcherService, ImageWatcherService>();
+
 
             services.AddExceptionHandler<CustomExceptionHandler>();
             services.AddExceptionHandler<BadRequestErrorHandler>();
 
             services.AddSingleton<LogicServices.AuthorizationMiddleware>();
+
+            services.AddDbContext<ASNAOrdersDbContext>(options =>
+            {
+                if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); };
+            });
 
             // Add framework services.
 

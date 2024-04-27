@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using ASNAOrders.Web.Attributes;
 using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
+using ASNAOrders.Web.Data;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -30,6 +31,19 @@ namespace ASNAOrders.Web.Controllers
     [ApiController]
     public class SlotsApiController : ControllerBase
     {
+        /// <summary>
+        /// Контекст БД контроллера слотов
+        /// </summary>
+        private ASNAOrdersDbContext Context { get; set; }
+
+        /// <summary>
+        /// Конструктор контроллера
+        /// </summary>
+        public SlotsApiController(ASNAOrdersDbContext context)
+        {
+            Context = context;
+        }
+
         /// <summary>
         /// Слоты для использования на Главной для отображения ближайшего времени доставки
         /// </summary>

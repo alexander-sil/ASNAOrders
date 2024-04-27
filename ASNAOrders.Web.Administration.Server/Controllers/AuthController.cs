@@ -17,7 +17,7 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
+                if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
                 {
                     return BadRequest("Username and/or password not specified.");
                 }

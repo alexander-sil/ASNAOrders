@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using ASNAOrders.Web.Attributes;
 using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
+using ASNAOrders.Web.Data;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -29,6 +30,19 @@ namespace ASNAOrders.Web.Controllers
     [ApiController]
     public class NomenclatureApiController : ControllerBase
     {
+        /// <summary>
+        /// Контекст БД контроллера товаров
+        /// </summary>
+        private ASNAOrdersDbContext Context { get; set; }
+
+        /// <summary>
+        /// Конструктор контроллера
+        /// </summary>
+        public NomenclatureApiController(ASNAOrdersDbContext context)
+        {
+            Context = context;
+        }
+
         /// <summary>
         /// Актуальная информация об остатках товаров
         /// </summary>

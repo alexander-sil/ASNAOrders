@@ -64,15 +64,15 @@ namespace ASNAOrders.Web.Controllers
 
             if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret) || string.IsNullOrEmpty(grantType) || string.IsNullOrEmpty(scope))
             {
-                return BadRequest("Username and/or password not specified.");
+                return BadRequest(Properties.Resources.UsernameOrPasswordNotSpecifiedString);
             }
 
             string hash = Convert.ToHexString(SHA256.Create().ComputeHash(Convert.FromBase64String($"{clientSecret}")));
-            string etalonHash = SecretGeneratorService.GetClientSecretHash(StaticConfig.ClientSecretFilenameSetToAuto ? "client-secret-hash" : StaticConfig.ClientSecretFilename);
+            string etalonHash = SecretGeneratorService.GetClientSecretHash(StaticConfig.ClientSecretFilenameSetToAuto ? Properties.Resources.ConfigClientSecretFilename : StaticConfig.ClientSecretFilename);
 
             if (hash == etalonHash && clientId == SecretGeneratorService.GetClientId())
             {
-                var secretKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(StaticConfig.SigningKeyFileSetToAuto ? "skey" : StaticConfig.SigningKeyFile));
+                var secretKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(StaticConfig.SigningKeyFileSetToAuto ? Properties.Resources.ConfigSigningKeyFile : StaticConfig.SigningKeyFile));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
@@ -92,7 +92,7 @@ namespace ASNAOrders.Web.Controllers
                 return new ObjectResult(new AuthenticationResponse { AccessToken = stringToken });
             }
 
-            throw new BadHttpRequestException("Missing or invalid access credentials.", 400);
+            throw new BadHttpRequestException(Properties.Resources.MissingOrInvalidAccessCredsString, 400);
         }
     }
 }

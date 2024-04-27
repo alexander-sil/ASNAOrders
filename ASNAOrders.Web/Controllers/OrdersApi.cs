@@ -21,6 +21,7 @@ using ASNAOrders.Web.Attributes;
 using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
 using Microsoft.AspNetCore.Mvc.Filters;
+using ASNAOrders.Web.Data;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -30,6 +31,19 @@ namespace ASNAOrders.Web.Controllers
     [ApiController]
     public class OrdersApiController : ControllerBase
     {
+        /// <summary>
+        /// Контекст БД контроллера заказов
+        /// </summary>
+        private ASNAOrdersDbContext Context { get; set; }
+
+        /// <summary>
+        /// Конструктор контроллера
+        /// </summary>
+        public OrdersApiController(ASNAOrdersDbContext context)
+        {
+            Context = context;
+        }
+
         /// <summary>
         /// Создание заказа в системе партнера
         /// </summary>

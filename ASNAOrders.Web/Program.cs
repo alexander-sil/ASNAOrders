@@ -20,7 +20,7 @@ namespace ASNAOrders.Web
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
 
             if (!File.Exists(filename))
             {
