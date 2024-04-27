@@ -33,6 +33,8 @@ namespace ASNAOrders.Web.Converters
                     Stock = item.Qtty
                 });
             }
+
+            return new Availability() { Items = items };
         }
     }
 }
