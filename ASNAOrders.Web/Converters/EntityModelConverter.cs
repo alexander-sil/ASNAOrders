@@ -15,6 +15,14 @@ namespace ASNAOrders.Web.Converters
         /// 
         /// </summary>
         public static ASNAOrdersDbContext Context { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public EntityModelConverter(ASNAOrdersDbContext context)
+        {
+            Context = context;
+        }
 
         /// <summary>
         /// Возвращает информацию об остатках товаров в указанной точке.
