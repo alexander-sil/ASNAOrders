@@ -385,11 +385,38 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to г.
+        /// </summary>
+        internal static string Grm {
+            get {
+                return ResourceManager.GetString("Grm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to licenses.
         /// </summary>
         internal static string LicensesPathString {
             get {
                 return ResourceManager.GetString("LicensesPathString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Медицинское изделие.
+        /// </summary>
+        internal static string MedicalGoodsString {
+            get {
+                return ResourceManager.GetString("MedicalGoodsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to мг.
+        /// </summary>
+        internal static string Mgr {
+            get {
+                return ResourceManager.GetString("Mgr", resourceCulture);
             }
         }
         
@@ -408,6 +435,24 @@ namespace ASNAOrders.Web.Properties {
         internal static string MissingOrInvalidTokenString {
             get {
                 return ResourceManager.GetString("MissingOrInvalidTokenString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to мкг.
+        /// </summary>
+        internal static string Mkg {
+            get {
+                return ResourceManager.GetString("Mkg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to мл.
+        /// </summary>
+        internal static string Mlt {
+            get {
+                return ResourceManager.GetString("Mlt", resourceCulture);
             }
         }
         

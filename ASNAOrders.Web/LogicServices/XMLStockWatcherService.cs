@@ -52,6 +52,7 @@ namespace ASNAOrders.Web.LogicServices
                             ItemDesc = element.Element("item_desc").Value,
                             ItemName = element.Element("item_name").Value,
                             PlaceId = element.Element("place_id").Value,
+                            Barcode = element.Element("barcode").Value,
                             UploadRecordedDate = date,
 
                         });

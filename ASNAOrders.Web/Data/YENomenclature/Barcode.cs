@@ -52,7 +52,6 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Алгоритм кодирования веса в штрихкоде</value>
         /// <example>ean13-tail-gram-4</example>
         [Column]
-        [Required]
         [StringLength(20)]
         public string WeightEncoding { get; set; }
     }

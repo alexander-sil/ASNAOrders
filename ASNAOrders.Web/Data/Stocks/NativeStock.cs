@@ -84,5 +84,12 @@ namespace ASNAOrders.Web.Data.Stocks
         [StringLength(500)]
         public string ItemDesc { get; set; }
 
+        /// <summary>
+        /// str_barcode column in wSklad.ws_Prt
+        /// </summary>
+        [Column]
+        [StringLength(16)]
+        public string Barcode { get; set; }
+
     }
 }

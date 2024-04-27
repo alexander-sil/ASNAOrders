@@ -225,14 +225,29 @@
   <data name="ErrorSecret" xml:space="preserve">
     <value>[ERRORERRORERRORERRORERRORERROR]</value>
   </data>
+  <data name="Grm" xml:space="preserve">
+    <value>г</value>
+  </data>
   <data name="LicensesPathString" xml:space="preserve">
     <value>licenses</value>
+  </data>
+  <data name="MedicalGoodsString" xml:space="preserve">
+    <value>Медицинское изделие</value>
+  </data>
+  <data name="Mgr" xml:space="preserve">
+    <value>мг</value>
   </data>
   <data name="MissingOrInvalidAccessCredsString" xml:space="preserve">
     <value>Missing or invalid access credentials.</value>
   </data>
   <data name="MissingOrInvalidTokenString" xml:space="preserve">
     <value>Missing or invalid token.</value>
+  </data>
+  <data name="Mkg" xml:space="preserve">
+    <value>мкг</value>
+  </data>
+  <data name="Mlt" xml:space="preserve">
+    <value>мл</value>
   </data>
   <data name="ProgrammaticClientId" xml:space="preserve">
     <value>ye-integration</value>

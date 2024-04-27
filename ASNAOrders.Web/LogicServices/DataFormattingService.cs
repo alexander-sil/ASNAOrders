@@ -1,9 +1,12 @@
 ﻿using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Data.Orders;
+using ASNAOrders.Web.Data.YENomenclature;
 using Castle.Components.DictionaryAdapter.Xml;
 using Org.BouncyCastle.Pqc.Crypto.Lms;
 using SQLitePCL;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -85,6 +88,31 @@ namespace ASNAOrders.Web.LogicServices
                 {
                     if (Context.YENomenclatureItems.Where(f => f.Name == item.ItemName).Count() == 0)
                     {
+                        Regex unitSegregator = new Regex("([0-9]{1,4}|([0-9]{1,4},[0-9]{1,2}))[а-я]{1,3}");
+                        MatchCollection unparsedUnits = unitSegregator.Matches(item.ItemName);
+
+                        List<string> units = new List<string>();
+
+                        foreach (Match match in unparsedUnits)
+                        {
+                            if (match.Success)
+                            {
+                                if (match.Value.Contains(Properties.Resources.Mgr)
+                                    || match.Value.Contains(Properties.Resources.Mkg) 
+                                    || match.Value.Contains(Properties.Resources.Mlt) 
+                                    || match.Value.Contains(Properties.Resources.Grm))
+                                {
+                                    units.Add(match.Value);
+                                }
+                            }
+                        }
+
+                        if (units.Count < 1)
+                        {
+                            units.Add("100мл");
+                        }
+
+                        int measure = int.Parse(Regex.Replace(units[0], $"{Properties.Resources.Grm}|{Properties.Resources.Mgr}|{Properties.Resources.Mkg}|{Properties.Resources.Mlt}", string.Empty));
 
                         Context.YENomenclatureItems.Add(new Data.YENomenclature.NomenclatureItem()
                         {
@@ -108,7 +136,25 @@ namespace ASNAOrders.Web.LogicServices
                                     Url = ImageWatcherService.GetImageTinystash(item.ItemId),
                                     Hash = ImageWatcherService.GetImageSha1(item.ItemId)
                                 }
-                            }
+                            },
+                            IsCatchWeight = false,
+                            Barcode = new Barcode()
+                            {
+                                Type = "upce",
+                                Value = item.Barcode,
+                                WeightEncoding = "none"
+                            },
+                            ExciseValue = "",
+                            Labels = new System.Collections.Generic.List<string>() { Properties.Resources.MedicalGoodsString },
+                            VendorCode = item.ItemId,
+                            Price = (float)item.Price,
+                            Vat = 0,
+                            Measure = new Measure()
+                            {
+                                Quantum = 0,
+                                Value = measure,
+                                Unit = Regex.IsMatch(units[0], Properties.Resources.Mlt) ? "MLT" : "GRM"
+                            },
                         });
                     }
                 }
