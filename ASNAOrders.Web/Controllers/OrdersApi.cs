@@ -22,6 +22,7 @@ using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ASNAOrders.Web.Data;
+using ASNAOrders.Web.Converters;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -32,16 +33,16 @@ namespace ASNAOrders.Web.Controllers
     public class OrdersApiController : ControllerBase
     {
         /// <summary>
-        /// Контекст БД контроллера заказов
+        /// Конвертер типов 
         /// </summary>
-        private ASNAOrdersDbContext Context { get; set; }
+        private EntityModelConverter Converter { get; set; }
 
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
-        public OrdersApiController(ASNAOrdersDbContext context)
+        public OrdersApiController(ASNAOrdersDbContext context, EntityModelConverter converter)
         {
-            Context = context;
+            Converter = converter;
         }
 
         /// <summary>
@@ -65,24 +66,18 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
         public virtual IActionResult PartnerOrderCreate([FromBody] PartnerOrderCreateRequest partnerOrderCreateRequest)
         {
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PartnerOrderCreate200Response));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListV1Inner>));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"result\" : \"OK\",\r\n  \"orderId\" : \"03d3b69b-331c-4f84-b2c4-888b30320e63\"\r\n}";
-            exampleJson = "Custom MIME type example not yet supported: application/vnd.eda.picker.errors.v1+json";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PartnerOrderCreate200Response>(exampleJson)
-            : default(PartnerOrderCreate200Response);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            try
+            {
+                return new ContentResult()
+                {
+                    ContentType = Properties.Resources.ApplicationJsonString,
+                    Content = JsonConvert.SerializeObject(Converter.CreateOrder(partnerOrderCreateRequest)),
+                    StatusCode = 200
+                };  
+            } catch (KeyNotFoundException)
+            {
+                return StatusCode(404);
+            }
         }
 
         /// <summary>
@@ -107,26 +102,19 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", ContentTypes = ["application/json"])]
         public virtual IActionResult PartnerOrderGet([FromRoute(Name = "orderId")][Required] string orderId)
         {
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PartnerOrderGet200Response));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(AuthorizationRequiredResponse));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListInner>));
-            string exampleJson = null;
-            exampleJson = "null";
-            exampleJson = "Custom MIME type example not yet supported: application/vnd.eats.order.v2+json";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PartnerOrderGet200Response>(exampleJson)
-            : default(PartnerOrderGet200Response);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            try
+            {
+                return new ContentResult()
+                {
+                    ContentType = Properties.Resources.ApplicationOrderString,
+                    Content = JsonConvert.SerializeObject(Converter.GetOrderById(orderId)),
+                    StatusCode = 200
+                };
+            }
+            catch (KeyNotFoundException)
+            {
+                return StatusCode(404);
+            }
         }
 
         /// <summary>
@@ -150,25 +138,11 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", ContentTypes = ["application/json"])]
         public virtual IActionResult PartnerOrderStatus([FromRoute(Name = "orderId")][Required] string orderId)
         {
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(OrderStatus));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(AuthorizationRequiredResponse));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListInner>));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"comment\" : \"comment\",\r\n  \"status\" : \"NEW\",\r\n  \"updatedAt\" : \"1970-01-01T00:00:27.87+00:20\"\r\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<OrderStatus>(exampleJson)
-            : default(OrderStatus);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ContentResult()
+            {
+                ContentType = Properties.Resources.ApplicationJsonString,
+                Content = JsonConvert.SerializeObject(Converter.GetOrderStatusById(orderId))
+            };
         }
 
         /// <summary>

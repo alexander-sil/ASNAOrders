@@ -46,6 +46,10 @@ using Serilog.Sinks.Email;
 using System.Net;
 using ASNAOrders.Web.Data;
 using Microsoft.EntityFrameworkCore;
+using Serilog.Sinks.PeriodicBatching;
+using ASNAOrders.Web.Converters;
+using ASNAOrders.Web.NotificationServiceExtensions;
+using ASNAOrders.Web.OrdersServiceExtensions;
 
 namespace ASNAOrders.Web
 {
@@ -74,12 +78,12 @@ namespace ASNAOrders.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            Log.Logger = StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}{StaticConfig.Sink.Split('*')[1]}").CreateLogger() : 
-                StaticConfig.Sink.Contains("mail") ? new LoggerConfiguration().WriteTo.Email(new EmailSinkOptions() 
-                { 
+            Log.Logger = StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}{StaticConfig.Sink.Split('*')[1]}").CreateLogger() :
+                StaticConfig.Sink.Contains("mail") ? new LoggerConfiguration().WriteTo.Email(new EmailSinkOptions()
+                {
                     From = StaticConfig.Sink.Split('*')[1],
-                    ConnectionSecurity = 
-                    StaticConfig.MailSSLOptions == "auto" ? MailKit.Security.SecureSocketOptions.Auto 
+                    ConnectionSecurity =
+                    StaticConfig.MailSSLOptions == "auto" ? MailKit.Security.SecureSocketOptions.Auto
                     : StaticConfig.MailSSLOptions == "STARTTLSavail" ? MailKit.Security.SecureSocketOptions.StartTlsWhenAvailable
                     : StaticConfig.MailSSLOptions == "SSL" ? MailKit.Security.SecureSocketOptions.SslOnConnect
                     : MailKit.Security.SecureSocketOptions.None,
@@ -88,11 +92,26 @@ namespace ASNAOrders.Web
                     Credentials = new NetworkCredential(StaticConfig.Sink.Split('*')[1], StaticConfig.MailPassword),
                     Port = (int)StaticConfig.MailPort
 
+                },
+                new PeriodicBatchingSinkOptions()
+                {
+                    BatchSizeLimit = int.Parse(Properties.Resources.MailBatchLimitString),
+                    Period = new TimeSpan(0, int.Parse(Properties.Resources.MailBatchPeriodString), 0)
+
                 }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(Assembly.GetExecutingAssembly().GetName().Name).CreateLogger();
 
             services.AddSerilog();
 
+            services.AddDbContext<ASNAOrdersDbContext>(options =>
+            {
+                if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlite(StaticConfig.ConnectionString); };
+            });
+
+            services.AddSingleton<RabbitMQNotificationService>();
+            services.AddSingleton<EntityModelConverter>();
+            services.AddSingleton<RabbitMQOrdersService>();
             services.AddSingleton<DataFormattingService>();
+
             services.AddSingleton<IWatcherService, XMLStockWatcherService>();
             services.AddSingleton<IWatcherService, ImageWatcherService>();
 
@@ -102,13 +121,7 @@ namespace ASNAOrders.Web
 
             services.AddSingleton<LogicServices.AuthorizationMiddleware>();
 
-            services.AddDbContext<ASNAOrdersDbContext>(options =>
-            {
-                if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); };
-            });
-
             // Add framework services.
-
             services
             // Don't need the full MVC stack for an API, see https://andrewlock.net/comparing-startup-between-the-asp-net-core-3-templates/
             .AddControllers(options =>

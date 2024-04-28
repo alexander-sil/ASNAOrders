@@ -5,8 +5,10 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ASNAOrders.Web.LogicServices
@@ -81,6 +83,26 @@ namespace ASNAOrders.Web.LogicServices
                         ctype
                     );
                 }
+            }
+            else if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+            {
+                var response = new List<ErrorListV1Inner>()
+                {
+                    new ErrorListV1Inner()
+                    {
+                        Code = 404,
+                        Description = Properties.Resources.KeyNotFoundString
+                    }
+                };
+
+                await context.Response.WriteAsJsonAsync
+                (
+                    response,
+                    new JsonSerializerOptions()
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                    }
+                );
             }
         }
     }

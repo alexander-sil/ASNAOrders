@@ -36,7 +36,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                                  autoDelete: false,
                                  arguments: null);
 
-            Log.Information($"Waiting for RabbitMQ messages on factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
+            Log.Information($"Waiting for RabbitMQ CONFIG messages @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
 
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += OnReceived;

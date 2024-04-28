@@ -56,34 +56,5 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>1970-01-01T00:00:27.870+00:20</example>
         [Column]
         public DateTime ClientArrivementDate { get; set; }
-
-        /// <summary>
-        /// Дата, когда придет курьер в торговую точку, в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP). Обязательно добавляйте дробную часть секунд.
-        /// Заполняется при дискриминаторе YANDEX.
-        /// </summary>
-        /// <value>Дата, когда придет курьер в торговую точку, в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP). Обязательно добавляйте дробную часть секунд.</value>
-        /// <example>1970-01-01T00:00:27.870+00:20</example>
-        [Column]
-        public DateTime CourierArrivementDate { get; set; }
-
-        /// <summary>
-        /// Дата доставки (к которой клиент ожидает доставку заказа), в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP)
-        /// </summary>
-        /// <value>Дата доставки (к которой клиент ожидает доставку заказа), в формате RFC3339 с дробной частью секунд (Y-m-d\\\\TH:i:s.uP)</value>
-        /// <example>1970-01-01T00:00:27.870+00:20</example>
-        [Column]
-        public DateTime DeliveryDate { get; set; }
-
-        /// <summary>
-        /// Gets or Sets DeliverySlot.
-        /// Filled in case of MARKETPLACE discriminator.
-        /// </summary>
-        public DeliverySlot DeliverySlot { get; set; }
-
-        /// <summary>
-        /// Gets or Sets DeliveryAddress.
-        /// Filled in case of MARKETPLACE discriminator.
-        /// </summary>
-        public DeliveryAddress DeliveryAddress { get; set; }
     }
 }

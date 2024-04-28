@@ -14,6 +14,13 @@ namespace ASNAOrders.Web.LogicServices
     /// </summary>
     public class BadRequestErrorHandler : IExceptionHandler
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="ex"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken cancellationToken)
         {
 

@@ -15,8 +15,14 @@ namespace ASNAOrders.Web.LogicServices
     /// </summary>
     public class XMLStockWatcherService : IWatcherService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ASNAOrdersDbContext Context { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public FileSystemWatcher Watcher { get; set; }
 
         /// <summary>

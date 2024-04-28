@@ -95,8 +95,8 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// Gets the Tinystash.undef.im image link for the specified product.
         /// </summary>
-        /// <param name="unicode"></param>
-        /// <returns></returns>
+        /// <param name="unicode">NNT of the product AKA image filename</param>
+        /// <returns>Tinystash.undef.im URL for the concrete product image.</returns>
         public static string GetImageTinystash(string unicode)
         {
             string[] data = System.IO.File.ReadAllLines(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath));
@@ -112,6 +112,11 @@ namespace ASNAOrders.Web.LogicServices
             return Properties.Resources.ASNADefaultCategoryPlaceholder;
         }
 
+        /// <summary>
+        /// Gets the SHA-1 cryptographic function result for the specified image.
+        /// </summary>
+        /// <param name="unicode">NNT of the product AKA image filename</param>
+        /// <returns>SHA-1 hash contained in hexadecimal string form.</returns>
         public static string GetImageSha1(string unicode)
         {
             foreach (FileInfo file in new DirectoryInfo(Path.Combine(StaticConfig.XMLStockPath, "images")).EnumerateFiles())
@@ -122,7 +127,7 @@ namespace ASNAOrders.Web.LogicServices
                 }
             }
 
-            return "deadfacedeadfacedeadfacedeadfacedeadface";
+            return Properties.Resources.DeadfaceString;
         }
     }
 }

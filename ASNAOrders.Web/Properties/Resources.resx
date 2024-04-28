@@ -123,6 +123,15 @@
   <data name="AdministrationQueue" xml:space="preserve">
     <value>administration</value>
   </data>
+  <data name="ApplicationJsonString" xml:space="preserve">
+    <value>application/json</value>
+  </data>
+  <data name="ApplicationNomenclatureString" xml:space="preserve">
+    <value>application/vnd.eda.picker.nomenclature.v1+json</value>
+  </data>
+  <data name="ApplicationOrderString" xml:space="preserve">
+    <value>application/vnd.eats.order.v2+json</value>
+  </data>
   <data name="ASNAAppIdKey" xml:space="preserve">
     <value>app-id</value>
   </data>
@@ -219,6 +228,9 @@
   <data name="ConfigXMLStockPath" xml:space="preserve">
     <value>XMLStock</value>
   </data>
+  <data name="DeadfaceString" xml:space="preserve">
+    <value>deadfacedeadfacedeadfacedeadfacedeadface</value>
+  </data>
   <data name="DefaultDateFormatString" xml:space="preserve">
     <value>dd-mm-yyyy</value>
   </data>
@@ -228,8 +240,17 @@
   <data name="Grm" xml:space="preserve">
     <value>г</value>
   </data>
+  <data name="KeyNotFoundString" xml:space="preserve">
+    <value>Key not found</value>
+  </data>
   <data name="LicensesPathString" xml:space="preserve">
     <value>licenses</value>
+  </data>
+  <data name="MailBatchLimitString" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="MailBatchPeriodString" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="MedicalGoodsString" xml:space="preserve">
     <value>Медицинское изделие</value>
@@ -249,8 +270,20 @@
   <data name="Mlt" xml:space="preserve">
     <value>мл</value>
   </data>
+  <data name="NotifyQueueProperty" xml:space="preserve">
+    <value>notification</value>
+  </data>
+  <data name="OrderDataString" xml:space="preserve">
+    <value>Заказ принят</value>
+  </data>
+  <data name="OrdersQueueString" xml:space="preserve">
+    <value>orders</value>
+  </data>
   <data name="ProgrammaticClientId" xml:space="preserve">
     <value>ye-integration</value>
+  </data>
+  <data name="ReqInvDataString" xml:space="preserve">
+    <value>Invalid data passed in request model.</value>
   </data>
   <data name="SecretMailSubj" xml:space="preserve">
     <value>OAuth 2 Client Secret transferred</value>

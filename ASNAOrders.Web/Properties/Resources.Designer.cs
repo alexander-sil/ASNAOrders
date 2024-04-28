@@ -79,6 +79,33 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to application/json.
+        /// </summary>
+        internal static string ApplicationJsonString {
+            get {
+                return ResourceManager.GetString("ApplicationJsonString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to application/vnd.eda.picker.nomenclature.v1+json.
+        /// </summary>
+        internal static string ApplicationNomenclatureString {
+            get {
+                return ResourceManager.GetString("ApplicationNomenclatureString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to application/vnd.eats.order.v2+json.
+        /// </summary>
+        internal static string ApplicationOrderString {
+            get {
+                return ResourceManager.GetString("ApplicationOrderString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to app-id.
         /// </summary>
         internal static string ASNAAppIdKey {
@@ -367,6 +394,15 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to deadfacedeadfacedeadfacedeadfacedeadface.
+        /// </summary>
+        internal static string DeadfaceString {
+            get {
+                return ResourceManager.GetString("DeadfaceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dd-mm-yyyy.
         /// </summary>
         internal static string DefaultDateFormatString {
@@ -394,11 +430,38 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Key not found.
+        /// </summary>
+        internal static string KeyNotFoundString {
+            get {
+                return ResourceManager.GetString("KeyNotFoundString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to licenses.
         /// </summary>
         internal static string LicensesPathString {
             get {
                 return ResourceManager.GetString("LicensesPathString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 30.
+        /// </summary>
+        internal static string MailBatchLimitString {
+            get {
+                return ResourceManager.GetString("MailBatchLimitString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5.
+        /// </summary>
+        internal static string MailBatchPeriodString {
+            get {
+                return ResourceManager.GetString("MailBatchPeriodString", resourceCulture);
             }
         }
         
@@ -457,11 +520,47 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to notification.
+        /// </summary>
+        internal static string NotifyQueueProperty {
+            get {
+                return ResourceManager.GetString("NotifyQueueProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Заказ принят.
+        /// </summary>
+        internal static string OrderDataString {
+            get {
+                return ResourceManager.GetString("OrderDataString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to orders.
+        /// </summary>
+        internal static string OrdersQueueString {
+            get {
+                return ResourceManager.GetString("OrdersQueueString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ye-integration.
         /// </summary>
         internal static string ProgrammaticClientId {
             get {
                 return ResourceManager.GetString("ProgrammaticClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid data passed in request model..
+        /// </summary>
+        internal static string ReqInvDataString {
+            get {
+                return ResourceManager.GetString("ReqInvDataString", resourceCulture);
             }
         }
         

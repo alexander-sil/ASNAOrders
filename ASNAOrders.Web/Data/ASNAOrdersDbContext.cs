@@ -37,12 +37,6 @@ namespace ASNAOrders.Web.Data
         /// 
         /// </summary>
         public DbSet<Orders.DeliveryAddress> DeliveryAddrs { get; set; }
-
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public DbSet<Orders.DeliverySlot> DeliverySlots { get; set; }
         
         /// <summary>
         /// 

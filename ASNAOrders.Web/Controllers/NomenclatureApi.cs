@@ -21,6 +21,9 @@ using ASNAOrders.Web.Attributes;
 using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
 using ASNAOrders.Web.Data;
+using ASNAOrders.Web.Converters;
+using System.Net.Http.Json;
+
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -31,16 +34,15 @@ namespace ASNAOrders.Web.Controllers
     public class NomenclatureApiController : ControllerBase
     {
         /// <summary>
-        /// Контекст БД контроллера товаров
+        /// Конвертер типов 
         /// </summary>
-        private ASNAOrdersDbContext Context { get; set; }
-
+        private EntityModelConverter Converter { get; set; }
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
-        public NomenclatureApiController(ASNAOrdersDbContext context)
+        public NomenclatureApiController(ASNAOrdersDbContext context, EntityModelConverter converter)
         {
-            Context = context;
+            Converter = converter;
         }
 
         /// <summary>
@@ -65,26 +67,17 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
         public virtual IActionResult PartnerNomenclatureAvailabilityGet([FromRoute(Name = "placeId")][Required] string placeId)
         {
+            if (string.IsNullOrWhiteSpace(placeId))
+            {
+                throw new BadHttpRequestException(Properties.Resources.ReqInvDataString, 400);
+            }
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Availability));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListV1Inner>));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"items\" : [ {\r\n    \"id\" : \"some-uniq-identifier\",\r\n    \"stock\" : 7.45\r\n  }, {\r\n    \"id\" : \"some-uniq-identifier\",\r\n    \"stock\" : 7.45\r\n  } ]\r\n}";
-            exampleJson = "Custom MIME type example not yet supported: application/vnd.eda.picker.errors.v1+json";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Availability>(exampleJson)
-            : default(Availability);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ContentResult()
+            {
+                ContentType = Properties.Resources.ApplicationJsonString,
+                Content = JsonConvert.SerializeObject(Converter.GetAvailability(placeId)),
+                StatusCode = 200
+            };
         }
 
         /// <summary>
@@ -108,26 +101,17 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
         public virtual IActionResult PartnerNomenclatureCompositionGet([FromRoute(Name = "placeId")][Required] string placeId)
         {
+            if (string.IsNullOrWhiteSpace(placeId))
+            {
+                throw new BadHttpRequestException(Properties.Resources.ReqInvDataString, 400);
+            }
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Nomenclature));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(List<ErrorListV1Inner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListV1Inner>));
-            string exampleJson = null;
-            exampleJson = "Custom MIME type example not yet supported: application/vnd.eda.picker.errors.v1+json";
-            exampleJson = "Custom MIME type example not yet supported: application/vnd.eda.picker.nomenclature.v1+json";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Nomenclature>(exampleJson)
-            : default(Nomenclature);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ContentResult()
+            {
+                ContentType = Properties.Resources.ApplicationNomenclatureString,
+                Content = JsonConvert.SerializeObject(Converter.GetComposition(placeId)),
+                StatusCode = 200
+            };
         }
     }
 }
