@@ -21,6 +21,7 @@ using ASNAOrders.Web.Attributes;
 using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
 using ASNAOrders.Web.Data;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -66,25 +67,28 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/json"])]
         public virtual IActionResult PartnerNearestSlotsGet([FromBody] NearestSlots nearestSlots)
         {
+            List<NearestSlotsResponseInner> slots = new List<NearestSlotsResponseInner>()
+            {
+                new NearestSlotsResponseInner()
+                {
+                    NearestTimes = new List<NearestSlotsResponseInnerNearestTimesInner>()
+                    {
+                        new NearestSlotsResponseInnerNearestTimesInner()
+                        {
+                            Id = new Random().Next(10000, 19999),
+                            StartTime = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffK"),
+                            EndTime = DateTime.Now.AddHours(6).ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffK")
+                        }
+                    }
+                }
+            };
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<NearestSlotsResponseInner>));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListInner>));
-            string exampleJson = null;
-            exampleJson = "[ {\r\n  \"placeId\" : \"placeId\",\r\n  \"nearest_times\" : [ {\r\n    \"start_time\" : \"2022-05-18T15:35:27.000000+03:00\",\r\n    \"end_time\" : \"2022-05-18T16:05:27.000000+03:00\",\r\n    \"id\" : 15902\r\n  }, {\r\n    \"start_time\" : \"2022-05-18T15:35:27.000000+03:00\",\r\n    \"end_time\" : \"2022-05-18T16:05:27.000000+03:00\",\r\n    \"id\" : 15902\r\n  } ]\r\n}, {\r\n  \"placeId\" : \"placeId\",\r\n  \"nearest_times\" : [ {\r\n    \"start_time\" : \"2022-05-18T15:35:27.000000+03:00\",\r\n    \"end_time\" : \"2022-05-18T16:05:27.000000+03:00\",\r\n    \"id\" : 15902\r\n  }, {\r\n    \"start_time\" : \"2022-05-18T15:35:27.000000+03:00\",\r\n    \"end_time\" : \"2022-05-18T16:05:27.000000+03:00\",\r\n    \"id\" : 15902\r\n  } ]\r\n} ]";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<List<NearestSlotsResponseInner>>(exampleJson)
-            : default(List<NearestSlotsResponseInner>);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ContentResult()
+            {
+                ContentType = Properties.Resources.ApplicationJsonString,
+                Content = JsonConvert.SerializeObject(slots),
+                StatusCode = 200
+            };
         }
 
         /// <summary>
@@ -110,25 +114,23 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/json"])]
         public virtual IActionResult PartnerSlotsGet([FromRoute(Name = "placeId")][Required] string placeId, [FromBody] SlotsCheckout slotsCheckout)
         {
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(SlotsCheckoutResponse));
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(List<ErrorListInner>));
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(List<ErrorListInner>));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"delivery_times\" : [ {\r\n    \"start_time\" : \"start_time\",\r\n    \"end_time\" : \"end_time\",\r\n    \"id\" : 0\r\n  }, {\r\n    \"start_time\" : \"start_time\",\r\n    \"end_time\" : \"end_time\",\r\n    \"id\" : 0\r\n  } ]\r\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<SlotsCheckoutResponse>(exampleJson)
-            : default(SlotsCheckoutResponse);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ContentResult()
+            {
+                ContentType = Properties.Resources.ApplicationJsonString,
+                Content = JsonConvert.SerializeObject(new SlotsCheckoutResponse()
+                {
+                    DeliveryTimes = new List<SlotsCheckoutResponseDeliveryTimesInner>()
+                    {
+                        new SlotsCheckoutResponseDeliveryTimesInner()
+                        {
+                            Id = new Random().Next(20000, 29999),
+                            StartTime = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffK"),
+                            EndTime = DateTime.Now.AddHours(6).ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffK")
+                        }
+                    }
+                }),
+                StatusCode = 200
+            };
         }
     }
 }

@@ -70,11 +70,38 @@ namespace ASNAOrders.Web.Administration.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to admin-in.
+        /// </summary>
+        internal static string AdminInQueue {
+            get {
+                return ResourceManager.GetString("AdminInQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to administration.
         /// </summary>
         internal static string AdministrationQueue {
             get {
                 return ResourceManager.GetString("AdministrationQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to admin-out.
+        /// </summary>
+        internal static string AdminOutQueue {
+            get {
+                return ResourceManager.GetString("AdminOutQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to admin.
+        /// </summary>
+        internal static string AdminString {
+            get {
+                return ResourceManager.GetString("AdminString", resourceCulture);
             }
         }
         
@@ -210,6 +237,15 @@ namespace ASNAOrders.Web.Administration.Server.Properties {
         internal static string ASNAYECategoryName {
             get {
                 return ResourceManager.GetString("ASNAYECategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are banned! Reason: .
+        /// </summary>
+        internal static string BannedString {
+            get {
+                return ResourceManager.GetString("BannedString", resourceCulture);
             }
         }
         
@@ -412,11 +448,56 @@ namespace ASNAOrders.Web.Administration.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data Source=App.db,Cache=Shared.
+        /// </summary>
+        internal static string SqliteConnectionString {
+            get {
+                return ResourceManager.GetString("SqliteConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred in generating the token..
+        /// </summary>
+        internal static string TokenGenerationErrorString {
+            get {
+                return ResourceManager.GetString("TokenGenerationErrorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to skey.txt.
+        /// </summary>
+        internal static string TokenSigningKeyFilePathString {
+            get {
+                return ResourceManager.GetString("TokenSigningKeyFilePathString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unauthorized.
         /// </summary>
         internal static string UnauthorizedString {
             get {
                 return ResourceManager.GetString("UnauthorizedString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unauthorized.
+        /// </summary>
+        internal static string UnauthString {
+            get {
+                return ResourceManager.GetString("UnauthString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user does not exist..
+        /// </summary>
+        internal static string UserInexistentString {
+            get {
+                return ResourceManager.GetString("UserInexistentString", resourceCulture);
             }
         }
         

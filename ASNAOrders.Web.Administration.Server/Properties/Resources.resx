@@ -120,8 +120,17 @@
   <data name="AccessTokenExpiredString" xml:space="preserve">
     <value>Access token has been expired.</value>
   </data>
+  <data name="AdminInQueue" xml:space="preserve">
+    <value>admin-in</value>
+  </data>
   <data name="AdministrationQueue" xml:space="preserve">
     <value>administration</value>
+  </data>
+  <data name="AdminOutQueue" xml:space="preserve">
+    <value>admin-out</value>
+  </data>
+  <data name="AdminString" xml:space="preserve">
+    <value>admin</value>
   </data>
   <data name="ASNAAppIdKey" xml:space="preserve">
     <value>app-id</value>
@@ -167,6 +176,9 @@
   </data>
   <data name="ASNAYECategoryName" xml:space="preserve">
     <value>Товары АСНА</value>
+  </data>
+  <data name="BannedString" xml:space="preserve">
+    <value>You are banned! Reason: </value>
   </data>
   <data name="ConfigClientSecretFilename" xml:space="preserve">
     <value>client-secret-hash</value>
@@ -234,8 +246,23 @@
   <data name="SecretMailSubj" xml:space="preserve">
     <value>OAuth 2 Client Secret transferred</value>
   </data>
+  <data name="SqliteConnectionString" xml:space="preserve">
+    <value>Data Source=App.db,Cache=Shared</value>
+  </data>
+  <data name="TokenGenerationErrorString" xml:space="preserve">
+    <value>An error occurred in generating the token.</value>
+  </data>
+  <data name="TokenSigningKeyFilePathString" xml:space="preserve">
+    <value>skey.txt</value>
+  </data>
   <data name="UnauthorizedString" xml:space="preserve">
     <value>Unauthorized</value>
+  </data>
+  <data name="UnauthString" xml:space="preserve">
+    <value>Unauthorized</value>
+  </data>
+  <data name="UserInexistentString" xml:space="preserve">
+    <value>This user does not exist.</value>
   </data>
   <data name="UsernameOrPasswordNotSpecifiedString" xml:space="preserve">
     <value>Username and/or password not specified.</value>

@@ -25,13 +25,13 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices
                 byte[] key = new byte[64];
                 rng.GetBytes(key);
 
-                string encKey = Convert.ToHexString(ProtectedData.Protect(key, null, DataProtectionScope.CurrentUser));
+                string encKey = Convert.ToHexString(ProtectedData.Protect(key, null, DataProtectionScope.LocalMachine));
 
                 File.Create(path).Dispose();
                 File.AppendAllText(path, encKey);
             }
 
-            return ProtectedData.Unprotect(Convert.FromHexString(File.ReadAllText(path)), null, DataProtectionScope.CurrentUser);
+            return ProtectedData.Unprotect(Convert.FromHexString(File.ReadAllText(path)), null, DataProtectionScope.LocalMachine);
         }
     }
 }

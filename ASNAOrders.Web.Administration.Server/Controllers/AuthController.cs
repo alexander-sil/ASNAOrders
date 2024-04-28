@@ -1,52 +1,112 @@
+using ASNAOrders.Web.Administration.Server.DataAccess;
+using ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels;
 using ASNAOrders.Web.Administration.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using ASNAOrders.Web.Administration.Server.LogicServices;
 
 
 namespace ASNAOrders.Web.Administration.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private CustomDbContext Context { get; set; }
+
+        public AuthController(CustomDbContext context)
+        {
+            Context = context;
+
+            if (Context.Users.FirstOrDefault(f => f.Username == Properties.Resources.AdminString) == null)
+            {
+                RandomNumberGenerator generator = new RNGCryptoServiceProvider();
+                byte[] salt = new byte[32];
+
+                generator.GetBytes(salt);
+
+                Context.Users.Add(new DataAccess.EntityDataModels.UserEntityDataModel()
+                {
+                    Username = Properties.Resources.AdminString,
+                    PasswordHash = Convert.ToHexString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes($"{Properties.Resources.AdminString}~{Properties.Resources.AdminString}~{salt}"))),
+                    EncryptedPasswordSalt = Convert.ToHexString(ProtectedData.Protect(salt, null, DataProtectionScope.LocalMachine)),
+                    Permissions = new UserPermissionsDataModel()
+                    {
+                        Operator = true,
+                        OptionsViewEdit = true,
+                        OptionsView = true,
+                    },
+                    BanIssued = false,
+                    BanReason = null
+                });
+
+                Context.SaveChanges();
+            }
+        }
+
         [HttpPost]
+        [Route("authenticate")]
         public virtual IActionResult Authenticate([FromBody] AuthenticationRequest request)
         {
             try
             {
                 if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
                 {
-                    return BadRequest("Username and/or password not specified.");
+                    return BadRequest(new AuthenticationResponse()
+                    {
+                        Result = false,
+                        AccessToken = null,
+                        Information = new AuthenticationResponseErrorsInner()
+                        {
+                            Code = Guid.NewGuid().ToString(),
+                            Message = Properties.Resources.UsernameOrPasswordNotSpecifiedString
+                        }
+                    });
                 }
 
-                UserAccount account;
+                UserEntityDataModel user;
 
                 try
                 {
-                    account = _accountRepository.Search(model.Username)[0];
+                    user = Context.Users.Where(f => f.Username == request.Username).ToArray()[0];
                 }
                 catch (IndexOutOfRangeException)
                 {
-                    return BadRequest("This user does not exist.");
+                    return BadRequest(new AuthenticationResponse() {
+                        Result = false,
+                        AccessToken = null,
+                        Information = new AuthenticationResponseErrorsInner()
+                        {
+                            Code = Guid.NewGuid().ToString(),
+                            Message = Properties.Resources.UserInexistentString
+                        }
+                    });
                 }
 
-                string hash = Convert.ToHexString(SHA256.Create().ComputeHash(Encoding.Latin1.GetBytes($"{model.Password}~{account.PasswordSalt}~{AccountRepository.SecretKey}")));
+                string hash = Convert.ToHexString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes($"{request.Username}~{request.Password}~{ProtectedData.Unprotect(Convert.FromHexString(user.EncryptedPasswordSalt), null, DataProtectionScope.LocalMachine)}")));
 
-                if (hash == account.PasswordHash)
+                if (hash == user.PasswordHash)
                 {
-                    var secretKey = new SymmetricSecurityKey(Encoding.Latin1.GetBytes(""));
+                    if (user.BanIssued)
+                    {
+                        return Unauthorized(Properties.Resources.BannedString + user.BanReason != null ? user.BanReason : "Generic");
+                    }
+
+                    var secretKey = new SymmetricSecurityKey(SecretGeneratorService.GetIssuerSigningKey(Properties.Resources.TokenSigningKeyFilePathString));
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
                         Subject = new ClaimsIdentity(new[]
                         {
-                             new Claim("username", account.Username),
+                             new Claim(type: "username", value: user.Username),
+                             new Claim(type: "permissions", value: user.Permissions.Operator ? "RWO" : user.Permissions.OptionsViewEdit ? "RW" : "R")
                         }),
                         Expires = DateTime.UtcNow.AddMinutes(15),
-                        Issuer = "http://localhost:5500/",
-                        Audience = "http://localhost:5500/",
                         SigningCredentials = new SigningCredentials
                         (secretKey,
                         SecurityAlgorithms.HmacSha512Signature)
@@ -57,13 +117,12 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
                     var stringToken = tokenHandler.WriteToken(token);
                     return Ok(stringToken);
                 }
-                return Unauthorized("Unauthorized");
+                return Unauthorized(Properties.Resources.UnauthString);
 
             }
             catch
             {
-                return BadRequest
-                ("An error occurred in generating the token.");
+                return StatusCode(500, Properties.Resources.TokenGenerationErrorString);
             }
         }
 

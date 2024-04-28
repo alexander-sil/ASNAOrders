@@ -120,8 +120,14 @@
   <data name="AccessTokenExpiredString" xml:space="preserve">
     <value>Access token has been expired.</value>
   </data>
+  <data name="AdminInQueue" xml:space="preserve">
+    <value>admin-in</value>
+  </data>
   <data name="AdministrationQueue" xml:space="preserve">
     <value>administration</value>
+  </data>
+  <data name="AdminOutQueue" xml:space="preserve">
+    <value>admin-out</value>
   </data>
   <data name="ApplicationJsonString" xml:space="preserve">
     <value>application/json</value>

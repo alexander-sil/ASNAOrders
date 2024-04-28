@@ -70,11 +70,29 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to admin-in.
+        /// </summary>
+        internal static string AdminInQueue {
+            get {
+                return ResourceManager.GetString("AdminInQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to administration.
         /// </summary>
         internal static string AdministrationQueue {
             get {
                 return ResourceManager.GetString("AdministrationQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to admin-out.
+        /// </summary>
+        internal static string AdminOutQueue {
+            get {
+                return ResourceManager.GetString("AdminOutQueue", resourceCulture);
             }
         }
         

@@ -47,7 +47,7 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
             using var channel = connection.CreateModel();
 
             channel.QueueDeclare(queue: Properties.Resources.OrdersQueueString,
-                                 durable: false,
+                                 durable: true,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
