@@ -421,7 +421,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dd-mm-yyyy.
+        ///   Looks up a localized string similar to DD-MM-YYYY.
         /// </summary>
         internal static string DefaultDateFormatString {
             get {
