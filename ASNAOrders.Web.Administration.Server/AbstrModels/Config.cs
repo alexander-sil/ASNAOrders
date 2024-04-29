@@ -23,8 +23,8 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
             this.ErrorLogPrefix = $"hs_log_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
         }
 
-#nullable enable
-            #region RabbitMQOptions 
+        #nullable enable
+        #region RabbitMQOptions 
 
             /// <summary>
             /// Determines the RabbitMQ Virtual Host to be used.
