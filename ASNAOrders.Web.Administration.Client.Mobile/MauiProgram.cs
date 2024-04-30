@@ -11,8 +11,8 @@ namespace ASNAOrders.Web.Administration.Client.Mobile
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("Arial-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("ArialRounded-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Arial-Regular.TTF", "Arial");
+                    fonts.AddFont("ArialRounded-Semibold.TTF", "ArialRounded");
                 });
 
 #if DEBUG
