@@ -1,29 +1,34 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Data;
-using System.Collections;
-using System.Security.Policy;
-using System.ServiceProcess;
 using System.Drawing;
-using Numeral;
+using Quartz;
+using System.Threading.Tasks;
+using ASNAOrders.Web.NotificationServiceExtensions;
+using System.Threading;
+using System.Diagnostics;
+using System.Text;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Globalization;
 
 namespace ASNAOrders.Agent
 {
-    internal class Logic
+    internal class Logic : IJob
     {
         private AgentService Service { get; set; }
 
-        public Logic(AgentService service) 
+        private OrderNotification Notification { get; set; }
+
+        public Logic(AgentService service)
         {
             Service = service;
         }
@@ -43,132 +48,268 @@ namespace ASNAOrders.Agent
             }
         }
 
-        public void OutputMessage(string category, string trayTitle, string trayMessage, string eventLogMessage, string txnId = null, string exceptionMessage = null, string stackTrace = null, DateTime? date = null)
+        public void OutputMessage(string category, string txnId = null, string warningMessage = null, string logMessage = null, DateTime? date = null, OrderNotification order = null, Exception ex = null, FtpWebResponse webStatus = null)
         {
-            if (category == "activeStockUpload")
+            if (category == "warning")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.WarngIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.WarningInfoTitleTray, warningMessage + Properties.Resources.MigrationIdTrayLog + txnId, System.Windows.Forms.ToolTipIcon.Warning);
+                Service.AgentEventLog.WriteEntry(logMessage + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Warning);
+            }
+            else if (category == "activeStockUpload")
             {
                 Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ActiveIconStockUpload.GetHicon());
-                Service.AgentNotifyIcon.ShowBalloonTip(int.Parse(Properties.Settings.Default.NotificationDelay) * 1000, trayTitle, trayMessage + txnId, System.Windows.Forms.ToolTipIcon.Info);
-                Service.AgentEventLog.WriteEntry(eventLogMessage + txnId, System.Diagnostics.EventLogEntryType.Information);
-            } 
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.OrderTimeout * 1000, Properties.Resources.ActiveStockUploadTitleTray, Properties.Resources.MigrationIdTrayLog + txnId, System.Windows.Forms.ToolTipIcon.Info);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.MigrationStartedTitleLog + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Information);
+            }
             else if (category == "activeOrder")
             {
                 Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ActiveIconOrder.GetHicon());
-                Service.AgentNotifyIcon.ShowBalloonTip(int.Parse(Properties.Settings.Default.NotificationDelay) * 1000, trayTitle, trayMessage + txnId, System.Windows.Forms.ToolTipIcon.Info);
-                Service.AgentEventLog.WriteEntry(eventLogMessage + txnId, System.Diagnostics.EventLogEntryType.Information);
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.OrderTimeout * 1000, Properties.Resources.NewOrderTitleTray, Properties.Resources.NewOrderDescTray, System.Windows.Forms.ToolTipIcon.Info);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.NewOrderLog + Properties.Resources.OrderIdPrepend + order.OrderId, System.Diagnostics.EventLogEntryType.Information);
+
+                Service.AgentNotifyIcon.BalloonTipClicked -= Service.AgentNotifyIconClicked;
+
+                Service.AgentNotifyIcon.BalloonTipClicked += OnOrderAccept;
             }
-            else if (category == "error")
+            else if (category == "eFileNotFound")
             {
                 Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
-                Service.AgentNotifyIcon.ShowBalloonTip(int.Parse(Properties.Settings.Default.NotificationDelay) * 1000, trayTitle, trayMessage + txnId, System.Windows.Forms.ToolTipIcon.Info);
-                Service.AgentEventLog.WriteEntry(eventLogMessage + txnId + date, System.Diagnostics.EventLogEntryType.Information);
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoFNFDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoFNFLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
             }
+            else if (category == "eWeb")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoWebDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoWebLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + $"{ex.StackTrace}{Environment.NewLine}{webStatus.StatusDescription}" + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eSql_Syntax")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoSqlExcSyntaxDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageSqlExcSyntaxLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eSql_Server")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoSqlExcServerDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoSqlExcServerLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eInvOp")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoInvOpDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoInvOpLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eIndexOutOfRange")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoIndexOORDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoIndexOORLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eXmlRoot")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoXMLRootDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoXMLRootLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eXml")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoXMLDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoXMLLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eArgument")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoArgumentDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoArgumentLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eArgumentInitialization")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoArgumentInitializationDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoArgumentInitializationLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "eGeneric")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoGenericDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoGenericLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace + Properties.Resources.MigrationAttemptDateTrayLog + date + Properties.Resources.MigrationIdTrayLog + txnId, System.Diagnostics.EventLogEntryType.Error);
+            }
+            else if (category == "success")
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ReadyIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.MigrationSuccessTitleTray, Properties.Resources.MigrationSuccessDescTrayLog + Properties.Resources.MigrationIdTrayLog + txnId, System.Windows.Forms.ToolTipIcon.Info);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.MigrationSuccessDescTrayLog + Properties.Resources.MigrationIdTrayLog + txnId + Properties.Resources.MigrationDatePrepend + date, System.Diagnostics.EventLogEntryType.Information);
+
+                Thread.Sleep(Properties.Settings.Default.NotificationDelay * 1000);
+            }
+        }
+
+        private void OnOrderAccept(object sender, EventArgs e)
+        {
+            try
+            {
+                string items = string.Empty;
+
+                foreach (var item in Notification.Items)
+                {
+                    items += $"{item}{Environment.NewLine}";
+                }
+
+                var factory = new ConnectionFactory
+                {
+                    HostName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQHostname) ? Properties.Settings.Default.MQHostname : Properties.Resources.RabbitmqLocal,
+                    Port = Properties.Settings.Default.MQPort != 0 ? Properties.Settings.Default.MQPort : 5672,
+                    VirtualHost = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQVHost) ? Properties.Settings.Default.MQVHost : Properties.Resources.AsnaOrders
+                };
+
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.QueueDeclare(queue: Properties.Resources.OrdersQueueProperty,
+                         durable: true,
+                         exclusive: false,
+                         autoDelete: false,
+                         arguments: null);
+
+                        string message = JsonConvert.SerializeObject(new OrderResponse()
+                        {
+                            PlaceId = Properties.Settings.Default.PlaceId
+                        });
+
+                        var body = Encoding.UTF8.GetBytes(message);
+
+                        channel.BasicPublish(exchange: string.Empty,
+                                         routingKey: Properties.Resources.OrdersQueueProperty,
+                                         basicProperties: null,
+                                         body: body);
+                    }
+                }
+
+                System.Windows.Forms.MessageBox.Show($"{Properties.Resources.OrderStringIdMsgbox} {Notification.OrderId}{Environment.NewLine}{Properties.Resources.OrderStringPriceMsgbox} {Notification.Price}{Environment.NewLine}{Properties.Resources.OrderStringCompositionMsgbox} {items}", Properties.Resources.OrderStringTitleMsgbox, System.Windows.Forms.MessageBoxButtons.OK);
+
+                Service.AgentNotifyIcon.BalloonTipClicked -= OnOrderAccept;
+                Service.AgentNotifyIcon.BalloonTipClicked += Service.AgentNotifyIconClicked;
+
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ReadyIcon.GetHicon());
+            }
+            catch (Exception ex)
+            {
+                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                Service.AgentNotifyIcon.ShowBalloonTip(Properties.Settings.Default.NotificationDelay * 1000, Properties.Resources.ErrorMessageInfoTitleTray, Properties.Resources.ErrorMessageInfoGenericDescTray, System.Windows.Forms.ToolTipIcon.Error);
+                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoGenericLog + Properties.Resources.ExceptionMessageTrayLog + ex.Message + Properties.Resources.StackTraceTrayLog + ex.StackTrace, System.Diagnostics.EventLogEntryType.Error);
+            }
+
+        }
+
+        public void OnReceiveNotification(object sender, BasicDeliverEventArgs e)
+        {
+            Notification = JsonConvert.DeserializeObject<OrderNotification>(Encoding.UTF8.GetString(e.Body.ToArray()));
+            OutputMessage(category:  "activeOrder", date: DateTime.Now, order: Notification);
         }
 
         public void Go()
         {
             Guid id = Guid.NewGuid();
+            DateTime date = DateTime.Now;
+
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.DBConnectionString))
+            {
+                OutputMessage(category: "warning", txnId: id.ToString(), warningMessage: Properties.Resources.WarningInfoDBCredsNotSetDescTray, logMessage: Properties.Resources.WarningInfoDBCredsNotSetLog, date: date);
+                return;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.FtpServerUsername) || string.IsNullOrWhiteSpace(Properties.Settings.Default.FtpServerPassword) || string.IsNullOrWhiteSpace(Properties.Settings.Default.FtpServerAddress) || Properties.Settings.Default.FtpServerPort == 0)
+            {
+                OutputMessage(category: "warning", txnId: id.ToString(), warningMessage: Properties.Resources.WarningInfoFTPCredsNotSetDescTray, logMessage: Properties.Resources.WarningInfoFTPCredsNotSetLog, date: date);
+                return;
+            }
+
+            OutputMessage(category: "activeStockUpload", txnId: id.ToString(), date: DateTime.Now);
 
             try
             {
-
-                
-
                 string query = Regex.Replace(Properties.Resources.StdQuery, @"\n", " ");
 
-                List<List<string>> data = QueryData(Configuration.DBConnectionString, query, Configuration.DBSelectedColumns).ToList();
-                string[][] parcellatedData = ConvertAndParcellate(data, Configuration.DBSelectedColumns, Configuration.OneFile, Configuration.LinesPerFile);
+                List<List<string>> data = QueryData(Properties.Settings.Default.DBConnectionString, query, Properties.Resources.DbSelectedColumns.Split(',').ToArray()).ToList();
+                string[][] parcellatedData = ConvertAndParcellate(data, Properties.Resources.DbSelectedColumns.Split(','), Properties.Settings.Default.LoadBalancingOneFile, Properties.Settings.Default.LoadBalancingRowsPerFile);
 
-                UploadStanzaToFtp(PrepareStanzaFiles(parcellatedData).ToArray(), Configuration.FTPServerAddress, Configuration.FTPServerUsername, Configuration.FTPServerPassword);
+                UploadStanzaToFtp(PrepareStanzaFiles(parcellatedData).ToArray(), Properties.Settings.Default.FtpServerAddress, Properties.Settings.Default.FtpServerUsername, Properties.Settings.Default.FtpServerPassword);
 
-                Service.AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ReadyIcon.GetHicon());
-                Service.AgentNotifyIcon.ShowBalloonTip(int.Parse(Properties.Settings.Default.NotificationDelay) * 1000, Properties.Resources.MigrationSuccessTitleTray, Properties.Resources.MigrationSuccessDescTrayLog + id.ToString(), System.Windows.Forms.ToolTipIcon.Info);
-                Service.AgentEventLog.WriteEntry(Properties.Resources.MigrationSuccessDescTrayLog + id.ToString(), System.Diagnostics.EventLogEntryType.Information);
+                OutputMessage(category: "success", txnId: id.ToString(), date: date);
             }
             catch (FileNotFoundException ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
-                Service.AgentEventLog.WriteEntry(Properties.Resources.ErrorMessageInfoFNFLog + ex.Message, System.Diagnostics.EventLogEntryType.Error);
-                
-                return;
+                OutputMessage(category: "eFileNotFound", txnId: id.ToString(), date: date, ex: ex);
             }
             catch (WebException ex)
             {
-                string status = ((FtpWebResponse)ex.Response).StatusDescription;
                 
+                var status = (FtpWebResponse)ex.Response;
+                OutputMessage(category: "eWeb", txnId: id.ToString(), date: date, ex: ex, webStatus: status);
+
             }
             catch (InvalidOperationException ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
-                MessageBox.Show($"Ошибка сети/валидации.{Environment.NewLine}{Environment.NewLine}{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
+                OutputMessage(category: "eInvOp", txnId: id.ToString(), date: date, ex: ex);
             }
             catch (SqlException ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
 
                 if (ex.Message.Contains("syntax"))
                 {
-                    MessageBox.Show($"Ошибка SQL. Неверный формат запроса.{Environment.NewLine}{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    OutputMessage(category: "eSql_Syntax", txnId: id.ToString(), date: date, ex: ex);
                 }
                 else if (ex.Message.Contains("server"))
                 {
-                    MessageBox.Show($"Ошибка SQL. Превышено допустимое время операции.{Environment.NewLine}{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    OutputMessage(category: "eSql_Server", txnId: id.ToString(), date: date, ex: ex);
                 }
-
-                return;
             }
-            catch (IndexOutOfRangeException)
+            catch (IndexOutOfRangeException ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
 
-                MessageBox.Show($"Ошибка парсинга списка столбцов.{Environment.NewLine}Неверный формат данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                OutputMessage(category: "eIndexOutOfRange", txnId: id.ToString(), date: date, ex: ex);
             }
             catch (XmlException ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
 
                 if (ex.Message.Contains("root"))
                 {
-                    MessageBox.Show($"Ошибка XML.{Environment.NewLine}Неверный формат данных (корневой элемент)", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    OutputMessage(category: "eXmlRoot", txnId: id.ToString(), date: date, ex: ex);
                 }
                 else
                 {
-                    MessageBox.Show($"Ошибка XML.{Environment.NewLine}Неверный формат данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    OutputMessage(category: "eXml", txnId: id.ToString(), date: date, ex: ex);
                 }
-
-                return;
             }
             catch (ArgumentException ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
 
                 if (ex.Message.Contains("initialization"))
                 {
-                    MessageBox.Show($"Ошибка парсинга строки подключения.{Environment.NewLine}Неверный формат данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    OutputMessage(category: "eArgumentInitialization", txnId: id.ToString(), date: date, ex: ex);
                 }
                 else
                 {
-                    MessageBox.Show($"Ошибка парсинга данных.{Environment.NewLine}{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    OutputMessage(category: "eArgument", txnId: id.ToString(), date: date, ex: ex);
                 }
-
-                return;
             }
             catch (Exception ex)
             {
-                DeleteXmlsOnErrorOrWhenComplete();
-                MessageBox.Show($"Неизвестная ошибка.{Environment.NewLine}{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                OutputMessage(category: "eGeneric", txnId: id.ToString(), date: date, ex: ex);
             }
             finally
             {
                 DeleteXmlsOnErrorOrWhenComplete();
-                (Application.OpenForms["MainForm"] as MainForm).StatusBar.Style = ProgressBarStyle.Blocks;
             }
         }
 
-        
+
         public static string[][] ConvertAndParcellate(List<List<string>> rawData, string[] columnNames, bool oneFile, int linesPerPage)
         {
             if (oneFile)
@@ -272,7 +413,8 @@ namespace ASNAOrders.Agent
             {
                 Directory.CreateDirectory("Temp");
                 Directory.SetCurrentDirectory("Temp");
-            } else
+            }
+            else
             {
                 Directory.Delete("Temp", true);
 
@@ -308,7 +450,7 @@ namespace ASNAOrders.Agent
                 using (var client = new WebClient())
                 {
                     client.Credentials = new NetworkCredential(username, password);
-                    client.UploadFile($"ftp://{address}//{Configuration.FTPServerPrefix}_{parcellatedStanza.Name}", WebRequestMethods.Ftp.UploadFile, parcellatedStanza.FullName);
+                    client.UploadFile($"ftp://{address}//{DateTime.Now.ToString("dd-MM-YYYY", new CultureInfo("nl-NL"))}_{parcellatedStanza.Name}", WebRequestMethods.Ftp.UploadFile, parcellatedStanza.FullName);
                 }
             }
         }
@@ -323,7 +465,7 @@ namespace ASNAOrders.Agent
 
             Func<object, List<string>, object>[] sqlToCSharpConvFuncs = new Func<object, List<string>, object>[]
             {
-                (object item, List<string> list) => { list.Add(((Int64)item).ToString()); return 0; }, (object item, List<string> list) => { list.Add(HexConverter.GetString((Byte[])item)); return 0; },
+                (object item, List<string> list) => { list.Add(((Int64)item).ToString()); return 0; }, (object item, List<string> list) => { list.Add(Numeral.HexConverter.GetString((Byte[])item)); return 0; },
                 (object item, List<string> list) => { list.Add((string)item); return 0; }, (object item, List<string> list) => { list.Add(((bool)item).ToString()); return 0; },
                 (object item, List<string> list) => { list.Add(((DateTime)item).ToString()); return 0; }, (object item, List<string> list) => { list.Add(((Decimal)item).ToString()); return 0; },
                 (object item, List<string> list) => { list.Add(((Double)item).ToString()); return 0; },  (object item, List<string> list) => { list.Add(((Int32)item).ToString()); return 0; },
@@ -379,6 +521,11 @@ namespace ASNAOrders.Agent
                     reader.Close();
                 }
             }
+        }
+
+        public Task Execute(IJobExecutionContext context)
+        {
+            return Task.Run(Go);
         }
     }
 }

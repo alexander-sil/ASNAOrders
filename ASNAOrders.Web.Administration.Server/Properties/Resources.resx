@@ -247,7 +247,7 @@
     <value>OAuth 2 Client Secret transferred</value>
   </data>
   <data name="SqliteConnectionString" xml:space="preserve">
-    <value>Data Source=App.db,Cache=Shared</value>
+    <value>Data Source=App.db;Cache=Shared</value>
   </data>
   <data name="TokenGenerationErrorString" xml:space="preserve">
     <value>An error occurred in generating the token.</value>

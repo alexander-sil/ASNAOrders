@@ -223,7 +223,7 @@ namespace ASNAOrders.Web.Converters
                 Items = item_names
             });
 
-            for (int i = 10; i >= 0; i--)
+            for (int i = 10; i > 0; i--)
             {
                 Thread.Sleep(1000);
                 Log.Information($"Awaiting response from place for order {order.Id}. {i} seconds left");

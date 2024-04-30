@@ -133,6 +133,12 @@
   <data name="ActiveStockUploadTitleTray" xml:space="preserve">
     <value>Выгрузка начата</value>
   </data>
+  <data name="AsnaOrders" xml:space="preserve">
+    <value>asna-orders</value>
+  </data>
+  <data name="AtYourService" xml:space="preserve">
+    <value>к вашим услугам</value>
+  </data>
   <data name="BalloonTipClickedRun" xml:space="preserve">
     <value>eventvwr.msc</value>
   </data>
@@ -145,14 +151,56 @@
   <data name="ErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ErrorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ErrorMessageInfoArgumentDescTray" xml:space="preserve">
+    <value>Произошла ошибка парсинга данных. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoArgumentInitializationDescTray" xml:space="preserve">
+    <value>Произошла ошибка парсинга строки подключения. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoArgumentInitializationLog" xml:space="preserve">
+    <value>Произошла ошибка парсинга строки подключения. </value>
+  </data>
+  <data name="ErrorMessageInfoArgumentLog" xml:space="preserve">
+    <value>Произошла ошибка парсинга данных. </value>
+  </data>
   <data name="ErrorMessageInfoFNFDescTray" xml:space="preserve">
     <value>Произошла ошибка файловой системы. Для получения подробной информации см. Журнал событий. </value>
   </data>
   <data name="ErrorMessageInfoFNFLog" xml:space="preserve">
-    <value>Ошибка службы: указанный файл не найден.</value>
+    <value>Ошибка службы: указанный файл не найден. </value>
+  </data>
+  <data name="ErrorMessageInfoGenericDescTray" xml:space="preserve">
+    <value>Произошла прочая ошибка. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoGenericLog" xml:space="preserve">
+    <value>Произошла прочая ошибка. </value>
+  </data>
+  <data name="ErrorMessageInfoIndexOORDescTray" xml:space="preserve">
+    <value>Произошла ошибка парсинга списка столбцов. Неверный формат данных. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoIndexOORLog" xml:space="preserve">
+    <value>Ошибка парсинга списка столбцов. Неверный формат данных. </value>
+  </data>
+  <data name="ErrorMessageInfoInvOpDescTray" xml:space="preserve">
+    <value>Произошла ошибка сети/валидации. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoInvOpLog" xml:space="preserve">
+    <value>Произошла ошибка сети/валидации. </value>
+  </data>
+  <data name="ErrorMessageInfoIOORDescTray" xml:space="preserve">
+    <value>Произошла ошибка парсинга БД. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoIOORLog" xml:space="preserve">
+    <value>Произошла ошибка парсинга БД. </value>
+  </data>
+  <data name="ErrorMessageInfoSqlExcServerDescTray" xml:space="preserve">
+    <value>Произошла ошибка базы данных. Для получения подробной информации см. Журнал событий.</value>
   </data>
   <data name="ErrorMessageInfoSqlExcServerLog" xml:space="preserve">
-    <value>Ошибка SQL. Превышено допустимое время операции.</value>
+    <value>Ошибка SQL. Превышено допустимое время операции. </value>
+  </data>
+  <data name="ErrorMessageInfoSqlExcSyntaxDescTray" xml:space="preserve">
+    <value>Произошла прочая ошибка базы данных. Для получения подробной информации см. Журнал событий.</value>
   </data>
   <data name="ErrorMessageInfoTitleTray" xml:space="preserve">
     <value>Ошибка выгрузки</value>
@@ -161,7 +209,19 @@
     <value>Произошла прочая сетевая ошибка. Для получения подробной информации см. Журнал событий.</value>
   </data>
   <data name="ErrorMessageInfoWebLog" xml:space="preserve">
-    <value>Прочая сетевая ошибка.</value>
+    <value>Прочая сетевая ошибка. </value>
+  </data>
+  <data name="ErrorMessageInfoXMLDescTray" xml:space="preserve">
+    <value>Произошла ошибка парсинга XML-информации. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoXMLLog" xml:space="preserve">
+    <value>Произошла ошибка парсинга XML-информации. </value>
+  </data>
+  <data name="ErrorMessageInfoXMLRootDescTray" xml:space="preserve">
+    <value>Произошла ошибка парсинга XML-информации. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageInfoXMLRootLog" xml:space="preserve">
+    <value>Произошла ошибка парсинга XML-информации. </value>
   </data>
   <data name="ErrorMessageSqlExcSyntaxLog" xml:space="preserve">
     <value>Ошибка SQL. Неверный формат запроса. </value>
@@ -172,31 +232,94 @@
   <data name="MigrationAttemptDateTrayLog" xml:space="preserve">
     <value> Дата попытки выгрузки:</value>
   </data>
+  <data name="MigrationDatePrepend" xml:space="preserve">
+    <value> Дата выгрузки: </value>
+  </data>
   <data name="MigrationIdTrayLog" xml:space="preserve">
-    <value>  ID миграции: </value>
+    <value> ИД выгрузки: </value>
+  </data>
+  <data name="MigrationStartedTitleLog" xml:space="preserve">
+    <value>Начата выгрузка остатков. </value>
+  </data>
+  <data name="MigrationStartedTitleTray" xml:space="preserve">
+    <value>Выгрузка начата</value>
   </data>
   <data name="MigrationSuccessDescTrayLog" xml:space="preserve">
-    <value>ASNAOrders: выгрузка завершена успешно.</value>
+    <value>ASNAOrders: выгрузка завершена успешно. </value>
   </data>
   <data name="MigrationSuccessTitleTray" xml:space="preserve">
     <value>Выгрузка завершена</value>
   </data>
+  <data name="NewOrderDescTray" xml:space="preserve">
+    <value>Щелкните, чтобы принять. Сервер автоматически отменит заказ через 10 секунд.</value>
+  </data>
+  <data name="NewOrderLog" xml:space="preserve">
+    <value>Заказ обнаружен.</value>
+  </data>
+  <data name="NewOrderTitleTray" xml:space="preserve">
+    <value>У вас новый заказ</value>
+  </data>
   <data name="NormalIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NormalIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotifyQueueProperty" xml:space="preserve">
+    <value>notification</value>
+  </data>
+  <data name="OrderIdPrepend" xml:space="preserve">
+    <value> ИД заказа: </value>
+  </data>
+  <data name="OrdersQueueProperty" xml:space="preserve">
+    <value>orders</value>
+  </data>
+  <data name="OrderStringCompositionMsgbox" xml:space="preserve">
+    <value>Состав заказа:  </value>
+  </data>
+  <data name="OrderStringIdMsgbox" xml:space="preserve">
+    <value>ИД заказа:  </value>
+  </data>
+  <data name="OrderStringPriceMsgbox" xml:space="preserve">
+    <value>Итого:  </value>
+  </data>
+  <data name="OrderStringTitleMsgbox" xml:space="preserve">
+    <value>Заказ принят</value>
+  </data>
+  <data name="RabbitmqLocal" xml:space="preserve">
+    <value>rabbitmq.local</value>
   </data>
   <data name="ReadyIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReadyIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StackTraceTrayLog" xml:space="preserve">
-    <value>  Информация для администраторов: </value>
+    <value> Информация для администраторов: </value>
   </data>
   <data name="StdQuery" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\старый скрипт.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="UploadInfoStorageFile" xml:space="preserve">
-    <value>uploads.txt</value>
+  <data name="UploadJobGroup" xml:space="preserve">
+    <value>asna</value>
+  </data>
+  <data name="UploadJobName" xml:space="preserve">
+    <value>asna-stock-uploads</value>
+  </data>
+  <data name="VersionWord" xml:space="preserve">
+    <value>версия</value>
   </data>
   <data name="WarngIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WarngIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WarningInfoDBCredsNotSetDescTray" xml:space="preserve">
+    <value>Не указаны данные подключения к базе данных. Выгрузка прервана. </value>
+  </data>
+  <data name="WarningInfoDBCredsNotSetLog" xml:space="preserve">
+    <value>Предупреждение: не указаны данные подключения к БД. </value>
+  </data>
+  <data name="WarningInfoFTPCredsNotSetDescTray" xml:space="preserve">
+    <value>Не указаны данные подключения к FTP-серверу. Выгрузка прервана.</value>
+  </data>
+  <data name="WarningInfoFTPCredsNotSetLog" xml:space="preserve">
+    <value>Предупреждение: не указаны данные подключения к FTP-серверу.</value>
+  </data>
+  <data name="WarningInfoTitleTray" xml:space="preserve">
+    <value>Предупреждение</value>
   </data>
 </root>

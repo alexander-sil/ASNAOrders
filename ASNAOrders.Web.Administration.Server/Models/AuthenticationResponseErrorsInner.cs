@@ -5,11 +5,11 @@
         /// <summary>
         /// Determines the unique identifier of the informational message.
         /// </summary>
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         /// <summary>
         /// Informational message issued by upstream services.
         /// </summary>
-        public string Message { get; set; }
+        public string? Message { get; set; }
     }
 }

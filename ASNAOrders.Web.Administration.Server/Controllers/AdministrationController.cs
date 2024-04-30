@@ -6,8 +6,9 @@ using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using System.Security.Cryptography;
 using System.Text;
-using ASNAOrders.Web.Administration.Server.LogicServices;
 using ASNAOrders.Web.Administration.Server.AbstrModels;
+using ASNAOrders.Web.Administration.Server.LogicServices.RabbitMQ;
+using ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels;
 
 namespace ASNAOrders.Web.Administration.Server.Controllers
 {
@@ -119,7 +120,7 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
         [HttpPut]
         [Route("change-permissions")]
         [Authorize(Policy = "Operator")]
-        public IActionResult DeleteUser([FromHeader] string username, [FromHeader] string permissions)
+        public IActionResult ChangePermissions([FromHeader] string username, [FromHeader] string permissions)
         {
             if (Context.Users.Where(f => f.Username == username).Count() > 0)
             {
@@ -141,7 +142,7 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
         [HttpGet]
         [Route("get-users")]
         [Authorize(Policy = "Read")]
-        public IActionResult GetUsers()
+        public ActionResult<UserEntityDataModel[]> GetUsers()
         {
             return Ok(Context.Users.ToList());
         }
@@ -149,7 +150,7 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
         [HttpGet]
         [Route("get-configuration")]
         [Authorize(Policy = "Read")]
-        public IActionResult GetConfiguration([FromHeader] string server, [FromHeader] string port, [FromHeader] string vhost)
+        public ActionResult<Config> GetConfiguration([FromHeader] string server, [FromHeader] string port, [FromHeader] string vhost)
         {
             return Ok(RabbitMQService.GetConfig(server, port, vhost));
         }

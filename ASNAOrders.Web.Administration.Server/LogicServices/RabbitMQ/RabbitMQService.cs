@@ -8,7 +8,7 @@ using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
 
-namespace ASNAOrders.Web.Administration.Server.LogicServices
+namespace ASNAOrders.Web.Administration.Server.LogicServices.RabbitMQ
 {
     /// <summary>
     /// A service to control RabbitMQ node subsystems from within CodeBehind classes.
@@ -27,10 +27,10 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices
         /// <returns>The action result of the operation (success/failure).</returns>
         public static void IssueConfigurationOptions(IssuibleConfig config, string server, ushort port, string vhost)
         {
-            var factory = new ConnectionFactory 
-            { 
+            var factory = new ConnectionFactory
+            {
                 HostName = server,
-                Port = (int)port,
+                Port = port,
                 VirtualHost = vhost
             };
             using var connection = factory.CreateConnection();

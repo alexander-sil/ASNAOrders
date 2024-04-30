@@ -54,6 +54,6 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.EntityDataModels
         /// <summary>
         /// Determines permissions issued by operator.
         /// </summary>
-        public UserPermissionsDataModel? Permissions { get; set; }
+        public virtual UserPermissionsDataModel? Permissions { get; set; }
     }
 }

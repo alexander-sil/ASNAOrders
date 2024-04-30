@@ -52,7 +52,7 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
 
         [HttpPost]
         [Route("authenticate")]
-        public virtual IActionResult Authenticate([FromBody] AuthenticationRequest request)
+        public virtual ActionResult<AuthenticationResponse> Authenticate([FromBody] AuthenticationRequest request)
         {
             try
             {
@@ -115,7 +115,12 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
                     var token = tokenHandler.CreateToken(tokenDescriptor);
                     var jwtToken = tokenHandler.WriteToken(token);
                     var stringToken = tokenHandler.WriteToken(token);
-                    return Ok(stringToken);
+                    return Ok(new AuthenticationResponse()
+                    {
+                        Result = true,
+                        AccessToken = stringToken,
+                        Information = null
+                    });
                 }
                 return Unauthorized(Properties.Resources.UnauthString);
 

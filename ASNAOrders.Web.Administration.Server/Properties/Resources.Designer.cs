@@ -448,7 +448,7 @@ namespace ASNAOrders.Web.Administration.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Source=App.db,Cache=Shared.
+        ///   Looks up a localized string similar to Data Source=App.db;Cache=Shared.
         /// </summary>
         internal static string SqliteConnectionString {
             get {

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("ASNAOrders.Agent")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfigurationuration("")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ASNAOrders.Agent")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]

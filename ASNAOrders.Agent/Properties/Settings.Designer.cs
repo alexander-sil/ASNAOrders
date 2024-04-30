@@ -134,24 +134,117 @@ namespace ASNAOrders.Agent.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8")]
-        public string NotificationDelay {
+        public int NotificationDelay {
             get {
-                return ((string)(this["NotificationDelay"]));
+                return ((int)(this["NotificationDelay"]));
             }
             set {
                 this["NotificationDelay"] = value;
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int OrderTimeout {
             get {
                 return ((int)(this["OrderTimeout"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PlaceId {
+            get {
+                return ((int)(this["PlaceId"]));
+            }
             set {
-                this["OrderTimeout"] = value;
+                this["PlaceId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("asna-orders")]
+        public string MQVHost {
+            get {
+                return ((string)(this["MQVHost"]));
+            }
+            set {
+                this["MQVHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("rabbitmq.local")]
+        public string MQHostname {
+            get {
+                return ((string)(this["MQHostname"]));
+            }
+            set {
+                this["MQHostname"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5672")]
+        public ushort MQPort {
+            get {
+                return ((ushort)(this["MQPort"]));
+            }
+            set {
+                this["MQPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ListenForOrders {
+            get {
+                return ((bool)(this["ListenForOrders"]));
+            }
+            set {
+                this["ListenForOrders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public uint RepeatIntervalInDays {
+            get {
+                return ((uint)(this["RepeatIntervalInDays"]));
+            }
+            set {
+                this["RepeatIntervalInDays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LoadBalancingOneFile {
+            get {
+                return ((bool)(this["LoadBalancingOneFile"]));
+            }
+            set {
+                this["LoadBalancingOneFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        public int LoadBalancingRowsPerFile {
+            get {
+                return ((int)(this["LoadBalancingRowsPerFile"]));
+            }
+            set {
+                this["LoadBalancingRowsPerFile"] = value;
             }
         }
     }

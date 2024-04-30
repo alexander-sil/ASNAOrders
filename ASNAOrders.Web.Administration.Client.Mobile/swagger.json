@@ -1,0 +1,454 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ASNAOrders.Web.Administration.Server",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/admin/ban-user": {
+      "delete": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/unban-user": {
+      "patch": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/create-user": {
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissions",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/change-password": {
+      "put": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/delete-user": {
+      "delete": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/change-permissions": {
+      "put": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissions",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/get-users": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/get-configuration": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "server",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "port",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vhost",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/admin/issue-configuration": {
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "parameters": [
+          {
+            "name": "server",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "port",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vhost",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssuibleConfig"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssuibleConfig"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssuibleConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/auth/authenticate": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthenticationRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IssuibleConfig": {
+        "type": "object",
+        "properties": {
+          "mqVhost": {
+            "type": "string",
+            "nullable": true
+          },
+          "mqHostname": {
+            "type": "string",
+            "nullable": true
+          },
+          "mqPort": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "issuerSigningKeySetToAuto": {
+            "type": "boolean"
+          },
+          "issuerSigningKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "signingKeyFileSetToAuto": {
+            "type": "boolean"
+          },
+          "clientIdSetToAuto": {
+            "type": "boolean"
+          },
+          "clientId": {
+            "type": "string",
+            "nullable": true
+          },
+          "signingKeyFile": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientSecretSetToAuto": {
+            "type": "boolean"
+          },
+          "clientSecret": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientSecretFilenameSetToAuto": {
+            "type": "boolean"
+          },
+          "clientSecretFilename": {
+            "type": "string",
+            "nullable": true
+          },
+          "databaseType": {
+            "type": "string",
+            "nullable": true
+          },
+          "xmlStockPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "sqliteDbCacheFilename": {
+            "type": "string",
+            "nullable": true
+          },
+          "mssqlServerHost": {
+            "type": "string",
+            "nullable": true
+          },
+          "mssqlServerPort": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mssqlServerUsername": {
+            "type": "string",
+            "nullable": true
+          },
+          "mssqlServerPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "connectionString": {
+            "type": "string",
+            "nullable": true
+          },
+          "initialCatalog": {
+            "type": "string",
+            "nullable": true
+          },
+          "sink": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorLogPrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailTo": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailHost": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailPort": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mailSslOptions": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientSecretTransmissionMethod": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Please enter a valid token",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
