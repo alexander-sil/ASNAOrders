@@ -15,9 +15,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASNAOrders.Agent", "ASNAOrders.Agent\ASNAOrders.Agent.csproj", "{8AB631AD-0860-4E29-9FF5-CE25247F3A78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASNAOrders.Web.Administration.Client.Mobile", "ASNAOrders.Web.Administration.Client.Mobile\ASNAOrders.Web.Administration.Client.Mobile.csproj", "{3E9294C8-1B12-4EDE-824A-403300DB94C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASNAOrders.Web.Administration.Client.Mobile", "ASNAOrders.Web.Administration.Client.Mobile\ASNAOrders.Web.Administration.Client.Mobile.csproj", "{3E9294C8-1B12-4EDE-824A-403300DB94C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASNAOrders.Web.Administration.Client.OpenApi", "ASNAOrders.Web.Administration.Client.Mobile.OpenApi\ASNAOrders.Web.Administration.Client.OpenApi.csproj", "{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASNAOrders.Web.Administration.Client.OpenApi", "ASNAOrders.Web.Administration.Client.OpenApi\ASNAOrders.Web.Administration.Client.OpenApi.csproj", "{3E136576-6673-451A-83AC-E89FCE136AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,22 +135,22 @@ Global
 		{3E9294C8-1B12-4EDE-824A-403300DB94C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{3E9294C8-1B12-4EDE-824A-403300DB94C8}.Release|x86.Build.0 = Release|Any CPU
 		{3E9294C8-1B12-4EDE-824A-403300DB94C8}.Release|x86.Deploy.0 = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|x64.Build.0 = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Debug|x86.Build.0 = Debug|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|ARM64.Build.0 = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|x64.ActiveCfg = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|x64.Build.0 = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|x86.ActiveCfg = Release|Any CPU
-		{0DB7D6ED-6739-4A46-9CB3-CDE70930DC50}.Release|x86.Build.0 = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|x64.Build.0 = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Debug|x86.Build.0 = Debug|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|ARM64.Build.0 = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|x64.ActiveCfg = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|x64.Build.0 = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|x86.ActiveCfg = Release|Any CPU
+		{3E136576-6673-451A-83AC-E89FCE136AB4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

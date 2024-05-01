@@ -355,6 +355,10 @@ namespace ASNAOrders.Agent
                     }
                     rowNode.Add(valueNode);
 
+                    XElement placeIdNode = new XElement("place_id");
+
+                    placeIdNode.Add(Properties.Settings.Default.PlaceId);
+
                     if (j < columnNames.Length) j++;
                 }
                 subroot.Add(rowNode);

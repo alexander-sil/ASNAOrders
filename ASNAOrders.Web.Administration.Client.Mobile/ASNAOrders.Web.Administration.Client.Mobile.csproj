@@ -81,7 +81,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ASNAOrders.Web.Administration.Client.Mobile.OpenApi\ASNAOrders.Web.Administration.Client.OpenApi.csproj" />
+	  <MauiXaml Update="ConfigPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

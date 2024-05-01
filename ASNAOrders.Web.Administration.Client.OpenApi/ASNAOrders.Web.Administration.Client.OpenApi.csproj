@@ -7,11 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="..\..\..\..\Downloads\swagger.json" CodeGenerator="NSwagCSharp" ClassName="InterfaceClient" Link="OpenAPIs\swagger.json" />
+    <OpenApiReference Include="..\..\..\..\Downloads\swagger (1).json" CodeGenerator="NSwagCSharp" ClassName="InterfaceClient" Link="OpenAPIs\swagger (1).json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,10 +20,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

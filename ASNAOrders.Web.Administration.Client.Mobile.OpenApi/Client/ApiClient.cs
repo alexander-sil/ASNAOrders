@@ -202,7 +202,8 @@ namespace ASNAOrders.Web.Administration.Client.OpenApi.Client
                 path, method, queryParams, postBody, headerParams, formParams, fileParams,
                 pathParams, contentType);
             InterceptRequest(request);
-            var response = await RestClient.ExecuteTaskAsync(request);
+            RestRequestAsyncHandle handle = null;
+            var response = RestClient.ExecuteAsync(request, (e, r) => handle = r );
             InterceptResponse(request, response);
             return response;
         }
