@@ -20,6 +20,11 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
+
+        private void CounterBtn_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new RabbitMQOptionsPage());
+        }
     }
 
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ASNAOrders.Web.Administration.Client.Mobile.RabbitMQOptionsPage"
+             Title="Настройки RabbitMQ" >
+    <VerticalStackLayout Padding="30,0" Spacing="8">
+        <Label x:Name="RabbitMQHostnameLabel" Style="{StaticResource EntryLabel}" Text="Имя сервера RabbitMQ" />
+        <Entry x:Name="RabbitMQHostname" Style="{StaticResource EntryEdit}" TextChanged="RabbitMQHostname_TextChanged" />
+        
+        <Label x:Name="RabbitMQPortLabel" Style="{StaticResource EntryLabel}" Text="Порт RabbitMQ" />
+        <Entry x:Name="RabbitMQPort" Style="{StaticResource EntryEdit}" TextChanged="RabbitMQPort_TextChanged" />
+
+        <Label x:Name="RabbitMQVhostLabel" Style="{StaticResource EntryLabel}" Text="Виртуальный хост RabbitMQ" />
+        <Entry x:Name="RabbitMQVhost" Style="{StaticResource EntryEdit}" TextChanged="RabbitMQVhost_TextChanged" />
+
+        <Button x:Name="RabbitMQConfirmButton" Text="Подтвердить" />
+    </VerticalStackLayout>
+</ContentPage>
