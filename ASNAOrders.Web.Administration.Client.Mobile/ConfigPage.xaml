@@ -3,10 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ASNAOrders.Web.Administration.Client.Mobile.ConfigPage"
              Title="ConfigPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Padding="16" Spacing="8">
+        <Button x:Name="GoToUserManagementModeButton" Text="Администрирование пользователей" Clicked="GoToUserManagementModeButton_Clicked" />
+        
+        <Label x:Name="RabbitMQHostnameLabel" Style="{StaticResource EntryLabel}" Text="Имя хоста RabbitMQ" />
+        <Entry x:Name="RabbitMQHostname" Style="{StaticResource EntryEdit}" TextChanged="RabbitMQHostname_TextChanged" />
+
+        <Label x:Name="RabbitMQPortLabel" Style="{StaticResource EntryLabel}" Text="Порт RabbitMQ" />
+        <Entry x:Name="RabbitMQPort" Style="{StaticResource EntryEdit}" TextChanged="RabbitMQPort_TextChanged" />
+
+        <Label x:Name="RabbitMQVhostLabel" Style="{StaticResource EntryLabel}" Text="Виртуальный хост RabbitMQ" />
+        <Entry x:Name="RabbitMQVhost" Style="{StaticResource EntryEdit}" TextChanged="RabbitMQVhost_TextChanged" />
+
+        <HorizontalStackLayout>
+            <CheckBox x:Name="IssuerSigningKeySetToAuto" CheckedChanged="IssuerSigningKeySetToAuto_CheckedChanged" />
+            <Label x:Name="IssuerSigningKeySetToAutoLabel" Style="{StaticResource EntryLabel}" Text="Программное определение ключа токена" />
+        </HorizontalStackLayout>
+
+        <Label x:Name="IssuerSigningKeyLabel" Style="{StaticResource EntryLabel}" Text="Ключ токена (ручной ввод)" />
+        <Entry x:Name="IssuerSigningKey" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="IssuerSigningKey_TextChanged" />
+
+        <HorizontalStackLayout>
+            <CheckBox x:Name="SigningKeyFileSetToAuto" CheckedChanged="SigningKeyFileSetToAuto_CheckedChanged" />
+            <Label x:Name="SigningKeyFileSetToAutoLabel" Style="{StaticResource EntryLabel}" Text="Программное определение имени файла ключа токена" />
+        </HorizontalStackLayout>
+
+        <Label x:Name="SigningKeyFileLabel" Style="{StaticResource EntryLabel}" Text="Имя файла ключа токена (ручной ввод)" />
+        <Entry x:Name="SigningKeyFile" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="SigningKeyFile_TextChanged" />
+
+        <HorizontalStackLayout>
+            <CheckBox x:Name="ClientIdSetToAuto" CheckedChanged="ClientIdSetToAuto_CheckedChanged" />
+            <Label x:Name="ClientIdSetToAutoLabel" Style="{StaticResource EntryLabel}" Text="Программное определение ID клиента" />
+        </HorizontalStackLayout>
+
+        <Label x:Name="ClientIdLabel" Style="{StaticResource EntryLabel}" Text="ID клиента (ручной ввод)" />
+        <Entry x:Name="ClientId" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="ClientId_TextChanged" />
+
+        <HorizontalStackLayout>
+            <CheckBox x:Name="ClientSecretSetToAuto" CheckedChanged="ClientSecretSetToAuto_CheckedChanged" />
+            <Label x:Name="ClientSecretSetToAutoLabel" Style="{StaticResource EntryLabel}" Text="Программное определение секрета клиента" />
+        </HorizontalStackLayout>
+
+        <Label x:Name="ClientSecretLabel" Style="{StaticResource EntryLabel}" Text="Секрет клиента (ручной ввод)" />
+        <Entry x:Name="ClientSecret" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="ClientSecret_TextChanged" />
+
+        <StackLayout RadioButtonGroup.GroupName="db_type">
+            <Label Text="Тип базы данных" />
+            <RadioButton Content="SQLite Database" />
+            <RadioButton Content="Microsoft SQL Server" />
+        </StackLayout>
+
+        <Label x:Name="SqliteDbCacheFilenameLabel" Style="{StaticResource EntryLabel}" Text="Имя каталога БД (SQLite)" />
+        <Entry x:Name="SqliteDbCacheFilename" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="SqliteDbCacheFilename_TextChanged" />
+
+        <Label x:Name="InitialCatalogLabel" Style="{StaticResource EntryLabel}" Text="Имя каталога БД (Microsoft SQL Server)" />
+        <Entry x:Name="InitialCatalog" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="InitialCatalog_TextChanged" />
+
+        <Label x:Name="MssqlServerHostLabel" Style="{StaticResource EntryLabel}" Text="Имя хоста БД (Microsoft SQL Server)" />
+        <Entry x:Name="MssqlServerHost" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="MssqlServerHost_TextChanged" />
+
+        <Label x:Name="MssqlServerPortLabel" Style="{StaticResource EntryLabel}" Text="Порт БД (Microsoft SQL Server)" />
+        <Entry x:Name="MssqlServerPort" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="MssqlServerPort_TextChanged" />
+        
     </VerticalStackLayout>
 </ContentPage>

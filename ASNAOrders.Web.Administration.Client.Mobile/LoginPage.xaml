@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ASNAOrders.Web.Administration.Client.Mobile.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout Padding="16" Spacing="8">
+        <Label x:Name="InfoLabel" Style="{StaticResource EntryLabel}" Text="Для начала администрации просьба ввести данные RabbitMQ и логин/пароль от интерфейса администрации. Это необходимо для установления связи с сервером." />
+
+        <Label x:Name="ServerHostnameLabel" Style="{StaticResource EntryLabel}" Text="IP/домен интерфейса администрации" />
+        <Entry x:Name="ServerHostname" Style="{StaticResource EntryEdit}" Text="administration.asna-orders" TextChanged="ServerHostname_TextChanged" />
+
+        <Label x:Name="ServerUsernameLabel" Style="{StaticResource EntryLabel}" Text="Логин" />
+        <Entry x:Name="ServerUsername" Style="{StaticResource EntryEdit}" Text="admin" TextChanged="ServerUsername_TextChanged" />
+
+        <Label x:Name="ServerPasswordLabel" Style="{StaticResource EntryLabel}" Text="Пароль" />
+        <Entry x:Name="ServerPassword" Style="{StaticResource EntryEdit}" Text="admin" IsPassword="True" TextChanged="ServerPassword_TextChanged" />
+
+        <Label x:Name="RabbitMQHostnameLabel" Style="{StaticResource EntryLabel}" Text="Имя хоста RabbitMQ" />
+        <Entry x:Name="RabbitMQHostname" Style="{StaticResource EntryEdit}" Text="rabbitmq.local" TextChanged="RabbitMQHostname_TextChanged" />
+
+        <Label x:Name="RabbitMQPortLabel" Style="{StaticResource EntryLabel}" Text="Порт RabbitMQ" />
+        <Entry x:Name="RabbitMQPort" Style="{StaticResource EntryEdit}" Text="5672" TextChanged="RabbitMQPort_TextChanged" />
+
+        <Label x:Name="RabbitMQVhostLabel" Style="{StaticResource EntryLabel}" Text="Виртуальный хост RabbitMQ" />
+        <Entry x:Name="RabbitMQVhost" Style="{StaticResource EntryEdit}" Text="asna-orders" TextChanged="RabbitMQVhost_TextChanged" />
+
+        <Button x:Name="LoginConfirmButton" Text="Подтвердить" Clicked="LoginConfirmButton_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>

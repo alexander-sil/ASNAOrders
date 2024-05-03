@@ -23,7 +23,7 @@
 
         private void CounterBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new RabbitMQOptionsPage());
+            Navigation.PushAsync(new LoginPage());
         }
     }
 
