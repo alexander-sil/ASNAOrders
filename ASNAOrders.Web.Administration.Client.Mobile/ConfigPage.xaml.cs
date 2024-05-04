@@ -81,4 +81,44 @@ public partial class ConfigPage : ContentPage
     {
 
     }
+
+    private void XMLStockPath_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void ErrorLogPrefix_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void MailAddress_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void MailHost_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void MailPort_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void MailTo_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void MailPassword_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void IssueAllConfigurationsButton_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
