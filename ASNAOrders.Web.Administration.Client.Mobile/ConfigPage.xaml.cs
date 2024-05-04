@@ -121,4 +121,64 @@ public partial class ConfigPage : ContentPage
     {
 
     }
+
+    private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void RadioSqlite_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void RadioMssql_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void RadioAuto_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void RadioSSL_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void EvtLog_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void EvtLogMail_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void File_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void ErrorLogPrefix_TextChanged_1(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void Email_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void FileInsecure_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void FileTemp_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
 }
