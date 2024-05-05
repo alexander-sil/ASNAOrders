@@ -16,5 +16,40 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
         {
 
         }
+
+        private void EditCatalogSqlite_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoggingOptions_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelMQPortRabbitMQ_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoginOptions_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProgressBarStatusBarAction_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
