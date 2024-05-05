@@ -66,85 +66,86 @@
             ComboBoxDbTypeDatabase = new ComboBox();
             DBTypeDBOptions = new Label();
             SqliteSettings = new GroupBox();
-            LabelCatalogSqlite = new Label();
             EditCatalogSqlite = new TextBox();
+            LabelCatalogSqlite = new Label();
             MssqlSettings = new GroupBox();
-            EditHostMssql = new TextBox();
-            LabelHostMssql = new Label();
-            LabelPortMssql = new Label();
-            EditPortMssql = new TextBox();
+            EditCatalogMssql = new TextBox();
+            LabelCatalogMssql = new Label();
             EditPasswordMssql = new TextBox();
             LabelPasswordMssql = new Label();
             LabelUsernameMssql = new Label();
             EditUsernameMssql = new TextBox();
-            LabelCatalogMssql = new Label();
-            EditCatalogMssql = new TextBox();
+            EditPortMssql = new TextBox();
+            LabelPortMssql = new Label();
+            LabelHostMssql = new Label();
+            EditHostMssql = new TextBox();
             LoggingOptions = new GroupBox();
-            LabelSinkLogging = new Label();
             ComboBoxSinkLogging = new ComboBox();
+            LabelSinkLogging = new Label();
             FileLoggingOptions = new GroupBox();
-            LabelPrefixFileLogging = new Label();
-            LabelFilenameFIleLogging = new Label();
-            EditPrefixFileLogging = new TextBox();
             EditFilenameFileLogging = new TextBox();
+            EditPrefixFileLogging = new TextBox();
+            LabelFilenameFIleLogging = new Label();
+            LabelPrefixFileLogging = new Label();
             SecretGeneratorOptions = new GroupBox();
-            LabelIssuerSigningKeySecretGenerator = new Label();
-            EditIssuerSigningKeySecretGenerator = new TextBox();
-            CheckIssuerSigningKeySetToAutoSecretGenerator = new CheckBox();
-            CheckSigningKeyFileSetToAutoSecretGenerator = new CheckBox();
-            EditSigningKeyFileSecretGenerator = new TextBox();
-            LabelSigningKeyFileSecretGenerator = new Label();
+            LabelClientSecretTransmissionMethodSecretGenerator = new Label();
+            ComboBoxClientSecretTransmissionMethodSecretGenerator = new ComboBox();
+            CheckClientIdSetToAutoSecretGenerator = new CheckBox();
+            EditClientIdSecretGenerator = new TextBox();
+            LabelClientIdSecretGenerator = new Label();
             CheckClientSecretFilenameSetToAutoSecretGenerator = new CheckBox();
             EditClientSecretFilenameSecretGenerator = new TextBox();
             LabelClientSecretFilenameSecretGenerator = new Label();
             CheckClientSecretSetToAutoSecretGenerator = new CheckBox();
             EditClientSecretSecretGenerator = new TextBox();
             LabelClientSecretSecretGenerator = new Label();
-            CheckClientIdSetToAutoSecretGenerator = new CheckBox();
-            EditClientIdSecretGenerator = new TextBox();
-            LabelClientIdSecretGenerator = new Label();
-            ComboBoxClientSecretTransmissionMethodSecretGenerator = new ComboBox();
-            LabelClientSecretTransmissionMethodSecretGenerator = new Label();
+            CheckSigningKeyFileSetToAutoSecretGenerator = new CheckBox();
+            EditSigningKeyFileSecretGenerator = new TextBox();
+            LabelSigningKeyFileSecretGenerator = new Label();
+            CheckIssuerSigningKeySetToAutoSecretGenerator = new CheckBox();
+            EditIssuerSigningKeySecretGenerator = new TextBox();
+            LabelIssuerSigningKeySecretGenerator = new Label();
             PostOptions = new GroupBox();
-            LabelMailHostPost = new Label();
-            EditMailHostPost = new TextBox();
-            LabelMailPortPost = new Label();
-            EditMailPostPost = new TextBox();
-            LabelMailUsernamePost = new Label();
-            EditMailUsernamePost = new TextBox();
+            EditMailToPost = new TextBox();
+            LabelMailToPost = new Label();
+            ComboBoxMailSSLOptionsPost = new ComboBox();
+            LabelMailSSLOptionsPost = new Label();
             EditMailPasswordPost = new TextBox();
             LabelMailPasswordPost = new Label();
-            LabelMailSSLOptionsPost = new Label();
-            ComboBoxMailSSLOptionsPost = new ComboBox();
+            EditMailUsernamePost = new TextBox();
+            LabelMailUsernamePost = new Label();
+            EditMailPostPost = new TextBox();
+            LabelMailPortPost = new Label();
+            EditMailHostPost = new TextBox();
+            LabelMailHostPost = new Label();
             ContentOptions = new GroupBox();
-            LabelXMLStockPathContent = new Label();
             EditXMLStockPathContent = new TextBox();
+            LabelXMLStockPathContent = new Label();
             RabbitMQOptions = new GroupBox();
-            LabelMQHostnameRabbitMQ = new Label();
-            EditMQHostnameRabbitMQ = new TextBox();
-            LabelMQPortRabbitMQ = new Label();
-            EditMQPortRabbitMQ = new TextBox();
-            LabelMQVhostRabbitMQ = new Label();
             EditMQVhostRabbitMQ = new TextBox();
+            LabelMQVhostRabbitMQ = new Label();
+            EditMQPortRabbitMQ = new TextBox();
+            LabelMQPortRabbitMQ = new Label();
+            EditMQHostnameRabbitMQ = new TextBox();
+            LabelMQHostnameRabbitMQ = new Label();
             LoginOptions = new GroupBox();
-            LabelUsernameLogin = new Label();
-            LabelPasswordLogin = new Label();
-            EditUsernameLogin = new TextBox();
-            EditPasswordLogin = new TextBox();
-            LabelHostnameLogin = new Label();
-            EditHostnameLogin = new TextBox();
-            LabelPortLogin = new Label();
             EditPortLogin = new TextBox();
-            LabelMailToPost = new Label();
-            EditMailToPost = new TextBox();
+            LabelPortLogin = new Label();
+            EditHostnameLogin = new TextBox();
+            LabelHostnameLogin = new Label();
+            EditPasswordLogin = new TextBox();
+            EditUsernameLogin = new TextBox();
+            LabelPasswordLogin = new Label();
+            LabelUsernameLogin = new Label();
             Information = new GroupBox();
             ListViewInformation = new ListView();
             Actions = new GroupBox();
-            ButtonApplyConfigurationAction = new Button();
-            ButtonExitAction = new Button();
             ProgressBarStatusBarAction = new ProgressBar();
+            ButtonExitAction = new Button();
+            ButtonApplyConfigurationAction = new Button();
             GetAllUsers = new GroupBox();
             ButtonGetAllUSers = new Button();
+            ButtonLoginToIFAction = new Button();
             CreateUser.SuspendLayout();
             BanUser.SuspendLayout();
             UnbanUser.SuspendLayout();
@@ -528,6 +529,14 @@
             SqliteSettings.TabStop = false;
             SqliteSettings.Text = "Настройки SQLite";
             // 
+            // EditCatalogSqlite
+            // 
+            EditCatalogSqlite.Location = new Point(75, 21);
+            EditCatalogSqlite.Name = "EditCatalogSqlite";
+            EditCatalogSqlite.Size = new Size(159, 27);
+            EditCatalogSqlite.TabIndex = 1;
+            EditCatalogSqlite.TextChanged += EditCatalogSqlite_TextChanged;
+            // 
             // LabelCatalogSqlite
             // 
             LabelCatalogSqlite.AutoSize = true;
@@ -537,14 +546,6 @@
             LabelCatalogSqlite.TabIndex = 0;
             LabelCatalogSqlite.Text = "Каталог";
             LabelCatalogSqlite.Click += label1_Click;
-            // 
-            // EditCatalogSqlite
-            // 
-            EditCatalogSqlite.Location = new Point(75, 21);
-            EditCatalogSqlite.Name = "EditCatalogSqlite";
-            EditCatalogSqlite.Size = new Size(159, 27);
-            EditCatalogSqlite.TabIndex = 1;
-            EditCatalogSqlite.TextChanged += EditCatalogSqlite_TextChanged;
             // 
             // MssqlSettings
             // 
@@ -565,38 +566,21 @@
             MssqlSettings.TabStop = false;
             MssqlSettings.Text = "Настройки MSSQL";
             // 
-            // EditHostMssql
+            // EditCatalogMssql
             // 
-            EditHostMssql.Location = new Point(70, 26);
-            EditHostMssql.Name = "EditHostMssql";
-            EditHostMssql.Size = new Size(125, 27);
-            EditHostMssql.TabIndex = 0;
+            EditCatalogMssql.Location = new Point(70, 93);
+            EditCatalogMssql.Name = "EditCatalogMssql";
+            EditCatalogMssql.Size = new Size(192, 27);
+            EditCatalogMssql.TabIndex = 9;
             // 
-            // LabelHostMssql
+            // LabelCatalogMssql
             // 
-            LabelHostMssql.AutoSize = true;
-            LabelHostMssql.Location = new Point(7, 29);
-            LabelHostMssql.Name = "LabelHostMssql";
-            LabelHostMssql.Size = new Size(40, 20);
-            LabelHostMssql.TabIndex = 1;
-            LabelHostMssql.Text = "Хост";
-            // 
-            // LabelPortMssql
-            // 
-            LabelPortMssql.AutoSize = true;
-            LabelPortMssql.Location = new Point(6, 63);
-            LabelPortMssql.Name = "LabelPortMssql";
-            LabelPortMssql.Size = new Size(44, 20);
-            LabelPortMssql.TabIndex = 2;
-            LabelPortMssql.Text = "Порт";
-            // 
-            // EditPortMssql
-            // 
-            EditPortMssql.Location = new Point(70, 60);
-            EditPortMssql.Name = "EditPortMssql";
-            EditPortMssql.Size = new Size(125, 27);
-            EditPortMssql.TabIndex = 3;
-            EditPortMssql.TextChanged += textBox1_TextChanged;
+            LabelCatalogMssql.AutoSize = true;
+            LabelCatalogMssql.Location = new Point(6, 93);
+            LabelCatalogMssql.Name = "LabelCatalogMssql";
+            LabelCatalogMssql.Size = new Size(63, 20);
+            LabelCatalogMssql.TabIndex = 8;
+            LabelCatalogMssql.Text = "Каталог";
             // 
             // EditPasswordMssql
             // 
@@ -609,7 +593,7 @@
             // LabelPasswordMssql
             // 
             LabelPasswordMssql.AutoSize = true;
-            LabelPasswordMssql.Location = new Point(200, 63);
+            LabelPasswordMssql.Location = new Point(200, 60);
             LabelPasswordMssql.Name = "LabelPasswordMssql";
             LabelPasswordMssql.Size = new Size(62, 20);
             LabelPasswordMssql.TabIndex = 6;
@@ -631,21 +615,38 @@
             EditUsernameMssql.Size = new Size(125, 27);
             EditUsernameMssql.TabIndex = 4;
             // 
-            // LabelCatalogMssql
+            // EditPortMssql
             // 
-            LabelCatalogMssql.AutoSize = true;
-            LabelCatalogMssql.Location = new Point(6, 93);
-            LabelCatalogMssql.Name = "LabelCatalogMssql";
-            LabelCatalogMssql.Size = new Size(63, 20);
-            LabelCatalogMssql.TabIndex = 8;
-            LabelCatalogMssql.Text = "Каталог";
+            EditPortMssql.Location = new Point(70, 60);
+            EditPortMssql.Name = "EditPortMssql";
+            EditPortMssql.Size = new Size(125, 27);
+            EditPortMssql.TabIndex = 3;
+            EditPortMssql.TextChanged += textBox1_TextChanged;
             // 
-            // EditCatalogMssql
+            // LabelPortMssql
             // 
-            EditCatalogMssql.Location = new Point(70, 93);
-            EditCatalogMssql.Name = "EditCatalogMssql";
-            EditCatalogMssql.Size = new Size(192, 27);
-            EditCatalogMssql.TabIndex = 9;
+            LabelPortMssql.AutoSize = true;
+            LabelPortMssql.Location = new Point(6, 63);
+            LabelPortMssql.Name = "LabelPortMssql";
+            LabelPortMssql.Size = new Size(44, 20);
+            LabelPortMssql.TabIndex = 2;
+            LabelPortMssql.Text = "Порт";
+            // 
+            // LabelHostMssql
+            // 
+            LabelHostMssql.AutoSize = true;
+            LabelHostMssql.Location = new Point(7, 29);
+            LabelHostMssql.Name = "LabelHostMssql";
+            LabelHostMssql.Size = new Size(40, 20);
+            LabelHostMssql.TabIndex = 1;
+            LabelHostMssql.Text = "Хост";
+            // 
+            // EditHostMssql
+            // 
+            EditHostMssql.Location = new Point(70, 26);
+            EditHostMssql.Name = "EditHostMssql";
+            EditHostMssql.Size = new Size(125, 27);
+            EditHostMssql.TabIndex = 0;
             // 
             // LoggingOptions
             // 
@@ -659,15 +660,6 @@
             LoggingOptions.Text = "Настройки логирования";
             LoggingOptions.Enter += LoggingOptions_Enter;
             // 
-            // LabelSinkLogging
-            // 
-            LabelSinkLogging.AutoSize = true;
-            LabelSinkLogging.Location = new Point(6, 26);
-            LabelSinkLogging.Name = "LabelSinkLogging";
-            LabelSinkLogging.Size = new Size(97, 20);
-            LabelSinkLogging.TabIndex = 0;
-            LabelSinkLogging.Text = "Умывальник";
-            // 
             // ComboBoxSinkLogging
             // 
             ComboBoxSinkLogging.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -677,6 +669,15 @@
             ComboBoxSinkLogging.Name = "ComboBoxSinkLogging";
             ComboBoxSinkLogging.Size = new Size(151, 28);
             ComboBoxSinkLogging.TabIndex = 1;
+            // 
+            // LabelSinkLogging
+            // 
+            LabelSinkLogging.AutoSize = true;
+            LabelSinkLogging.Location = new Point(6, 26);
+            LabelSinkLogging.Name = "LabelSinkLogging";
+            LabelSinkLogging.Size = new Size(97, 20);
+            LabelSinkLogging.TabIndex = 0;
+            LabelSinkLogging.Text = "Умывальник";
             // 
             // FileLoggingOptions
             // 
@@ -691,14 +692,19 @@
             FileLoggingOptions.TabStop = false;
             FileLoggingOptions.Text = "Настр. логирования в файл";
             // 
-            // LabelPrefixFileLogging
+            // EditFilenameFileLogging
             // 
-            LabelPrefixFileLogging.AutoSize = true;
-            LabelPrefixFileLogging.Location = new Point(11, 32);
-            LabelPrefixFileLogging.Name = "LabelPrefixFileLogging";
-            LabelPrefixFileLogging.Size = new Size(70, 20);
-            LabelPrefixFileLogging.TabIndex = 0;
-            LabelPrefixFileLogging.Text = "Префикс";
+            EditFilenameFileLogging.Location = new Point(103, 65);
+            EditFilenameFileLogging.Name = "EditFilenameFileLogging";
+            EditFilenameFileLogging.Size = new Size(109, 27);
+            EditFilenameFileLogging.TabIndex = 3;
+            // 
+            // EditPrefixFileLogging
+            // 
+            EditPrefixFileLogging.Location = new Point(87, 32);
+            EditPrefixFileLogging.Name = "EditPrefixFileLogging";
+            EditPrefixFileLogging.Size = new Size(125, 27);
+            EditPrefixFileLogging.TabIndex = 2;
             // 
             // LabelFilenameFIleLogging
             // 
@@ -709,19 +715,14 @@
             LabelFilenameFIleLogging.TabIndex = 1;
             LabelFilenameFIleLogging.Text = "Имя файла";
             // 
-            // EditPrefixFileLogging
+            // LabelPrefixFileLogging
             // 
-            EditPrefixFileLogging.Location = new Point(87, 32);
-            EditPrefixFileLogging.Name = "EditPrefixFileLogging";
-            EditPrefixFileLogging.Size = new Size(125, 27);
-            EditPrefixFileLogging.TabIndex = 2;
-            // 
-            // EditFilenameFileLogging
-            // 
-            EditFilenameFileLogging.Location = new Point(103, 65);
-            EditFilenameFileLogging.Name = "EditFilenameFileLogging";
-            EditFilenameFileLogging.Size = new Size(109, 27);
-            EditFilenameFileLogging.TabIndex = 3;
+            LabelPrefixFileLogging.AutoSize = true;
+            LabelPrefixFileLogging.Location = new Point(11, 32);
+            LabelPrefixFileLogging.Name = "LabelPrefixFileLogging";
+            LabelPrefixFileLogging.Size = new Size(70, 20);
+            LabelPrefixFileLogging.TabIndex = 0;
+            LabelPrefixFileLogging.Text = "Префикс";
             // 
             // SecretGeneratorOptions
             // 
@@ -749,57 +750,50 @@
             SecretGeneratorOptions.TabStop = false;
             SecretGeneratorOptions.Text = "Настройки генератора секретов";
             // 
-            // LabelIssuerSigningKeySecretGenerator
+            // LabelClientSecretTransmissionMethodSecretGenerator
             // 
-            LabelIssuerSigningKeySecretGenerator.AutoSize = true;
-            LabelIssuerSigningKeySecretGenerator.Location = new Point(13, 29);
-            LabelIssuerSigningKeySecretGenerator.Name = "LabelIssuerSigningKeySecretGenerator";
-            LabelIssuerSigningKeySecretGenerator.Size = new Size(97, 20);
-            LabelIssuerSigningKeySecretGenerator.TabIndex = 0;
-            LabelIssuerSigningKeySecretGenerator.Text = "Ключ токена";
+            LabelClientSecretTransmissionMethodSecretGenerator.AutoSize = true;
+            LabelClientSecretTransmissionMethodSecretGenerator.Location = new Point(13, 217);
+            LabelClientSecretTransmissionMethodSecretGenerator.Name = "LabelClientSecretTransmissionMethodSecretGenerator";
+            LabelClientSecretTransmissionMethodSecretGenerator.Size = new Size(134, 20);
+            LabelClientSecretTransmissionMethodSecretGenerator.TabIndex = 16;
+            LabelClientSecretTransmissionMethodSecretGenerator.Text = "Передача секрета";
             // 
-            // EditIssuerSigningKeySecretGenerator
+            // ComboBoxClientSecretTransmissionMethodSecretGenerator
             // 
-            EditIssuerSigningKeySecretGenerator.Location = new Point(109, 26);
-            EditIssuerSigningKeySecretGenerator.Name = "EditIssuerSigningKeySecretGenerator";
-            EditIssuerSigningKeySecretGenerator.Size = new Size(90, 27);
-            EditIssuerSigningKeySecretGenerator.TabIndex = 1;
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.FormattingEnabled = true;
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.Items.AddRange(new object[] { "Врем. файл", "Стд. файл (НЕБЕЗОПАСНО)", "Почта" });
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.Location = new Point(153, 214);
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.Name = "ComboBoxClientSecretTransmissionMethodSecretGenerator";
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.Size = new Size(106, 28);
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.TabIndex = 15;
             // 
-            // CheckIssuerSigningKeySetToAutoSecretGenerator
+            // CheckClientIdSetToAutoSecretGenerator
             // 
-            CheckIssuerSigningKeySetToAutoSecretGenerator.AutoSize = true;
-            CheckIssuerSigningKeySetToAutoSecretGenerator.Location = new Point(205, 29);
-            CheckIssuerSigningKeySetToAutoSecretGenerator.Name = "CheckIssuerSigningKeySetToAutoSecretGenerator";
-            CheckIssuerSigningKeySetToAutoSecretGenerator.Size = new Size(64, 24);
-            CheckIssuerSigningKeySetToAutoSecretGenerator.TabIndex = 2;
-            CheckIssuerSigningKeySetToAutoSecretGenerator.Text = "Авто";
-            CheckIssuerSigningKeySetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckClientIdSetToAutoSecretGenerator.AutoSize = true;
+            CheckClientIdSetToAutoSecretGenerator.Location = new Point(205, 175);
+            CheckClientIdSetToAutoSecretGenerator.Name = "CheckClientIdSetToAutoSecretGenerator";
+            CheckClientIdSetToAutoSecretGenerator.Size = new Size(64, 24);
+            CheckClientIdSetToAutoSecretGenerator.TabIndex = 14;
+            CheckClientIdSetToAutoSecretGenerator.Text = "Авто";
+            CheckClientIdSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
             // 
-            // CheckSigningKeyFileSetToAutoSecretGenerator
+            // EditClientIdSecretGenerator
             // 
-            CheckSigningKeyFileSetToAutoSecretGenerator.AutoSize = true;
-            CheckSigningKeyFileSetToAutoSecretGenerator.Location = new Point(205, 65);
-            CheckSigningKeyFileSetToAutoSecretGenerator.Name = "CheckSigningKeyFileSetToAutoSecretGenerator";
-            CheckSigningKeyFileSetToAutoSecretGenerator.Size = new Size(64, 24);
-            CheckSigningKeyFileSetToAutoSecretGenerator.TabIndex = 5;
-            CheckSigningKeyFileSetToAutoSecretGenerator.Text = "Авто";
-            CheckSigningKeyFileSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            EditClientIdSecretGenerator.Location = new Point(134, 172);
+            EditClientIdSecretGenerator.Name = "EditClientIdSecretGenerator";
+            EditClientIdSecretGenerator.Size = new Size(65, 27);
+            EditClientIdSecretGenerator.TabIndex = 13;
             // 
-            // EditSigningKeyFileSecretGenerator
+            // LabelClientIdSecretGenerator
             // 
-            EditSigningKeyFileSecretGenerator.Location = new Point(109, 62);
-            EditSigningKeyFileSecretGenerator.Name = "EditSigningKeyFileSecretGenerator";
-            EditSigningKeyFileSecretGenerator.Size = new Size(90, 27);
-            EditSigningKeyFileSecretGenerator.TabIndex = 4;
-            // 
-            // LabelSigningKeyFileSecretGenerator
-            // 
-            LabelSigningKeyFileSecretGenerator.AutoSize = true;
-            LabelSigningKeyFileSecretGenerator.Location = new Point(13, 65);
-            LabelSigningKeyFileSecretGenerator.Name = "LabelSigningKeyFileSecretGenerator";
-            LabelSigningKeyFileSecretGenerator.Size = new Size(92, 20);
-            LabelSigningKeyFileSecretGenerator.TabIndex = 3;
-            LabelSigningKeyFileSecretGenerator.Text = "Файл ключа";
+            LabelClientIdSecretGenerator.AutoSize = true;
+            LabelClientIdSecretGenerator.Location = new Point(13, 175);
+            LabelClientIdSecretGenerator.Name = "LabelClientIdSecretGenerator";
+            LabelClientIdSecretGenerator.Size = new Size(89, 20);
+            LabelClientIdSecretGenerator.TabIndex = 12;
+            LabelClientIdSecretGenerator.Text = "ИД клиента";
             // 
             // CheckClientSecretFilenameSetToAutoSecretGenerator
             // 
@@ -853,50 +847,57 @@
             LabelClientSecretSecretGenerator.TabIndex = 6;
             LabelClientSecretSecretGenerator.Text = "Секрет клиента";
             // 
-            // CheckClientIdSetToAutoSecretGenerator
+            // CheckSigningKeyFileSetToAutoSecretGenerator
             // 
-            CheckClientIdSetToAutoSecretGenerator.AutoSize = true;
-            CheckClientIdSetToAutoSecretGenerator.Location = new Point(205, 175);
-            CheckClientIdSetToAutoSecretGenerator.Name = "CheckClientIdSetToAutoSecretGenerator";
-            CheckClientIdSetToAutoSecretGenerator.Size = new Size(64, 24);
-            CheckClientIdSetToAutoSecretGenerator.TabIndex = 14;
-            CheckClientIdSetToAutoSecretGenerator.Text = "Авто";
-            CheckClientIdSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckSigningKeyFileSetToAutoSecretGenerator.AutoSize = true;
+            CheckSigningKeyFileSetToAutoSecretGenerator.Location = new Point(205, 65);
+            CheckSigningKeyFileSetToAutoSecretGenerator.Name = "CheckSigningKeyFileSetToAutoSecretGenerator";
+            CheckSigningKeyFileSetToAutoSecretGenerator.Size = new Size(64, 24);
+            CheckSigningKeyFileSetToAutoSecretGenerator.TabIndex = 5;
+            CheckSigningKeyFileSetToAutoSecretGenerator.Text = "Авто";
+            CheckSigningKeyFileSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
             // 
-            // EditClientIdSecretGenerator
+            // EditSigningKeyFileSecretGenerator
             // 
-            EditClientIdSecretGenerator.Location = new Point(134, 172);
-            EditClientIdSecretGenerator.Name = "EditClientIdSecretGenerator";
-            EditClientIdSecretGenerator.Size = new Size(65, 27);
-            EditClientIdSecretGenerator.TabIndex = 13;
+            EditSigningKeyFileSecretGenerator.Location = new Point(109, 62);
+            EditSigningKeyFileSecretGenerator.Name = "EditSigningKeyFileSecretGenerator";
+            EditSigningKeyFileSecretGenerator.Size = new Size(90, 27);
+            EditSigningKeyFileSecretGenerator.TabIndex = 4;
             // 
-            // LabelClientIdSecretGenerator
+            // LabelSigningKeyFileSecretGenerator
             // 
-            LabelClientIdSecretGenerator.AutoSize = true;
-            LabelClientIdSecretGenerator.Location = new Point(13, 175);
-            LabelClientIdSecretGenerator.Name = "LabelClientIdSecretGenerator";
-            LabelClientIdSecretGenerator.Size = new Size(89, 20);
-            LabelClientIdSecretGenerator.TabIndex = 12;
-            LabelClientIdSecretGenerator.Text = "ИД клиента";
+            LabelSigningKeyFileSecretGenerator.AutoSize = true;
+            LabelSigningKeyFileSecretGenerator.Location = new Point(13, 65);
+            LabelSigningKeyFileSecretGenerator.Name = "LabelSigningKeyFileSecretGenerator";
+            LabelSigningKeyFileSecretGenerator.Size = new Size(92, 20);
+            LabelSigningKeyFileSecretGenerator.TabIndex = 3;
+            LabelSigningKeyFileSecretGenerator.Text = "Файл ключа";
             // 
-            // ComboBoxClientSecretTransmissionMethodSecretGenerator
+            // CheckIssuerSigningKeySetToAutoSecretGenerator
             // 
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.FormattingEnabled = true;
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.Items.AddRange(new object[] { "Врем. файл", "Стд. файл (НЕБЕЗОПАСНО)", "Почта" });
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.Location = new Point(153, 214);
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.Name = "ComboBoxClientSecretTransmissionMethodSecretGenerator";
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.Size = new Size(106, 28);
-            ComboBoxClientSecretTransmissionMethodSecretGenerator.TabIndex = 15;
+            CheckIssuerSigningKeySetToAutoSecretGenerator.AutoSize = true;
+            CheckIssuerSigningKeySetToAutoSecretGenerator.Location = new Point(205, 29);
+            CheckIssuerSigningKeySetToAutoSecretGenerator.Name = "CheckIssuerSigningKeySetToAutoSecretGenerator";
+            CheckIssuerSigningKeySetToAutoSecretGenerator.Size = new Size(64, 24);
+            CheckIssuerSigningKeySetToAutoSecretGenerator.TabIndex = 2;
+            CheckIssuerSigningKeySetToAutoSecretGenerator.Text = "Авто";
+            CheckIssuerSigningKeySetToAutoSecretGenerator.UseVisualStyleBackColor = true;
             // 
-            // LabelClientSecretTransmissionMethodSecretGenerator
+            // EditIssuerSigningKeySecretGenerator
             // 
-            LabelClientSecretTransmissionMethodSecretGenerator.AutoSize = true;
-            LabelClientSecretTransmissionMethodSecretGenerator.Location = new Point(13, 217);
-            LabelClientSecretTransmissionMethodSecretGenerator.Name = "LabelClientSecretTransmissionMethodSecretGenerator";
-            LabelClientSecretTransmissionMethodSecretGenerator.Size = new Size(134, 20);
-            LabelClientSecretTransmissionMethodSecretGenerator.TabIndex = 16;
-            LabelClientSecretTransmissionMethodSecretGenerator.Text = "Передача секрета";
+            EditIssuerSigningKeySecretGenerator.Location = new Point(109, 26);
+            EditIssuerSigningKeySecretGenerator.Name = "EditIssuerSigningKeySecretGenerator";
+            EditIssuerSigningKeySecretGenerator.Size = new Size(90, 27);
+            EditIssuerSigningKeySecretGenerator.TabIndex = 1;
+            // 
+            // LabelIssuerSigningKeySecretGenerator
+            // 
+            LabelIssuerSigningKeySecretGenerator.AutoSize = true;
+            LabelIssuerSigningKeySecretGenerator.Location = new Point(13, 29);
+            LabelIssuerSigningKeySecretGenerator.Name = "LabelIssuerSigningKeySecretGenerator";
+            LabelIssuerSigningKeySecretGenerator.Size = new Size(97, 20);
+            LabelIssuerSigningKeySecretGenerator.TabIndex = 0;
+            LabelIssuerSigningKeySecretGenerator.Text = "Ключ токена";
             // 
             // PostOptions
             // 
@@ -919,53 +920,40 @@
             PostOptions.TabStop = false;
             PostOptions.Text = "Настройки почты (SMTP)";
             // 
-            // LabelMailHostPost
+            // EditMailToPost
             // 
-            LabelMailHostPost.AutoSize = true;
-            LabelMailHostPost.Location = new Point(19, 24);
-            LabelMailHostPost.Name = "LabelMailHostPost";
-            LabelMailHostPost.Size = new Size(60, 20);
-            LabelMailHostPost.TabIndex = 0;
-            LabelMailHostPost.Text = "Сервер";
+            EditMailToPost.Location = new Point(159, 121);
+            EditMailToPost.Name = "EditMailToPost";
+            EditMailToPost.Size = new Size(179, 27);
+            EditMailToPost.TabIndex = 11;
             // 
-            // EditMailHostPost
+            // LabelMailToPost
             // 
-            EditMailHostPost.Location = new Point(85, 21);
-            EditMailHostPost.Name = "EditMailHostPost";
-            EditMailHostPost.Size = new Size(87, 27);
-            EditMailHostPost.TabIndex = 1;
+            LabelMailToPost.AutoSize = true;
+            LabelMailToPost.Location = new Point(19, 123);
+            LabelMailToPost.Name = "LabelMailToPost";
+            LabelMailToPost.Size = new Size(134, 20);
+            LabelMailToPost.TabIndex = 10;
+            LabelMailToPost.Text = "Адрес получателя";
             // 
-            // LabelMailPortPost
+            // ComboBoxMailSSLOptionsPost
             // 
-            LabelMailPortPost.AutoSize = true;
-            LabelMailPortPost.Location = new Point(196, 24);
-            LabelMailPortPost.Name = "LabelMailPortPost";
-            LabelMailPortPost.Size = new Size(44, 20);
-            LabelMailPortPost.TabIndex = 2;
-            LabelMailPortPost.Text = "Порт";
+            ComboBoxMailSSLOptionsPost.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxMailSSLOptionsPost.FormattingEnabled = true;
+            ComboBoxMailSSLOptionsPost.Items.AddRange(new object[] { "SSL", "STARTTLS (по возможности)", "Авто", "Нет" });
+            ComboBoxMailSSLOptionsPost.Location = new Point(216, 87);
+            ComboBoxMailSSLOptionsPost.Name = "ComboBoxMailSSLOptionsPost";
+            ComboBoxMailSSLOptionsPost.Size = new Size(122, 28);
+            ComboBoxMailSSLOptionsPost.TabIndex = 9;
             // 
-            // EditMailPostPost
+            // LabelMailSSLOptionsPost
             // 
-            EditMailPostPost.Location = new Point(246, 21);
-            EditMailPostPost.Name = "EditMailPostPost";
-            EditMailPostPost.Size = new Size(92, 27);
-            EditMailPostPost.TabIndex = 3;
-            // 
-            // LabelMailUsernamePost
-            // 
-            LabelMailUsernamePost.AutoSize = true;
-            LabelMailUsernamePost.Location = new Point(19, 57);
-            LabelMailUsernamePost.Name = "LabelMailUsernamePost";
-            LabelMailUsernamePost.Size = new Size(52, 20);
-            LabelMailUsernamePost.TabIndex = 4;
-            LabelMailUsernamePost.Text = "Логин";
-            // 
-            // EditMailUsernamePost
-            // 
-            EditMailUsernamePost.Location = new Point(85, 54);
-            EditMailUsernamePost.Name = "EditMailUsernamePost";
-            EditMailUsernamePost.Size = new Size(87, 27);
-            EditMailUsernamePost.TabIndex = 5;
+            LabelMailSSLOptionsPost.AutoSize = true;
+            LabelMailSSLOptionsPost.Location = new Point(19, 90);
+            LabelMailSSLOptionsPost.Name = "LabelMailSSLOptionsPost";
+            LabelMailSSLOptionsPost.Size = new Size(191, 20);
+            LabelMailSSLOptionsPost.TabIndex = 8;
+            LabelMailSSLOptionsPost.Text = "Параметры безопасности";
             // 
             // EditMailPasswordPost
             // 
@@ -984,24 +972,53 @@
             LabelMailPasswordPost.TabIndex = 6;
             LabelMailPasswordPost.Text = "Пароль";
             // 
-            // LabelMailSSLOptionsPost
+            // EditMailUsernamePost
             // 
-            LabelMailSSLOptionsPost.AutoSize = true;
-            LabelMailSSLOptionsPost.Location = new Point(19, 90);
-            LabelMailSSLOptionsPost.Name = "LabelMailSSLOptionsPost";
-            LabelMailSSLOptionsPost.Size = new Size(191, 20);
-            LabelMailSSLOptionsPost.TabIndex = 8;
-            LabelMailSSLOptionsPost.Text = "Параметры безопасности";
+            EditMailUsernamePost.Location = new Point(85, 54);
+            EditMailUsernamePost.Name = "EditMailUsernamePost";
+            EditMailUsernamePost.Size = new Size(87, 27);
+            EditMailUsernamePost.TabIndex = 5;
             // 
-            // ComboBoxMailSSLOptionsPost
+            // LabelMailUsernamePost
             // 
-            ComboBoxMailSSLOptionsPost.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboBoxMailSSLOptionsPost.FormattingEnabled = true;
-            ComboBoxMailSSLOptionsPost.Items.AddRange(new object[] { "SSL", "STARTTLS (по возможности)", "Авто", "Нет" });
-            ComboBoxMailSSLOptionsPost.Location = new Point(216, 87);
-            ComboBoxMailSSLOptionsPost.Name = "ComboBoxMailSSLOptionsPost";
-            ComboBoxMailSSLOptionsPost.Size = new Size(122, 28);
-            ComboBoxMailSSLOptionsPost.TabIndex = 9;
+            LabelMailUsernamePost.AutoSize = true;
+            LabelMailUsernamePost.Location = new Point(19, 57);
+            LabelMailUsernamePost.Name = "LabelMailUsernamePost";
+            LabelMailUsernamePost.Size = new Size(52, 20);
+            LabelMailUsernamePost.TabIndex = 4;
+            LabelMailUsernamePost.Text = "Логин";
+            // 
+            // EditMailPostPost
+            // 
+            EditMailPostPost.Location = new Point(246, 21);
+            EditMailPostPost.Name = "EditMailPostPost";
+            EditMailPostPost.Size = new Size(92, 27);
+            EditMailPostPost.TabIndex = 3;
+            // 
+            // LabelMailPortPost
+            // 
+            LabelMailPortPost.AutoSize = true;
+            LabelMailPortPost.Location = new Point(196, 24);
+            LabelMailPortPost.Name = "LabelMailPortPost";
+            LabelMailPortPost.Size = new Size(44, 20);
+            LabelMailPortPost.TabIndex = 2;
+            LabelMailPortPost.Text = "Порт";
+            // 
+            // EditMailHostPost
+            // 
+            EditMailHostPost.Location = new Point(85, 21);
+            EditMailHostPost.Name = "EditMailHostPost";
+            EditMailHostPost.Size = new Size(87, 27);
+            EditMailHostPost.TabIndex = 1;
+            // 
+            // LabelMailHostPost
+            // 
+            LabelMailHostPost.AutoSize = true;
+            LabelMailHostPost.Location = new Point(19, 24);
+            LabelMailHostPost.Name = "LabelMailHostPost";
+            LabelMailHostPost.Size = new Size(60, 20);
+            LabelMailHostPost.TabIndex = 0;
+            LabelMailHostPost.Text = "Сервер";
             // 
             // ContentOptions
             // 
@@ -1014,6 +1031,13 @@
             ContentOptions.TabStop = false;
             ContentOptions.Text = "Настройки контента";
             // 
+            // EditXMLStockPathContent
+            // 
+            EditXMLStockPathContent.Location = new Point(216, 23);
+            EditXMLStockPathContent.Name = "EditXMLStockPathContent";
+            EditXMLStockPathContent.Size = new Size(132, 27);
+            EditXMLStockPathContent.TabIndex = 1;
+            // 
             // LabelXMLStockPathContent
             // 
             LabelXMLStockPathContent.AutoSize = true;
@@ -1022,13 +1046,6 @@
             LabelXMLStockPathContent.Size = new Size(197, 20);
             LabelXMLStockPathContent.TabIndex = 0;
             LabelXMLStockPathContent.Text = "Корневая папка (отн. путь)";
-            // 
-            // EditXMLStockPathContent
-            // 
-            EditXMLStockPathContent.Location = new Point(216, 23);
-            EditXMLStockPathContent.Name = "EditXMLStockPathContent";
-            EditXMLStockPathContent.Size = new Size(132, 27);
-            EditXMLStockPathContent.TabIndex = 1;
             // 
             // RabbitMQOptions
             // 
@@ -1045,21 +1062,28 @@
             RabbitMQOptions.TabStop = false;
             RabbitMQOptions.Text = "Настройки RabbitMQ";
             // 
-            // LabelMQHostnameRabbitMQ
+            // EditMQVhostRabbitMQ
             // 
-            LabelMQHostnameRabbitMQ.AutoSize = true;
-            LabelMQHostnameRabbitMQ.Location = new Point(10, 31);
-            LabelMQHostnameRabbitMQ.Name = "LabelMQHostnameRabbitMQ";
-            LabelMQHostnameRabbitMQ.Size = new Size(187, 20);
-            LabelMQHostnameRabbitMQ.TabIndex = 0;
-            LabelMQHostnameRabbitMQ.Text = "Адрес сервера RabbitMQ:";
+            EditMQVhostRabbitMQ.Location = new Point(10, 183);
+            EditMQVhostRabbitMQ.Name = "EditMQVhostRabbitMQ";
+            EditMQVhostRabbitMQ.Size = new Size(184, 27);
+            EditMQVhostRabbitMQ.TabIndex = 5;
             // 
-            // EditMQHostnameRabbitMQ
+            // LabelMQVhostRabbitMQ
             // 
-            EditMQHostnameRabbitMQ.Location = new Point(10, 54);
-            EditMQHostnameRabbitMQ.Name = "EditMQHostnameRabbitMQ";
-            EditMQHostnameRabbitMQ.Size = new Size(184, 27);
-            EditMQHostnameRabbitMQ.TabIndex = 1;
+            LabelMQVhostRabbitMQ.AutoSize = true;
+            LabelMQVhostRabbitMQ.Location = new Point(7, 160);
+            LabelMQVhostRabbitMQ.Name = "LabelMQVhostRabbitMQ";
+            LabelMQVhostRabbitMQ.Size = new Size(138, 20);
+            LabelMQVhostRabbitMQ.TabIndex = 4;
+            LabelMQVhostRabbitMQ.Text = "Виртуальный хост:";
+            // 
+            // EditMQPortRabbitMQ
+            // 
+            EditMQPortRabbitMQ.Location = new Point(10, 120);
+            EditMQPortRabbitMQ.Name = "EditMQPortRabbitMQ";
+            EditMQPortRabbitMQ.Size = new Size(184, 27);
+            EditMQPortRabbitMQ.TabIndex = 3;
             // 
             // LabelMQPortRabbitMQ
             // 
@@ -1071,28 +1095,21 @@
             LabelMQPortRabbitMQ.Text = "Порт сервера RabbitMQ:";
             LabelMQPortRabbitMQ.Click += LabelMQPortRabbitMQ_Click;
             // 
-            // EditMQPortRabbitMQ
+            // EditMQHostnameRabbitMQ
             // 
-            EditMQPortRabbitMQ.Location = new Point(10, 120);
-            EditMQPortRabbitMQ.Name = "EditMQPortRabbitMQ";
-            EditMQPortRabbitMQ.Size = new Size(184, 27);
-            EditMQPortRabbitMQ.TabIndex = 3;
+            EditMQHostnameRabbitMQ.Location = new Point(10, 54);
+            EditMQHostnameRabbitMQ.Name = "EditMQHostnameRabbitMQ";
+            EditMQHostnameRabbitMQ.Size = new Size(184, 27);
+            EditMQHostnameRabbitMQ.TabIndex = 1;
             // 
-            // LabelMQVhostRabbitMQ
+            // LabelMQHostnameRabbitMQ
             // 
-            LabelMQVhostRabbitMQ.AutoSize = true;
-            LabelMQVhostRabbitMQ.Location = new Point(7, 160);
-            LabelMQVhostRabbitMQ.Name = "LabelMQVhostRabbitMQ";
-            LabelMQVhostRabbitMQ.Size = new Size(138, 20);
-            LabelMQVhostRabbitMQ.TabIndex = 4;
-            LabelMQVhostRabbitMQ.Text = "Виртуальный хост:";
-            // 
-            // EditMQVhostRabbitMQ
-            // 
-            EditMQVhostRabbitMQ.Location = new Point(10, 183);
-            EditMQVhostRabbitMQ.Name = "EditMQVhostRabbitMQ";
-            EditMQVhostRabbitMQ.Size = new Size(184, 27);
-            EditMQVhostRabbitMQ.TabIndex = 5;
+            LabelMQHostnameRabbitMQ.AutoSize = true;
+            LabelMQHostnameRabbitMQ.Location = new Point(10, 31);
+            LabelMQHostnameRabbitMQ.Name = "LabelMQHostnameRabbitMQ";
+            LabelMQHostnameRabbitMQ.Size = new Size(187, 20);
+            LabelMQHostnameRabbitMQ.TabIndex = 0;
+            LabelMQHostnameRabbitMQ.Text = "Адрес сервера RabbitMQ:";
             // 
             // LoginOptions
             // 
@@ -1112,54 +1129,12 @@
             LoginOptions.Text = "Вход в интерфейс администрации";
             LoginOptions.Enter += LoginOptions_Enter;
             // 
-            // LabelUsernameLogin
+            // EditPortLogin
             // 
-            LabelUsernameLogin.AutoSize = true;
-            LabelUsernameLogin.Location = new Point(9, 73);
-            LabelUsernameLogin.Name = "LabelUsernameLogin";
-            LabelUsernameLogin.Size = new Size(52, 20);
-            LabelUsernameLogin.TabIndex = 0;
-            LabelUsernameLogin.Text = "Логин";
-            // 
-            // LabelPasswordLogin
-            // 
-            LabelPasswordLogin.AutoSize = true;
-            LabelPasswordLogin.Location = new Point(9, 112);
-            LabelPasswordLogin.Name = "LabelPasswordLogin";
-            LabelPasswordLogin.Size = new Size(62, 20);
-            LabelPasswordLogin.TabIndex = 1;
-            LabelPasswordLogin.Text = "Пароль";
-            // 
-            // EditUsernameLogin
-            // 
-            EditUsernameLogin.Location = new Point(89, 70);
-            EditUsernameLogin.Name = "EditUsernameLogin";
-            EditUsernameLogin.Size = new Size(245, 27);
-            EditUsernameLogin.TabIndex = 2;
-            // 
-            // EditPasswordLogin
-            // 
-            EditPasswordLogin.Location = new Point(89, 109);
-            EditPasswordLogin.Name = "EditPasswordLogin";
-            EditPasswordLogin.PasswordChar = '*';
-            EditPasswordLogin.Size = new Size(245, 27);
-            EditPasswordLogin.TabIndex = 3;
-            // 
-            // LabelHostnameLogin
-            // 
-            LabelHostnameLogin.AutoSize = true;
-            LabelHostnameLogin.Location = new Point(9, 34);
-            LabelHostnameLogin.Name = "LabelHostnameLogin";
-            LabelHostnameLogin.Size = new Size(80, 20);
-            LabelHostnameLogin.TabIndex = 4;
-            LabelHostnameLogin.Text = "Имя хоста";
-            // 
-            // EditHostnameLogin
-            // 
-            EditHostnameLogin.Location = new Point(89, 31);
-            EditHostnameLogin.Name = "EditHostnameLogin";
-            EditHostnameLogin.Size = new Size(121, 27);
-            EditHostnameLogin.TabIndex = 5;
+            EditPortLogin.Location = new Point(266, 31);
+            EditPortLogin.Name = "EditPortLogin";
+            EditPortLogin.Size = new Size(68, 27);
+            EditPortLogin.TabIndex = 7;
             // 
             // LabelPortLogin
             // 
@@ -1170,29 +1145,54 @@
             LabelPortLogin.TabIndex = 6;
             LabelPortLogin.Text = "Порт";
             // 
-            // EditPortLogin
+            // EditHostnameLogin
             // 
-            EditPortLogin.Location = new Point(266, 31);
-            EditPortLogin.Name = "EditPortLogin";
-            EditPortLogin.Size = new Size(68, 27);
-            EditPortLogin.TabIndex = 7;
+            EditHostnameLogin.Location = new Point(89, 31);
+            EditHostnameLogin.Name = "EditHostnameLogin";
+            EditHostnameLogin.Size = new Size(121, 27);
+            EditHostnameLogin.TabIndex = 5;
             // 
-            // LabelMailToPost
+            // LabelHostnameLogin
             // 
-            LabelMailToPost.AutoSize = true;
-            LabelMailToPost.Location = new Point(19, 123);
-            LabelMailToPost.Name = "LabelMailToPost";
-            LabelMailToPost.Size = new Size(134, 20);
-            LabelMailToPost.TabIndex = 10;
-            LabelMailToPost.Text = "Адрес получателя";
-            LabelMailToPost.Click += label1_Click_1;
+            LabelHostnameLogin.AutoSize = true;
+            LabelHostnameLogin.Location = new Point(9, 34);
+            LabelHostnameLogin.Name = "LabelHostnameLogin";
+            LabelHostnameLogin.Size = new Size(80, 20);
+            LabelHostnameLogin.TabIndex = 4;
+            LabelHostnameLogin.Text = "Имя хоста";
             // 
-            // EditMailToPost
+            // EditPasswordLogin
             // 
-            EditMailToPost.Location = new Point(159, 121);
-            EditMailToPost.Name = "EditMailToPost";
-            EditMailToPost.Size = new Size(179, 27);
-            EditMailToPost.TabIndex = 11;
+            EditPasswordLogin.Location = new Point(89, 109);
+            EditPasswordLogin.Name = "EditPasswordLogin";
+            EditPasswordLogin.PasswordChar = '*';
+            EditPasswordLogin.Size = new Size(245, 27);
+            EditPasswordLogin.TabIndex = 3;
+            // 
+            // EditUsernameLogin
+            // 
+            EditUsernameLogin.Location = new Point(89, 70);
+            EditUsernameLogin.Name = "EditUsernameLogin";
+            EditUsernameLogin.Size = new Size(245, 27);
+            EditUsernameLogin.TabIndex = 2;
+            // 
+            // LabelPasswordLogin
+            // 
+            LabelPasswordLogin.AutoSize = true;
+            LabelPasswordLogin.Location = new Point(9, 112);
+            LabelPasswordLogin.Name = "LabelPasswordLogin";
+            LabelPasswordLogin.Size = new Size(62, 20);
+            LabelPasswordLogin.TabIndex = 1;
+            LabelPasswordLogin.Text = "Пароль";
+            // 
+            // LabelUsernameLogin
+            // 
+            LabelUsernameLogin.AutoSize = true;
+            LabelUsernameLogin.Location = new Point(9, 73);
+            LabelUsernameLogin.Name = "LabelUsernameLogin";
+            LabelUsernameLogin.Size = new Size(52, 20);
+            LabelUsernameLogin.TabIndex = 0;
+            LabelUsernameLogin.Text = "Логин";
             // 
             // Information
             // 
@@ -1214,6 +1214,7 @@
             // 
             // Actions
             // 
+            Actions.Controls.Add(ButtonLoginToIFAction);
             Actions.Controls.Add(ProgressBarStatusBarAction);
             Actions.Controls.Add(ButtonExitAction);
             Actions.Controls.Add(ButtonApplyConfigurationAction);
@@ -1224,14 +1225,13 @@
             Actions.TabStop = false;
             Actions.Text = "Действия";
             // 
-            // ButtonApplyConfigurationAction
+            // ProgressBarStatusBarAction
             // 
-            ButtonApplyConfigurationAction.Location = new Point(8, 26);
-            ButtonApplyConfigurationAction.Name = "ButtonApplyConfigurationAction";
-            ButtonApplyConfigurationAction.Size = new Size(242, 29);
-            ButtonApplyConfigurationAction.TabIndex = 0;
-            ButtonApplyConfigurationAction.Text = "Применить конфигурацию";
-            ButtonApplyConfigurationAction.UseVisualStyleBackColor = true;
+            ProgressBarStatusBarAction.Location = new Point(177, 61);
+            ProgressBarStatusBarAction.Name = "ProgressBarStatusBarAction";
+            ProgressBarStatusBarAction.Size = new Size(146, 29);
+            ProgressBarStatusBarAction.TabIndex = 2;
+            ProgressBarStatusBarAction.Click += ProgressBarStatusBarAction_Click;
             // 
             // ButtonExitAction
             // 
@@ -1242,13 +1242,14 @@
             ButtonExitAction.Text = "Выход";
             ButtonExitAction.UseVisualStyleBackColor = true;
             // 
-            // ProgressBarStatusBarAction
+            // ButtonApplyConfigurationAction
             // 
-            ProgressBarStatusBarAction.Location = new Point(8, 61);
-            ProgressBarStatusBarAction.Name = "ProgressBarStatusBarAction";
-            ProgressBarStatusBarAction.Size = new Size(315, 29);
-            ProgressBarStatusBarAction.TabIndex = 2;
-            ProgressBarStatusBarAction.Click += ProgressBarStatusBarAction_Click;
+            ButtonApplyConfigurationAction.Location = new Point(8, 26);
+            ButtonApplyConfigurationAction.Name = "ButtonApplyConfigurationAction";
+            ButtonApplyConfigurationAction.Size = new Size(242, 29);
+            ButtonApplyConfigurationAction.TabIndex = 0;
+            ButtonApplyConfigurationAction.Text = "Применить конфигурацию";
+            ButtonApplyConfigurationAction.UseVisualStyleBackColor = true;
             // 
             // GetAllUsers
             // 
@@ -1269,6 +1270,15 @@
             ButtonGetAllUSers.TabIndex = 0;
             ButtonGetAllUSers.Text = "Получить";
             ButtonGetAllUSers.UseVisualStyleBackColor = true;
+            // 
+            // ButtonLoginToIFAction
+            // 
+            ButtonLoginToIFAction.Location = new Point(8, 61);
+            ButtonLoginToIFAction.Name = "ButtonLoginToIFAction";
+            ButtonLoginToIFAction.Size = new Size(163, 29);
+            ButtonLoginToIFAction.TabIndex = 3;
+            ButtonLoginToIFAction.Text = "Вход в интерфейс";
+            ButtonLoginToIFAction.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1454,5 +1464,6 @@
         private Button ButtonApplyConfigurationAction;
         private GroupBox GetAllUsers;
         private Button ButtonGetAllUSers;
+        private Button ButtonLoginToIFAction;
     }
 }

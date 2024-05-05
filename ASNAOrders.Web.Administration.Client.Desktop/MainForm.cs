@@ -42,11 +42,6 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
 
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void ProgressBarStatusBarAction_Click(object sender, EventArgs e)
         {
 
