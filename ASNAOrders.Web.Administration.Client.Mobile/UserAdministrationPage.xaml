@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ASNAOrders.Web.Administration.Client.Mobile.UserAdministrationPage"
+             Title="Администрирование пользователей">
+    <VerticalStackLayout Padding="16" Spacing="5">
+        <Button x:Name="GetUsersButton" Text="Получить каталог пользователей с сервера" Clicked="GetUsersButton_Clicked" />
+
+        <HorizontalStackLayout Spacing="5">
+            <Button x:Name="CreateUserButton" Text="Создать" Clicked="CreateUserButton_Clicked" />
+            <Button x:Name="DeleteUserButton" Text="Удалить" Clicked="DeleteUserButton_Clicked" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="5">
+            <Button x:Name="BanUserButton" Text="Забанить" Clicked="BanUserButton_Clicked" />
+            <Button x:Name="UnbanUserButton" Text="Разбанить" Clicked="UnbanUserButton_Clicked" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="5">
+            <Button x:Name="ChangePasswdButton" Text="Сменить пароль" Clicked="ChangePasswdButton_Clicked" />
+            <Button x:Name="ChangePermsButton" Text="Разрешения" Clicked="ChangePermsButton_Clicked" />
+        </HorizontalStackLayout>
+        
+    </VerticalStackLayout>
+</ContentPage>

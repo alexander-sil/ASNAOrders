@@ -20,7 +20,13 @@ namespace ASNAOrders.Web.Administration.Client.Mobile
 
         public static string ServerHostname { get; set; } = "administration.asna-orders";
 
-        public static Config? CurrentConfiguration { get; set; }
+        public static string AccessToken { get; set; } = "";
+
+        public static OpenApi.InterfaceClientFE? ClientFE { get; set; }
+
+        public static OpenApi.Config? CurrentConfiguration { get; set; }
+
+        public static OpenApi.IssuibleConfig ConfigToBeIssued { get; set; } = new OpenApi.IssuibleConfig();
 
     }
 }

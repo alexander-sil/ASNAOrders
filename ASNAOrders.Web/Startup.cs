@@ -78,7 +78,7 @@ namespace ASNAOrders.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            Log.Logger = StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}{StaticConfig.Sink.Split('*')[1]}").CreateLogger() :
+            Log.Logger = StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}.{StaticConfig.Sink.Split('*')[1]}").CreateLogger() :
                 StaticConfig.Sink.Contains("mail") ? new LoggerConfiguration().WriteTo.Email(new EmailSinkOptions()
                 {
                     From = StaticConfig.Sink.Split('*')[1],

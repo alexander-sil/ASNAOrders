@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ASNAOrders.Web.Administration.Client.Mobile.ConfigPage"
-             Title="ConfigPage">
+             Title="Конфигурация">
     <VerticalStackLayout Padding="16" Spacing="8">
         <Button x:Name="GoToUserManagementModeButton" Text="Администрирование пользователей" Clicked="GoToUserManagementModeButton_Clicked" />
         <Button x:Name="IssueAllConfigurationsButton" Text="Выдать конфигурацию" Clicked="IssueAllConfigurationsButton_Clicked" />
@@ -48,7 +48,7 @@
         <Label x:Name="ClientSecretLabel" Style="{StaticResource EntryLabel}" Text="Секрет клиента (ручной ввод)" />
         <Entry x:Name="ClientSecret" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="ClientSecret_TextChanged" />
 
-        <StackLayout Spacing="5" RadioButtonGroup.GroupName="db_type">
+        <StackLayout x:Name="DbType" Spacing="5" RadioButtonGroup.GroupName="db_type">
             <Label Text="Тип базы данных" />
             <RadioButton x:Name="RadioSqlite" Content="SQLite Database" CheckedChanged="RadioSqlite_CheckedChanged" />
             <RadioButton x:Name="RadioMssql" Content="Microsoft SQL Server" CheckedChanged="RadioMssql_CheckedChanged" />
@@ -66,7 +66,13 @@
         <Label x:Name="MssqlServerPortLabel" Style="{StaticResource EntryLabel}" Text="Порт БД (Microsoft SQL Server)" />
         <Entry x:Name="MssqlServerPort" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="MssqlServerPort_TextChanged" />
 
-        <StackLayout Spacing="5" RadioButtonGroup.GroupName="sink">
+        <Label x:Name="MssqlServerUsernameLabel" Style="{StaticResource EntryLabel}" Text="Логин БД (Microsoft SQL Server)" />
+        <Entry x:Name="MssqlServerUsername" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="MssqlServerUsername_TextChanged" />
+
+        <Label x:Name="MssqlServerPasswordLabel" Style="{StaticResource EntryLabel}" Text="Пароль БД (Microsoft SQL Server)" />
+        <Entry x:Name="MssqlServerPassword" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="MssqlServerPassword_TextChanged" />
+
+        <StackLayout x:Name="Sink" Spacing="5" RadioButtonGroup.GroupName="sink">
             <Label Text="Тип логирования" />
             <RadioButton x:Name="EvtLog" CheckedChanged="EvtLog_CheckedChanged" Content="Журнал событий" />
             <RadioButton x:Name="EvtLogMail" CheckedChanged="EvtLogMail_CheckedChanged" Content="Журнал событий + почта" />
@@ -76,12 +82,12 @@
         <Label x:Name="ErrorLogPrefixLabel" Style="{StaticResource EntryLabel}" Text="Префикс имени файла (при логировании в файл)" />
         <Entry x:Name="ErrorLogPrefix" Style="{StaticResource EntryEdit}" TextChanged="ErrorLogPrefix_TextChanged" />
 
-        <StackLayout Spacing="5" RadioButtonGroup.GroupName="ssl_options" RadioButtonGroup.SelectedValue="0">
+        <StackLayout x:Name="MailSSLOptions" Spacing="5" RadioButtonGroup.GroupName="ssl_options" RadioButtonGroup.SelectedValue="0">
             <Label Text="Тип шифрования подключения" />
-            <RadioButton x:Name="RadioAuto" Content="Авто" />
-            <RadioButton x:Name="RadioSSL" Content="SSL" />
-            <RadioButton x:Name="RadioSTARTTLSavail" Content="STARTTLS (по возможности)" />
-            <RadioButton x:Name="RadioNone" Content="Нет" />
+            <RadioButton x:Name="RadioAuto" CheckedChanged="RadioAuto_CheckedChanged" Content="Авто" />
+            <RadioButton x:Name="RadioSSL" CheckedChanged="RadioSSL_CheckedChanged" Content="SSL" />
+            <RadioButton x:Name="RadioSTARTTLSavail" CheckedChanged="RadioSTARTTLSavail_CheckedChanged" Content="STARTTLS (по возможности)" />
+            <RadioButton x:Name="RadioNone" CheckedChanged="RadioNone_CheckedChanged" Content="Нет" />
         </StackLayout>
 
         <Label x:Name="MailHostLabel" Style="{StaticResource EntryLabel}" Text="Доменное имя/IP SMTP-сервера (при логировании в журнал+почту)" />
@@ -99,16 +105,14 @@
         <Label x:Name="MailToLabel" Style="{StaticResource EntryLabel}" Text="Адрес получения логов (при логировании в журнал+почту)" />
         <Entry x:Name="MailTo" IsEnabled="False" Style="{StaticResource EntryEdit}" TextChanged="MailTo_TextChanged" />
 
-        <StackLayout Spacing="5" RadioButtonGroup.GroupName="secret_transmission">
+        <StackLayout x:Name="ClientSecretTransmissionMethod" Spacing="5" RadioButtonGroup.GroupName="secret_transmission">
             <Label Text="Передача секрета" />
             <RadioButton x:Name="FileTemp" CheckedChanged="FileTemp_CheckedChanged" Content="Временный файл" />
             <RadioButton x:Name="FileInsecure" CheckedChanged="FileInsecure_CheckedChanged" Content="Открытый текст (НЕБЕЗОПАСНО!)" />
             <RadioButton x:Name="Email" CheckedChanged="Email_CheckedChanged" Content="Почта" />
         </StackLayout>
 
-        <Label x:Name="XMLStockPathLabel" Style="{StaticResource EntryLabel}" Text="Имя папки, содержащей контент (content-root)" />
+        <Label x:Name="XMLStockPathLabel" Style="{StaticResource EntryLabel}" Text="Имя каталога сырых выгрузок и картинок (XMLStockPath)" />
         <Entry x:Name="XMLStockPath" Style="{StaticResource EntryEdit}" TextChanged="XMLStockPath_TextChanged" />
-
-
     </VerticalStackLayout>
 </ContentPage>

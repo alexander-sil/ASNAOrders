@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ASNAOrders.Web.Administration.Client.OpenApi
 {
-    internal class InterfaceClientFE
+    public class InterfaceClientFE
     {
         public InterfaceClient Client {  get; set; }
 
-        private static InterfaceClientFE? Instance { get; set; }
+        public static InterfaceClientFE? Instance { get; set; }
 
         public static InterfaceClientFE GetInstance()
         {
