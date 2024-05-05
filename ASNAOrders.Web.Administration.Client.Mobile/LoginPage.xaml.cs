@@ -35,7 +35,7 @@ public partial class LoginPage : ContentPage
                 Configuration.AccessToken = response.AccessToken;
             }
 
-            HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Configuration.AccessToken);
 
             InterfaceClientFE fe = new InterfaceClientFE(Configuration.ServerHostname, client);

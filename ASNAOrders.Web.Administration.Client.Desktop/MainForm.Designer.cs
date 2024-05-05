@@ -114,7 +114,7 @@
             LabelMailPasswordPost = new Label();
             EditMailUsernamePost = new TextBox();
             LabelMailUsernamePost = new Label();
-            EditMailPostPost = new TextBox();
+            EditMailPortPost = new TextBox();
             LabelMailPortPost = new Label();
             EditMailHostPost = new TextBox();
             LabelMailHostPost = new Label();
@@ -140,12 +140,12 @@
             Information = new GroupBox();
             ListViewInformation = new ListView();
             Actions = new GroupBox();
+            ButtonLoginToIFAction = new Button();
             ProgressBarStatusBarAction = new ProgressBar();
             ButtonExitAction = new Button();
             ButtonApplyConfigurationAction = new Button();
             GetAllUsers = new GroupBox();
-            ButtonGetAllUSers = new Button();
-            ButtonLoginToIFAction = new Button();
+            ButtonGetAllUsers = new Button();
             CreateUser.SuspendLayout();
             BanUser.SuspendLayout();
             UnbanUser.SuspendLayout();
@@ -176,6 +176,7 @@
             CreateUser.Controls.Add(LabelPasswordCreate);
             CreateUser.Controls.Add(EditUsernameCreate);
             CreateUser.Controls.Add(LabelUsernameCreate);
+            CreateUser.Enabled = false;
             CreateUser.Location = new Point(12, 12);
             CreateUser.Name = "CreateUser";
             CreateUser.Size = new Size(250, 125);
@@ -191,6 +192,7 @@
             ButtonOKCreate.TabIndex = 7;
             ButtonOKCreate.Text = "Создать";
             ButtonOKCreate.UseVisualStyleBackColor = true;
+            ButtonOKCreate.Click += ButtonOKCreate_Click;
             // 
             // LabelFlagCreate
             // 
@@ -251,6 +253,7 @@
             BanUser.Controls.Add(LabelReasonBan);
             BanUser.Controls.Add(EditNameBan);
             BanUser.Controls.Add(LabelNameBan);
+            BanUser.Enabled = false;
             BanUser.Location = new Point(12, 143);
             BanUser.Name = "BanUser";
             BanUser.Size = new Size(250, 125);
@@ -266,6 +269,7 @@
             ButtonOKBan.TabIndex = 8;
             ButtonOKBan.Text = "Забанить";
             ButtonOKBan.UseVisualStyleBackColor = true;
+            ButtonOKBan.Click += ButtonOKBan_Click;
             // 
             // EditReasonBan
             // 
@@ -304,6 +308,7 @@
             UnbanUser.Controls.Add(ButtonOKUnban);
             UnbanUser.Controls.Add(EditNameUnban);
             UnbanUser.Controls.Add(LabelNameUnban);
+            UnbanUser.Enabled = false;
             UnbanUser.Location = new Point(12, 274);
             UnbanUser.Name = "UnbanUser";
             UnbanUser.Size = new Size(250, 125);
@@ -319,6 +324,7 @@
             ButtonOKUnban.TabIndex = 2;
             ButtonOKUnban.Text = "Разбанить";
             ButtonOKUnban.UseVisualStyleBackColor = true;
+            ButtonOKUnban.Click += ButtonOKUnban_Click;
             // 
             // EditNameUnban
             // 
@@ -341,6 +347,7 @@
             DeleteUser.Controls.Add(ButtonOKDelete);
             DeleteUser.Controls.Add(EditNameDelete);
             DeleteUser.Controls.Add(LabelNameDelete);
+            DeleteUser.Enabled = false;
             DeleteUser.Location = new Point(268, 12);
             DeleteUser.Name = "DeleteUser";
             DeleteUser.Size = new Size(250, 125);
@@ -356,6 +363,7 @@
             ButtonOKDelete.TabIndex = 5;
             ButtonOKDelete.Text = "Удалить";
             ButtonOKDelete.UseVisualStyleBackColor = true;
+            ButtonOKDelete.Click += ButtonOKDelete_Click;
             // 
             // EditNameDelete
             // 
@@ -380,6 +388,7 @@
             ChangePassword.Controls.Add(LabelNewPassPasswd);
             ChangePassword.Controls.Add(EditNamePasswd);
             ChangePassword.Controls.Add(LabelNamePasswd);
+            ChangePassword.Enabled = false;
             ChangePassword.Location = new Point(268, 143);
             ChangePassword.Name = "ChangePassword";
             ChangePassword.Size = new Size(250, 125);
@@ -395,6 +404,7 @@
             ButtonOKPasswd.TabIndex = 13;
             ButtonOKPasswd.Text = "Сменить";
             ButtonOKPasswd.UseVisualStyleBackColor = true;
+            ButtonOKPasswd.Click += ButtonOKPasswd_Click;
             // 
             // EditNewPassPasswd
             // 
@@ -436,6 +446,7 @@
             ChangePermissions.Controls.Add(LabelFlagPerms);
             ChangePermissions.Controls.Add(EditNamePerms);
             ChangePermissions.Controls.Add(LabelNamePerms);
+            ChangePermissions.Enabled = false;
             ChangePermissions.Location = new Point(268, 274);
             ChangePermissions.Name = "ChangePermissions";
             ChangePermissions.Size = new Size(250, 125);
@@ -451,6 +462,7 @@
             ButtonOKPerms.TabIndex = 4;
             ButtonOKPerms.Text = "Выдать";
             ButtonOKPerms.UseVisualStyleBackColor = true;
+            ButtonOKPerms.Click += ButtonOKPerms_Click;
             // 
             // ComboBoxFlagPerms
             // 
@@ -492,6 +504,7 @@
             // 
             DBOptions.Controls.Add(ComboBoxDbTypeDatabase);
             DBOptions.Controls.Add(DBTypeDBOptions);
+            DBOptions.Enabled = false;
             DBOptions.Location = new Point(12, 405);
             DBOptions.Name = "DBOptions";
             DBOptions.Size = new Size(250, 64);
@@ -506,8 +519,9 @@
             ComboBoxDbTypeDatabase.Items.AddRange(new object[] { "SQLite Database", "Microsoft SQL Server" });
             ComboBoxDbTypeDatabase.Location = new Point(70, 20);
             ComboBoxDbTypeDatabase.Name = "ComboBoxDbTypeDatabase";
-            ComboBoxDbTypeDatabase.Size = new Size(151, 28);
+            ComboBoxDbTypeDatabase.Size = new Size(174, 28);
             ComboBoxDbTypeDatabase.TabIndex = 1;
+            ComboBoxDbTypeDatabase.SelectedIndexChanged += ComboBoxDbTypeDatabase_SelectedIndexChanged;
             // 
             // DBTypeDBOptions
             // 
@@ -522,9 +536,10 @@
             // 
             SqliteSettings.Controls.Add(EditCatalogSqlite);
             SqliteSettings.Controls.Add(LabelCatalogSqlite);
-            SqliteSettings.Location = new Point(274, 405);
+            SqliteSettings.Enabled = false;
+            SqliteSettings.Location = new Point(268, 405);
             SqliteSettings.Name = "SqliteSettings";
-            SqliteSettings.Size = new Size(244, 64);
+            SqliteSettings.Size = new Size(250, 64);
             SqliteSettings.TabIndex = 7;
             SqliteSettings.TabStop = false;
             SqliteSettings.Text = "Настройки SQLite";
@@ -559,12 +574,13 @@
             MssqlSettings.Controls.Add(LabelPortMssql);
             MssqlSettings.Controls.Add(LabelHostMssql);
             MssqlSettings.Controls.Add(EditHostMssql);
+            MssqlSettings.Enabled = false;
             MssqlSettings.Location = new Point(12, 475);
             MssqlSettings.Name = "MssqlSettings";
             MssqlSettings.Size = new Size(506, 155);
             MssqlSettings.TabIndex = 8;
             MssqlSettings.TabStop = false;
-            MssqlSettings.Text = "Настройки MSSQL";
+            MssqlSettings.Text = "Настройки Microsoft SQL Server";
             // 
             // EditCatalogMssql
             // 
@@ -652,6 +668,7 @@
             // 
             LoggingOptions.Controls.Add(ComboBoxSinkLogging);
             LoggingOptions.Controls.Add(LabelSinkLogging);
+            LoggingOptions.Enabled = false;
             LoggingOptions.Location = new Point(15, 636);
             LoggingOptions.Name = "LoggingOptions";
             LoggingOptions.Size = new Size(275, 67);
@@ -669,6 +686,7 @@
             ComboBoxSinkLogging.Name = "ComboBoxSinkLogging";
             ComboBoxSinkLogging.Size = new Size(151, 28);
             ComboBoxSinkLogging.TabIndex = 1;
+            ComboBoxSinkLogging.SelectedIndexChanged += ComboBoxSinkLogging_SelectedIndexChanged;
             // 
             // LabelSinkLogging
             // 
@@ -685,6 +703,7 @@
             FileLoggingOptions.Controls.Add(EditPrefixFileLogging);
             FileLoggingOptions.Controls.Add(LabelFilenameFIleLogging);
             FileLoggingOptions.Controls.Add(LabelPrefixFileLogging);
+            FileLoggingOptions.Enabled = false;
             FileLoggingOptions.Location = new Point(296, 636);
             FileLoggingOptions.Name = "FileLoggingOptions";
             FileLoggingOptions.Size = new Size(222, 104);
@@ -743,6 +762,7 @@
             SecretGeneratorOptions.Controls.Add(CheckIssuerSigningKeySetToAutoSecretGenerator);
             SecretGeneratorOptions.Controls.Add(EditIssuerSigningKeySecretGenerator);
             SecretGeneratorOptions.Controls.Add(LabelIssuerSigningKeySecretGenerator);
+            SecretGeneratorOptions.Enabled = false;
             SecretGeneratorOptions.Location = new Point(15, 709);
             SecretGeneratorOptions.Name = "SecretGeneratorOptions";
             SecretGeneratorOptions.Size = new Size(275, 263);
@@ -768,6 +788,7 @@
             ComboBoxClientSecretTransmissionMethodSecretGenerator.Name = "ComboBoxClientSecretTransmissionMethodSecretGenerator";
             ComboBoxClientSecretTransmissionMethodSecretGenerator.Size = new Size(106, 28);
             ComboBoxClientSecretTransmissionMethodSecretGenerator.TabIndex = 15;
+            ComboBoxClientSecretTransmissionMethodSecretGenerator.SelectedIndexChanged += ComboBoxClientSecretTransmissionMethodSecretGenerator_SelectedIndexChanged;
             // 
             // CheckClientIdSetToAutoSecretGenerator
             // 
@@ -778,6 +799,7 @@
             CheckClientIdSetToAutoSecretGenerator.TabIndex = 14;
             CheckClientIdSetToAutoSecretGenerator.Text = "Авто";
             CheckClientIdSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckClientIdSetToAutoSecretGenerator.CheckedChanged += CheckClientIdSetToAutoSecretGenerator_CheckedChanged;
             // 
             // EditClientIdSecretGenerator
             // 
@@ -804,6 +826,7 @@
             CheckClientSecretFilenameSetToAutoSecretGenerator.TabIndex = 11;
             CheckClientSecretFilenameSetToAutoSecretGenerator.Text = "Авто";
             CheckClientSecretFilenameSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckClientSecretFilenameSetToAutoSecretGenerator.CheckedChanged += CheckClientSecretFilenameSetToAutoSecretGenerator_CheckedChanged;
             // 
             // EditClientSecretFilenameSecretGenerator
             // 
@@ -830,6 +853,7 @@
             CheckClientSecretSetToAutoSecretGenerator.TabIndex = 8;
             CheckClientSecretSetToAutoSecretGenerator.Text = "Авто";
             CheckClientSecretSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckClientSecretSetToAutoSecretGenerator.CheckedChanged += CheckClientSecretSetToAutoSecretGenerator_CheckedChanged;
             // 
             // EditClientSecretSecretGenerator
             // 
@@ -856,6 +880,7 @@
             CheckSigningKeyFileSetToAutoSecretGenerator.TabIndex = 5;
             CheckSigningKeyFileSetToAutoSecretGenerator.Text = "Авто";
             CheckSigningKeyFileSetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckSigningKeyFileSetToAutoSecretGenerator.CheckedChanged += CheckSigningKeyFileSetToAutoSecretGenerator_CheckedChanged;
             // 
             // EditSigningKeyFileSecretGenerator
             // 
@@ -882,6 +907,7 @@
             CheckIssuerSigningKeySetToAutoSecretGenerator.TabIndex = 2;
             CheckIssuerSigningKeySetToAutoSecretGenerator.Text = "Авто";
             CheckIssuerSigningKeySetToAutoSecretGenerator.UseVisualStyleBackColor = true;
+            CheckIssuerSigningKeySetToAutoSecretGenerator.CheckedChanged += CheckIssuerSigningKeySetToAutoSecretGenerator_CheckedChanged;
             // 
             // EditIssuerSigningKeySecretGenerator
             // 
@@ -909,10 +935,11 @@
             PostOptions.Controls.Add(LabelMailPasswordPost);
             PostOptions.Controls.Add(EditMailUsernamePost);
             PostOptions.Controls.Add(LabelMailUsernamePost);
-            PostOptions.Controls.Add(EditMailPostPost);
+            PostOptions.Controls.Add(EditMailPortPost);
             PostOptions.Controls.Add(LabelMailPortPost);
             PostOptions.Controls.Add(EditMailHostPost);
             PostOptions.Controls.Add(LabelMailHostPost);
+            PostOptions.Enabled = false;
             PostOptions.Location = new Point(296, 743);
             PostOptions.Name = "PostOptions";
             PostOptions.Size = new Size(356, 161);
@@ -988,12 +1015,12 @@
             LabelMailUsernamePost.TabIndex = 4;
             LabelMailUsernamePost.Text = "Логин";
             // 
-            // EditMailPostPost
+            // EditMailPortPost
             // 
-            EditMailPostPost.Location = new Point(246, 21);
-            EditMailPostPost.Name = "EditMailPostPost";
-            EditMailPostPost.Size = new Size(92, 27);
-            EditMailPostPost.TabIndex = 3;
+            EditMailPortPost.Location = new Point(246, 21);
+            EditMailPortPost.Name = "EditMailPortPost";
+            EditMailPortPost.Size = new Size(92, 27);
+            EditMailPortPost.TabIndex = 3;
             // 
             // LabelMailPortPost
             // 
@@ -1024,6 +1051,7 @@
             // 
             ContentOptions.Controls.Add(EditXMLStockPathContent);
             ContentOptions.Controls.Add(LabelXMLStockPathContent);
+            ContentOptions.Enabled = false;
             ContentOptions.Location = new Point(296, 910);
             ContentOptions.Name = "ContentOptions";
             ContentOptions.Size = new Size(356, 62);
@@ -1211,6 +1239,7 @@
             ListViewInformation.Size = new Size(313, 300);
             ListViewInformation.TabIndex = 17;
             ListViewInformation.UseCompatibleStateImageBehavior = false;
+            ListViewInformation.View = View.Details;
             // 
             // Actions
             // 
@@ -1224,6 +1253,16 @@
             Actions.TabIndex = 17;
             Actions.TabStop = false;
             Actions.Text = "Действия";
+            // 
+            // ButtonLoginToIFAction
+            // 
+            ButtonLoginToIFAction.Location = new Point(8, 61);
+            ButtonLoginToIFAction.Name = "ButtonLoginToIFAction";
+            ButtonLoginToIFAction.Size = new Size(163, 29);
+            ButtonLoginToIFAction.TabIndex = 3;
+            ButtonLoginToIFAction.Text = "Вход в интерфейс";
+            ButtonLoginToIFAction.UseVisualStyleBackColor = true;
+            ButtonLoginToIFAction.Click += ButtonLoginToIFAction_Click;
             // 
             // ProgressBarStatusBarAction
             // 
@@ -1244,16 +1283,19 @@
             // 
             // ButtonApplyConfigurationAction
             // 
+            ButtonApplyConfigurationAction.Enabled = false;
             ButtonApplyConfigurationAction.Location = new Point(8, 26);
             ButtonApplyConfigurationAction.Name = "ButtonApplyConfigurationAction";
             ButtonApplyConfigurationAction.Size = new Size(242, 29);
             ButtonApplyConfigurationAction.TabIndex = 0;
             ButtonApplyConfigurationAction.Text = "Применить конфигурацию";
             ButtonApplyConfigurationAction.UseVisualStyleBackColor = true;
+            ButtonApplyConfigurationAction.Click += ButtonApplyConfigurationAction_Click;
             // 
             // GetAllUsers
             // 
-            GetAllUsers.Controls.Add(ButtonGetAllUSers);
+            GetAllUsers.Controls.Add(ButtonGetAllUsers);
+            GetAllUsers.Enabled = false;
             GetAllUsers.Location = new Point(533, 12);
             GetAllUsers.Name = "GetAllUsers";
             GetAllUsers.Size = new Size(330, 125);
@@ -1261,24 +1303,16 @@
             GetAllUsers.TabStop = false;
             GetAllUsers.Text = "Получить информацию о пользователях";
             // 
-            // ButtonGetAllUSers
+            // ButtonGetAllUsers
             // 
-            ButtonGetAllUSers.Font = new Font("Segoe UI", 24F);
-            ButtonGetAllUSers.Location = new Point(11, 24);
-            ButtonGetAllUSers.Name = "ButtonGetAllUSers";
-            ButtonGetAllUSers.Size = new Size(311, 90);
-            ButtonGetAllUSers.TabIndex = 0;
-            ButtonGetAllUSers.Text = "Получить";
-            ButtonGetAllUSers.UseVisualStyleBackColor = true;
-            // 
-            // ButtonLoginToIFAction
-            // 
-            ButtonLoginToIFAction.Location = new Point(8, 61);
-            ButtonLoginToIFAction.Name = "ButtonLoginToIFAction";
-            ButtonLoginToIFAction.Size = new Size(163, 29);
-            ButtonLoginToIFAction.TabIndex = 3;
-            ButtonLoginToIFAction.Text = "Вход в интерфейс";
-            ButtonLoginToIFAction.UseVisualStyleBackColor = true;
+            ButtonGetAllUsers.Font = new Font("Segoe UI", 24F);
+            ButtonGetAllUsers.Location = new Point(11, 24);
+            ButtonGetAllUsers.Name = "ButtonGetAllUsers";
+            ButtonGetAllUsers.Size = new Size(311, 90);
+            ButtonGetAllUsers.TabIndex = 0;
+            ButtonGetAllUsers.Text = "Получить";
+            ButtonGetAllUsers.UseVisualStyleBackColor = true;
+            ButtonGetAllUsers.Click += ButtonGetAllUsers_Click;
             // 
             // MainForm
             // 
@@ -1304,6 +1338,7 @@
             Controls.Add(UnbanUser);
             Controls.Add(BanUser);
             Controls.Add(CreateUser);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MainForm";
             ShowIcon = false;
             Text = "Интерфейс администрации";
@@ -1431,7 +1466,7 @@
         private Label LabelMailPasswordPost;
         private TextBox EditMailUsernamePost;
         private Label LabelMailUsernamePost;
-        private TextBox EditMailPostPost;
+        private TextBox EditMailPortPost;
         private Label LabelMailPortPost;
         private ComboBox ComboBoxMailSSLOptionsPost;
         private Label LabelMailSSLOptionsPost;
@@ -1463,7 +1498,7 @@
         private Button ButtonExitAction;
         private Button ButtonApplyConfigurationAction;
         private GroupBox GetAllUsers;
-        private Button ButtonGetAllUSers;
+        private Button ButtonGetAllUsers;
         private Button ButtonLoginToIFAction;
     }
 }

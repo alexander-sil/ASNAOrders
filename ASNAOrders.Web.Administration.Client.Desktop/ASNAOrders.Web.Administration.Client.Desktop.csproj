@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ASNAOrders.Web.Administration.Client.OpenApi\ASNAOrders.Web.Administration.Client.OpenApi.csproj" />
+  </ItemGroup>
+
 </Project>
