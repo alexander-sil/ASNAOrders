@@ -102,7 +102,7 @@ namespace ASNAOrders.Web
 
             services.AddSerilog();
 
-            services.AddDbContext<ASNAOrdersDbContext>(options =>
+            services.AddDbContextFactory<ASNAOrdersDbContext>(options =>
             {
                 if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlite(StaticConfig.ConnectionString); };
             });

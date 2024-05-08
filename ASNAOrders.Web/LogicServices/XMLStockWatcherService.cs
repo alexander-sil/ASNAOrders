@@ -1,6 +1,7 @@
 ﻿using ASNAOrders.Web.ConfigServiceExtensions;
 using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Data.Stocks;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Globalization;
 using System.IO;
@@ -28,9 +29,10 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// Constructor for native instantiation. DI use only.
         /// </summary>
-        /// <param name="context">Database context to write to. NativeStocks table is used.</param>
-        public XMLStockWatcherService(ASNAOrdersDbContext context) 
+        /// <param name="contextFactory">Database context to write to. NativeStocks table is used.</param>
+        public XMLStockWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory) 
         { 
+            using var context = contextFactory.CreateDbContext();
             Context = context;
 
             if (!Directory.Exists(StaticConfig.XMLStockPath))

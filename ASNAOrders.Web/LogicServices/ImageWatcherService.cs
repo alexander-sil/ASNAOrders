@@ -1,6 +1,7 @@
 ﻿using ASNAOrders.Web.ConfigServiceExtensions;
 using ASNAOrders.Web.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using System;
 using System.IO;
@@ -32,9 +33,10 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// Constructor for native instantiation. DI use only.
         /// </summary>
-        /// <param name="context">Database context to write to. Stocks table is used.</param>
-        public ImageWatcherService(ASNAOrdersDbContext context)
+        /// <param name="contextFactory">Database context to write to. Stocks table is used.</param>
+        public ImageWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
         {
+            using var context = contextFactory.CreateDbContext();
             Context = context;
 
             if (!Directory.Exists(Path.Combine(StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath)))

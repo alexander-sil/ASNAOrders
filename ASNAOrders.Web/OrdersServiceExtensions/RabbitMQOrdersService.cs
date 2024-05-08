@@ -15,6 +15,7 @@ using ASNAOrders.Web.Data.YENomenclature;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Newtonsoft.Json;
 using ASNAOrders.Web.Converters;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASNAOrders.Web.OrdersServiceExtensions
 {
@@ -32,8 +33,9 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
         /// <summary>
         /// 
         /// </summary>
-        public RabbitMQOrdersService(ASNAOrdersDbContext context)
+        public RabbitMQOrdersService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
         {
+            using var context = contextFactory.CreateDbContext();
             Context = context;
 
             var factory = new ConnectionFactory

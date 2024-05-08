@@ -5,6 +5,7 @@ using ASNAOrders.Web.Models;
 using ASNAOrders.Web.NotificationServiceExtensions;
 using Castle.DynamicProxy.Internal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Serilog;
 using Serilog.Core;
 using System;
@@ -21,7 +22,6 @@ namespace ASNAOrders.Web.Converters
     /// </summary>
     public class EntityModelConverter
     {
-
         /// <summary>
         /// 
         /// </summary>
@@ -40,9 +40,11 @@ namespace ASNAOrders.Web.Converters
         /// <summary>
         /// 
         /// </summary>
-        public EntityModelConverter(ASNAOrdersDbContext context, RabbitMQNotificationService notifyService)
+        public EntityModelConverter(IDbContextFactory<ASNAOrdersDbContext> factory, RabbitMQNotificationService notifyService)
         {
+            using var context = factory.CreateDbContext();
             Context = context;
+
             NotifyService = notifyService;
         }
 
@@ -176,7 +178,7 @@ namespace ASNAOrders.Web.Converters
                     Name = item.Name,
                     Price = item.Price,
                     Modifications = new List<Modification>(),
-                    Promos = new List<Promo>(),
+                    Promos = new List<ItemPromo>(),
                     Quantity = item.Quantity
                 });
             }

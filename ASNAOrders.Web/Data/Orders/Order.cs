@@ -63,19 +63,19 @@ namespace ASNAOrders.Web.Data.Orders
         /// Gets or Sets DeliveryInfo
         /// </summary>
         [Required]
-        public DeliveryInfo DeliveryInfo { get; set; }
+        public virtual DeliveryInfo DeliveryInfo { get; set; }
 
         /// <summary>
         /// Gets or Sets PaymentInfo
         /// </summary>
         [Required]
-        public PaymentInfo PaymentInfo { get; set; }
+        public virtual PaymentInfo PaymentInfo { get; set; }
 
         /// <summary>
         /// Gets or Sets Items
         /// </summary>
         [Required]
-        public List<Item> Items { get; set; }
+        public virtual List<Item> Items { get; set; }
 
         /// <summary>
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
@@ -98,7 +98,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
-        [InverseProperty(nameof(Promo.Owner))]
-        public List<Promo> Promos { get; set; }
+        [InverseProperty(nameof(OrderPromo.Owner))]
+        public virtual List<OrderPromo> Promos { get; set; }
     }
 }

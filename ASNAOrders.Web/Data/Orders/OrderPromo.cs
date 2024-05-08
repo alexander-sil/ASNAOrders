@@ -7,8 +7,8 @@ namespace ASNAOrders.Web.Data.Orders
     /// <summary>
     /// .NET Entity Framework Core 8 data model for storing promotional records. This schema is an inner placeholder.
     /// </summary>
-    [Table("Items")]
-    public class Promo
+    [Table("OrderPromos")]
+    public class OrderPromo
     {
         /// <summary>
         /// System identifier for ASNAOrders database entries.

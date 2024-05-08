@@ -2,6 +2,7 @@
 using ASNAOrders.Web.Data.Orders;
 using ASNAOrders.Web.Data.YENomenclature;
 using Castle.Components.DictionaryAdapter.Xml;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Pqc.Crypto.Lms;
 using SQLitePCL;
 using System.Collections.Generic;
@@ -24,9 +25,10 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// Constructor for native instantiation. DI use only.
         /// </summary>
-        /// <param name="context">Database context to write to. NativeStocks table and Nomenclature cluster are used.</param>
-        public DataFormattingService(ASNAOrdersDbContext context)
+        /// <param name="contextFactory">Database context to write to. NativeStocks table and Nomenclature cluster are used.</param>
+        public DataFormattingService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
         {
+            using var context = contextFactory.CreateDbContext();
             Context = context;
 
             if (Context.Categories.Count() == 0)

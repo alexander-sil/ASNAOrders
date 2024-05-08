@@ -21,7 +21,7 @@ namespace ASNAOrders.Web.Data
         /// <summary>
         /// 
         /// </summary>
-        public DbSet<Orders.Promo> Promos { get; set; }
+        public DbSet<Orders.OrderPromo> Promos { get; set; }
 
         /// <summary>
         /// 

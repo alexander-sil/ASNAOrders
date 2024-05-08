@@ -62,7 +62,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// Gets or Sets Description
         /// </summary>
         [Required]
-        public Description Description { get; set; }
+        public virtual Description Description { get; set; }
 
         /// <summary>
         /// Цена товара. Товары с нулевой ценой не обрабатываются
@@ -93,18 +93,18 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// Gets or Sets Barcode
         /// </summary>
         [Required]
-        public Barcode Barcode { get; set; }
+        public virtual Barcode Barcode { get; set; }
 
         /// <summary>
         /// Gets or Sets Measure
         /// </summary>
         [Required]
-        public Measure Measure { get; set; }
+        public virtual Measure Measure { get; set; }
 
         /// <summary>
         /// Gets or Sets Volume
         /// </summary>
-        public Volume Volume { get; set; }
+        public virtual Volume Volume { get; set; }
 
         /// <summary>
         /// Параметр указывающий весовой товар или нет. Для весовых true
@@ -137,12 +137,12 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// </summary>
         /// <value>Изображение товара</value>
         [Required]
-        public List<ItemImage> Images { get; set; }
+        public virtual List<ItemImage> Images { get; set; }
 
         /// <summary>
         /// Список особых признаков товара. Например: Маркированный, Для взрослых, Алкоголь, СТМ, Рецептурный и другие.
         /// </summary>
         /// <value>Список особых признаков товара. Например: Маркированный, Для взрослых, Алкоголь, СТМ, Рецептурный и другие.</value>
-        public List<string> Labels { get; set; }
+        public virtual List<string> Labels { get; set; }
     }
 }

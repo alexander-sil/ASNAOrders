@@ -43,6 +43,6 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// </summary>
         /// <value>Изображение категории</value>
         [InverseProperty(nameof(CategoryImage.Owner))]
-        public List<CategoryImage> Images { get; set; }
+        public virtual List<CategoryImage> Images { get; set; }
     }
 }

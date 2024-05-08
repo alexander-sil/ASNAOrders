@@ -51,13 +51,13 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
         [InverseProperty(nameof(Modification.Owner))]
-        public List<Modification> Modifications { get; set; }
+        public virtual List<Modification> Modifications { get; set; }
 
         /// <summary>
         /// Параметр не поддерживается в интеграции магазинов и передается пустым
         /// </summary>
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым</value>
-        [InverseProperty(nameof(Promo.Owner))]
-        public List<Promo> Promos { get; set; }
+        [InverseProperty(nameof(OrderPromo.Owner))]
+        public virtual List<ItemPromo> Promos { get; set; }
     }
 }
