@@ -18,7 +18,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Внутренний уникальный идентификатор товара в системе партнера</value>
         /// <example>some-uniq-identifier</example>
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Артикул товара в системе партнера

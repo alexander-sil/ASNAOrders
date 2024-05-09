@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASNAOrders.Web.Migrations
 {
     [DbContext(typeof(ASNAOrdersDbContext))]
-    [Migration("20240507150111_InitialCreate")]
+    [Migration("20240509095507_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

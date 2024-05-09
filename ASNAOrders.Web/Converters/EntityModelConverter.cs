@@ -61,7 +61,7 @@ namespace ASNAOrders.Web.Converters
             {
                 items.Add(new AvailabilityItemsInner
                 {
-                    Id = Context.YENomenclatureItems.Where(f => f.Name == item.ItemName).First().Id,
+                    Id = Context.YENomenclatureItems.Where(f => f.Name == item.ItemName).First().Id.ToString(),
                     Stock = item.Qtty
                 });
             }
@@ -92,7 +92,7 @@ namespace ASNAOrders.Web.Converters
 
                 items.Add(new NomenclatureItemsInner()
                 {
-                    Id = data.Id,
+                    Id = data.Id.ToString(),
                     Vat = data.Vat,
                     Name = data.Name,
                     Price = data.Price,
