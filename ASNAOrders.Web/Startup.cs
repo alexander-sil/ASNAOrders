@@ -104,7 +104,7 @@ namespace ASNAOrders.Web
 
             services.AddDbContextFactory<ASNAOrdersDbContext>(options =>
             {
-                options.UseLazyLoadingProxies().UseSqlServer(@"Data Source=.\MSSQLSERVER2;Initial Catalog=AsnaOrders;User ID=sa;Password=Passlogin1.;TrustServerCertificate=True;App=ASNAOrders");
+                if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlite(StaticConfig.ConnectionString); };
             });
 
             services.AddSingleton<RabbitMQNotificationService>();
