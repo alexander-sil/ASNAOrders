@@ -31,7 +31,21 @@ namespace ASNAOrders.Web
             {
                 using FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 XmlSerializerFactory serializer = new XmlSerializerFactory();
-                serializer.CreateSerializer(typeof(Config)).Serialize(file, new Config() { DatabaseType = "sqlite", ConnectionString = $"Data Source={Properties.Resources.ConfigSqliteDbCacheFilename};Cache=Shared" });
+                serializer.CreateSerializer(typeof(Config)).Serialize(file, 
+                new Config() 
+                {
+                    DatabaseType = Properties.Resources.ConfigDatabaseType,
+                    InitialCatalog = Properties.Resources.ConfigInitialCatalog,
+                    MssqlServerHost = Properties.Resources.ConfigMssqlServerHost,
+                    MssqlServerPort = ushort.Parse(Properties.Resources.ConfigMssqlServerPort),
+                    MssqlServerUsername = Properties.Resources.ConfigMssqlUsername,
+                    MssqlServerPassword = Properties.Resources.ConfigMssqlDefaultPass,
+                    MailHost = Properties.Resources.ConfigMailHost,
+                    MailPort = ushort.Parse(Properties.Resources.ConfigMailPort),
+                    MailTo = Properties.Resources.ConfigMailTo,
+                    MailSSLOptions = Properties.Resources.ConfigMailSSLOptions,
+                    Sink = Properties.Resources.ConfigSerilogSink
+                });
             }
 
             using FileStream dfile = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);

@@ -277,7 +277,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sqlite.
+        ///   Looks up a localized string similar to mssqlserver.
         /// </summary>
         internal static string ConfigDatabaseType {
             get {
@@ -286,7 +286,25 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to localhost.
+        ///   Looks up a localized string similar to farmoffice.ru.
+        /// </summary>
+        internal static string ConfigDomain {
+            get {
+                return ResourceManager.GetString("ConfigDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AsnaOrders.
+        /// </summary>
+        internal static string ConfigInitialCatalog {
+            get {
+                return ResourceManager.GetString("ConfigInitialCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to farmofice.ru.
         /// </summary>
         internal static string ConfigMailHost {
             get {
@@ -304,7 +322,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSL.
+        ///   Looks up a localized string similar to none.
         /// </summary>
         internal static string ConfigMailSSLOptions {
             get {
@@ -313,7 +331,16 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to rabbitmq.local.
+        ///   Looks up a localized string similar to sanya.silitskiy2@yandex.ru.
+        /// </summary>
+        internal static string ConfigMailTo {
+            get {
+                return ResourceManager.GetString("ConfigMailTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to farmoffice.ru.
         /// </summary>
         internal static string ConfigMQHostname {
             get {
@@ -336,6 +363,15 @@ namespace ASNAOrders.Web.Properties {
         internal static string ConfigMQVHost {
             get {
                 return ResourceManager.GetString("ConfigMQVHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passlogin1..
+        /// </summary>
+        internal static string ConfigMssqlDefaultPass {
+            get {
+                return ResourceManager.GetString("ConfigMssqlDefaultPass", resourceCulture);
             }
         }
         

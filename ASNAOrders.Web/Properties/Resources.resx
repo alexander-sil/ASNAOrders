@@ -190,25 +190,37 @@
     <value>file-TEMP</value>
   </data>
   <data name="ConfigDatabaseType" xml:space="preserve">
-    <value>sqlite</value>
+    <value>mssqlserver</value>
+  </data>
+  <data name="ConfigDomain" xml:space="preserve">
+    <value>farmoffice.ru</value>
+  </data>
+  <data name="ConfigInitialCatalog" xml:space="preserve">
+    <value>AsnaOrders</value>
   </data>
   <data name="ConfigMailHost" xml:space="preserve">
-    <value>localhost</value>
+    <value>farmofice.ru</value>
   </data>
   <data name="ConfigMailPort" xml:space="preserve">
     <value>25</value>
   </data>
   <data name="ConfigMailSSLOptions" xml:space="preserve">
-    <value>SSL</value>
+    <value>none</value>
+  </data>
+  <data name="ConfigMailTo" xml:space="preserve">
+    <value>sanya.silitskiy2@yandex.ru</value>
   </data>
   <data name="ConfigMQHostname" xml:space="preserve">
-    <value>rabbitmq.local</value>
+    <value>farmoffice.ru</value>
   </data>
   <data name="ConfigMQPort" xml:space="preserve">
     <value>5672</value>
   </data>
   <data name="ConfigMQVHost" xml:space="preserve">
     <value>asna-orders</value>
+  </data>
+  <data name="ConfigMssqlDefaultPass" xml:space="preserve">
+    <value>Passlogin1.</value>
   </data>
   <data name="ConfigMssqlServerHost" xml:space="preserve">
     <value>localhost</value>
