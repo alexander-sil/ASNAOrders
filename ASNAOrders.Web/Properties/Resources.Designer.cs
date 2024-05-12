@@ -304,7 +304,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to farmofice.ru.
+        ///   Looks up a localized string similar to farmoffice.ru.
         /// </summary>
         internal static string ConfigMailHost {
             get {
@@ -331,7 +331,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sanya.silitskiy2@yandex.ru.
+        ///   Looks up a localized string similar to krykoff.vp@mail.ru.
         /// </summary>
         internal static string ConfigMailTo {
             get {
@@ -340,7 +340,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to farmoffice.ru.
+        ///   Looks up a localized string similar to localhost.
         /// </summary>
         internal static string ConfigMQHostname {
             get {
@@ -403,7 +403,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eventlog.
+        ///   Looks up a localized string similar to eventlog+mail*sys@farmoffice.ru.
         /// </summary>
         internal static string ConfigSerilogSink {
             get {

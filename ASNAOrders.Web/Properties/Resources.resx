@@ -199,7 +199,7 @@
     <value>AsnaOrders</value>
   </data>
   <data name="ConfigMailHost" xml:space="preserve">
-    <value>farmofice.ru</value>
+    <value>farmoffice.ru</value>
   </data>
   <data name="ConfigMailPort" xml:space="preserve">
     <value>25</value>
@@ -208,10 +208,10 @@
     <value>none</value>
   </data>
   <data name="ConfigMailTo" xml:space="preserve">
-    <value>sanya.silitskiy2@yandex.ru</value>
+    <value>krykoff.vp@mail.ru</value>
   </data>
   <data name="ConfigMQHostname" xml:space="preserve">
-    <value>farmoffice.ru</value>
+    <value>localhost</value>
   </data>
   <data name="ConfigMQPort" xml:space="preserve">
     <value>5672</value>
@@ -232,7 +232,7 @@
     <value>sa</value>
   </data>
   <data name="ConfigSerilogSink" xml:space="preserve">
-    <value>eventlog</value>
+    <value>eventlog+mail*sys@farmoffice.ru</value>
   </data>
   <data name="ConfigSigningKeyFile" xml:space="preserve">
     <value>skey</value>
