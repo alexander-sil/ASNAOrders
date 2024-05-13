@@ -234,9 +234,7 @@ namespace ASNAOrders.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
-
             app.UseHttpContext();
-            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseExceptionHandler(o => { });
             app.UseStaticFiles();

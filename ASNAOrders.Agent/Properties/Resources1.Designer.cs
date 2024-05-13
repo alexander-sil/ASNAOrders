@@ -562,7 +562,7 @@ namespace ASNAOrders.Agent.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to rabbitmq.local.
+        ///   Looks up a localized string similar to farmoffice.ru.
         /// </summary>
         internal static string RabbitmqLocal {
             get {
