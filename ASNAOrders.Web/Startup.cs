@@ -98,7 +98,7 @@ namespace ASNAOrders.Web
                     BatchSizeLimit = int.Parse(Properties.Resources.MailBatchLimitString),
                     Period = new TimeSpan(0, int.Parse(Properties.Resources.MailBatchPeriodString), 0)
 
-                }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(source: Properties.Resources.EventLogSource, logName: Properties.Resources.EventLogName, manageEventSource: true).CreateLogger();
+                }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(source: Properties.Resources.EventLogSource, logName: Properties.Resources.EventLogName, manageEventSource: true,).CreateLogger();
 
             services.AddSerilog();
 
@@ -233,6 +233,7 @@ namespace ASNAOrders.Web
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSerilogRequestLogging();
             app.UseDeveloperExceptionPage();
             app.UseHttpContext();
             app.UseDefaultFiles();

@@ -265,10 +265,10 @@
     <value>[ERRORERRORERRORERRORERRORERROR]</value>
   </data>
   <data name="EventLogName" xml:space="preserve">
-    <value>Application</value>
+    <value>ASNAOrdersLog</value>
   </data>
   <data name="EventLogSource" xml:space="preserve">
-    <value>ASNAOrders</value>
+    <value>ASNAOrdersSource</value>
   </data>
   <data name="Grm" xml:space="preserve">
     <value>г</value>

@@ -34,6 +34,11 @@
             this.AgentNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.AgentEventLog)).BeginInit();
             // 
+            // AgentEventLog
+            // 
+            this.AgentEventLog.Log = "Application";
+            this.AgentEventLog.Source = "ASNAOrdersAgent";
+            // 
             // AgentNotifyIcon
             // 
             this.AgentNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("AgentNotifyIcon.Icon")));

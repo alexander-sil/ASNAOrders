@@ -502,7 +502,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application.
+        ///   Looks up a localized string similar to ASNAOrdersLog.
         /// </summary>
         internal static string EventLogName {
             get {
@@ -511,7 +511,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ASNAOrders.
+        ///   Looks up a localized string similar to ASNAOrdersSource.
         /// </summary>
         internal static string EventLogSource {
             get {
