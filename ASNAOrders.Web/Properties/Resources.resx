@@ -216,8 +216,14 @@
   <data name="ConfigMQHostname" xml:space="preserve">
     <value>localhost</value>
   </data>
+  <data name="ConfigMQPassword" xml:space="preserve">
+    <value>administrator</value>
+  </data>
   <data name="ConfigMQPort" xml:space="preserve">
     <value>5672</value>
+  </data>
+  <data name="ConfigMQUsername" xml:space="preserve">
+    <value>administrator</value>
   </data>
   <data name="ConfigMQVHost" xml:space="preserve">
     <value>asna-orders</value>

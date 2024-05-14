@@ -45,7 +45,10 @@ namespace ASNAOrders.Web
                     MailTo = Properties.Resources.ConfigMailTo,
                     MailPassword = Properties.Resources.ConfigMailPassword,
                     MailSSLOptions = Properties.Resources.ConfigMailSSLOptions,
-                    Sink = Properties.Resources.ConfigSerilogSink
+                    Sink = Properties.Resources.ConfigSerilogSink,
+                    MQHostname = Properties.Resources.ConfigMQHostname,
+                    MQPort = ushort.Parse(Properties.Resources.ConfigMQPort),
+                    MQVHost = Properties.Resources.ConfigMQVHost
                 });
             }
 
