@@ -98,7 +98,7 @@ namespace ASNAOrders.Web
                     BatchSizeLimit = int.Parse(Properties.Resources.MailBatchLimitString),
                     Period = new TimeSpan(0, int.Parse(Properties.Resources.MailBatchPeriodString), 0)
 
-                }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(Assembly.GetExecutingAssembly().GetName().Name).CreateLogger();
+                }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(source: Properties.Resources.EventLogSource, manageEventSource: true).CreateLogger();
 
             services.AddSerilog();
 

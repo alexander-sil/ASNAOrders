@@ -502,6 +502,15 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ASNAOrders.
+        /// </summary>
+        internal static string EventLogSource {
+            get {
+                return ResourceManager.GetString("EventLogSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to г.
         /// </summary>
         internal static string Grm {
