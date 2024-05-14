@@ -31,7 +31,9 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices.RabbitMQ
             {
                 HostName = server,
                 Port = port,
-                VirtualHost = vhost
+                VirtualHost = vhost,
+                UserName = Properties.Resources.ConfigMQUsername,
+                Password = Properties.Resources.ConfigMQPassword
             };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();

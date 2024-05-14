@@ -30,7 +30,9 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 {
                     HostName = StaticConfig.MQHostname,
                     Port = StaticConfig.MQPort,
-                    VirtualHost = StaticConfig.MQVHost
+                    VirtualHost = StaticConfig.MQVHost,
+                    UserName = Properties.Resources.ConfigMQUsername,
+                    Password = Properties.Resources.ConfigMQPassword
                 };
 
                 using var connection = factory.CreateConnection();

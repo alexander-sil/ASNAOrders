@@ -313,11 +313,29 @@ namespace ASNAOrders.Web.Administration.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to administrator.
+        /// </summary>
+        internal static string ConfigMQPassword {
+            get {
+                return ResourceManager.GetString("ConfigMQPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 5672.
         /// </summary>
         internal static string ConfigMQPort {
             get {
                 return ResourceManager.GetString("ConfigMQPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to administrator.
+        /// </summary>
+        internal static string ConfigMQUsername {
+            get {
+                return ResourceManager.GetString("ConfigMQUsername", resourceCulture);
             }
         }
         

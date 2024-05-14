@@ -142,6 +142,12 @@
   <data name="BalloonTipClickedRun" xml:space="preserve">
     <value>eventvwr.msc</value>
   </data>
+  <data name="ConfigMQPassword" xml:space="preserve">
+    <value>administrator</value>
+  </data>
+  <data name="ConfigMQUsername" xml:space="preserve">
+    <value>administrator</value>
+  </data>
   <data name="DbSelectedColumns" xml:space="preserve">
     <value>item_desc,category,price,qtty,item_id,item_name,country,composition,barcode</value>
   </data>

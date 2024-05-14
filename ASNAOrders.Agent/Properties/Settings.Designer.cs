@@ -178,7 +178,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("rabbitmq.local")]
+        [global::System.Configuration.DefaultSettingValueAttribute("farmoffice.ru")]
         public string MQHostname {
             get {
                 return ((string)(this["MQHostname"]));
@@ -245,6 +245,30 @@ namespace ASNAOrders.Agent.Properties {
             }
             set {
                 this["LoadBalancingRowsPerFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("administrator")]
+        public string MQUsername {
+            get {
+                return ((string)(this["MQUsername"]));
+            }
+            set {
+                this["MQUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("administrator")]
+        public string MQPassword {
+            get {
+                return ((string)(this["MQPassword"]));
+            }
+            set {
+                this["MQPassword"] = value;
             }
         }
     }

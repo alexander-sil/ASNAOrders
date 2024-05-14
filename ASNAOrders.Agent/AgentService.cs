@@ -67,8 +67,10 @@ namespace ASNAOrders.Agent
                 {
                     var factory = new ConnectionFactory
                     {
-                        HostName = !string.IsNullOrEmpty(Properties.Settings.Default.MQHostname) ? Properties.Settings.Default.MQHostname : Properties.Resources.RabbitmqLocal,
+                        HostName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQHostname) ? Properties.Settings.Default.MQHostname : Properties.Resources.RabbitmqLocal,
                         Port = Properties.Settings.Default.MQPort != 0 ? Properties.Settings.Default.MQPort : 5672,
+                        UserName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQUsername) ? Properties.Settings.Default.MQUsername : Properties.Resources.ConfigMQUsername,
+                        Password = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQPassword) ? Properties.Settings.Default.MQPassword : Properties.Resources.ConfigMQPassword
 
                     };
 

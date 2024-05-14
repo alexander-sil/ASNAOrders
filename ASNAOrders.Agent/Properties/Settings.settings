@@ -42,7 +42,7 @@
       <Value Profile="(Default)">asna-orders</Value>
     </Setting>
     <Setting Name="MQHostname" Type="System.String" Scope="User">
-      <Value Profile="(Default)">rabbitmq.local</Value>
+      <Value Profile="(Default)">farmoffice.ru</Value>
     </Setting>
     <Setting Name="MQPort" Type="System.UInt16" Scope="User">
       <Value Profile="(Default)">5672</Value>
@@ -58,6 +58,12 @@
     </Setting>
     <Setting Name="LoadBalancingRowsPerFile" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">80</Value>
+    </Setting>
+    <Setting Name="MQUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">administrator</Value>
+    </Setting>
+    <Setting Name="MQPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">administrator</Value>
     </Setting>
   </Settings>
 </SettingsFile>
