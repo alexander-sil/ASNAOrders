@@ -264,6 +264,9 @@
   <data name="ErrorSecret" xml:space="preserve">
     <value>[ERRORERRORERRORERRORERRORERROR]</value>
   </data>
+  <data name="EventLogName" xml:space="preserve">
+    <value>Application</value>
+  </data>
   <data name="EventLogSource" xml:space="preserve">
     <value>ASNAOrders</value>
   </data>
