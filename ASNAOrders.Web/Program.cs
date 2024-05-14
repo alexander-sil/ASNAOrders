@@ -24,7 +24,7 @@ namespace ASNAOrders.Web
 
             if (!File.Exists(filename))
             {
-                File.Create(filename);
+                File.Create(filename).Dispose();
             }
 
             if (new FileInfo(filename).Length == 0)
