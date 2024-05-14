@@ -201,6 +201,9 @@
   <data name="ConfigMailHost" xml:space="preserve">
     <value>farmoffice.ru</value>
   </data>
+  <data name="ConfigMailPassword" xml:space="preserve">
+    <value>Passlogin1.</value>
+  </data>
   <data name="ConfigMailPort" xml:space="preserve">
     <value>25</value>
   </data>

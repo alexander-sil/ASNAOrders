@@ -313,6 +313,15 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passlogin1..
+        /// </summary>
+        internal static string ConfigMailPassword {
+            get {
+                return ResourceManager.GetString("ConfigMailPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 25.
         /// </summary>
         internal static string ConfigMailPort {

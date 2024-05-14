@@ -43,6 +43,7 @@ namespace ASNAOrders.Web
                     MailHost = Properties.Resources.ConfigMailHost,
                     MailPort = ushort.Parse(Properties.Resources.ConfigMailPort),
                     MailTo = Properties.Resources.ConfigMailTo,
+                    MailPassword = Properties.Resources.ConfigMailPassword,
                     MailSSLOptions = Properties.Resources.ConfigMailSSLOptions,
                     Sink = Properties.Resources.ConfigSerilogSink
                 });
