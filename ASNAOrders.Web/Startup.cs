@@ -50,6 +50,7 @@ using Serilog.Sinks.PeriodicBatching;
 using ASNAOrders.Web.Converters;
 using ASNAOrders.Web.NotificationServiceExtensions;
 using ASNAOrders.Web.OrdersServiceExtensions;
+using Serilog.Filters;
 
 namespace ASNAOrders.Web
 {
@@ -78,8 +79,10 @@ namespace ASNAOrders.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            Log.Logger = StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}.{StaticConfig.Sink.Split('*')[1]}").CreateLogger() :
-                StaticConfig.Sink.Contains("mail") ? new LoggerConfiguration().WriteTo.Email(new EmailSinkOptions()
+
+            Log.Logger = StaticConfig.Sink.Contains("debug") ? new LoggerConfiguration().WriteTo.Debug().CreateLogger() : StaticConfig.Sink.Contains("file") ? new LoggerConfiguration().WriteTo.File($"{StaticConfig.ErrorLogPrefix}.{StaticConfig.Sink.Split('*')[1]}", rollingInterval: RollingInterval.Hour).CreateLogger() :
+                StaticConfig.Sink.Contains("mail") ? new LoggerConfiguration().WriteTo.Logger(lc =>
+                lc.WriteTo.Email(new EmailSinkOptions()
                 {
                     From = StaticConfig.Sink.Split('*')[1],
                     ConnectionSecurity =
@@ -98,9 +101,9 @@ namespace ASNAOrders.Web
                     BatchSizeLimit = int.Parse(Properties.Resources.MailBatchLimitString),
                     Period = new TimeSpan(0, int.Parse(Properties.Resources.MailBatchPeriodString), 0)
 
-                }).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(source: Properties.Resources.EventLogSource, logName: Properties.Resources.EventLogName, manageEventSource: true).CreateLogger();
+                })).WriteTo.Logger(lc => lc.WriteTo.EventLog(source: Properties.Resources.EventLogSource, logName: Properties.Resources.EventLogName, manageEventSource: true)).CreateLogger() : new LoggerConfiguration().WriteTo.EventLog(source: Properties.Resources.EventLogSource, logName: Properties.Resources.EventLogName, manageEventSource: true).CreateLogger();
 
-            services.AddSerilog();
+            Log.Logger.Information($"Server running at {DateTime.Now}");
 
             services.AddDbContextFactory<ASNAOrdersDbContext>(options =>
             {

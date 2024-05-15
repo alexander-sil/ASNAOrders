@@ -23,6 +23,7 @@ using ASNAOrders.Web.Filters;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Converters;
+using Castle.Core.Logging;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -32,6 +33,8 @@ namespace ASNAOrders.Web.Controllers
     [ApiController]
     public class OrdersApiController : ControllerBase
     {
+        private readonly Microsoft.Extensions.Logging.ILogger<OrdersApiController> logger;
+
         /// <summary>
         /// Конвертер типов 
         /// </summary>
@@ -40,8 +43,9 @@ namespace ASNAOrders.Web.Controllers
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
-        public OrdersApiController(ASNAOrdersDbContext context, EntityModelConverter converter)
+        public OrdersApiController(ASNAOrdersDbContext context, EntityModelConverter converter, Microsoft.Extensions.Logging.ILogger<OrdersApiController> logger)
         {
+            this.logger = logger;
             Converter = converter;
         }
 

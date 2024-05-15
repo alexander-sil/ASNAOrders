@@ -31,6 +31,7 @@ using System.Security.Principal;
 using System.IO;
 using ASNAOrders.Web.Filters;
 using ASNAOrders.Web.ConfigServiceExtensions;
+using Castle.Core.Logging;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -40,6 +41,16 @@ namespace ASNAOrders.Web.Controllers
     [ApiController]
     public class AuthenticationApiController : ControllerBase
     {
+        private readonly Microsoft.Extensions.Logging.ILogger<AuthenticationApiController> _log;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        public AuthenticationApiController(Microsoft.Extensions.Logging.ILogger<AuthenticationApiController> logger)
+        {
+            _log = logger;
+        }
         /// <summary>
         /// Аутентификация в системе
         /// </summary>

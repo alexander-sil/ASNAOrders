@@ -340,7 +340,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to krykoff.vp@mail.ru.
+        ///   Looks up a localized string similar to sanya.silitskiy2@yandex.ru.
         /// </summary>
         internal static string ConfigMailTo {
             get {
@@ -556,7 +556,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5.
+        ///   Looks up a localized string similar to 1.
         /// </summary>
         internal static string MailBatchPeriodString {
             get {

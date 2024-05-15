@@ -23,6 +23,7 @@ using ASNAOrders.Web.Filters;
 using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Converters;
 using System.Net.Http.Json;
+using Microsoft.Extensions.Logging;
 
 
 namespace ASNAOrders.Web.Controllers
@@ -37,11 +38,15 @@ namespace ASNAOrders.Web.Controllers
         /// Конвертер типов 
         /// </summary>
         private EntityModelConverter Converter { get; set; }
+
+        private readonly ILogger<NomenclatureApiController> logger;
+
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
-        public NomenclatureApiController(ASNAOrdersDbContext context, EntityModelConverter converter)
+        public NomenclatureApiController(ASNAOrdersDbContext context, EntityModelConverter converter, ILogger<NomenclatureApiController> logger)
         {
+            this.logger = logger;
             Converter = converter;
         }
 

@@ -211,7 +211,7 @@
     <value>none</value>
   </data>
   <data name="ConfigMailTo" xml:space="preserve">
-    <value>krykoff.vp@mail.ru</value>
+    <value>sanya.silitskiy2@yandex.ru</value>
   </data>
   <data name="ConfigMQHostname" xml:space="preserve">
     <value>localhost</value>
@@ -283,7 +283,7 @@
     <value>30</value>
   </data>
   <data name="MailBatchPeriodString" xml:space="preserve">
-    <value>5</value>
+    <value>1</value>
   </data>
   <data name="MedicalGoodsString" xml:space="preserve">
     <value>Медицинское изделие</value>

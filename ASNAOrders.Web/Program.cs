@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 using System;
 using System.IO;
 using Serilog;
+using Serilog.AspNetCore;
+using Serilog.Extensions.Hosting;
+using System.Diagnostics;
 
 namespace ASNAOrders.Web
 {
@@ -20,6 +23,7 @@ namespace ASNAOrders.Web
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
+
             string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
 
             if (!File.Exists(filename))
@@ -48,7 +52,8 @@ namespace ASNAOrders.Web
                     Sink = Properties.Resources.ConfigSerilogSink,
                     MQHostname = Properties.Resources.ConfigMQHostname,
                     MQPort = ushort.Parse(Properties.Resources.ConfigMQPort),
-                    MQVHost = Properties.Resources.ConfigMQVHost
+                    MQVHost = Properties.Resources.ConfigMQVHost,
+                    XMLStockPath = Properties.Resources.ConfigXMLStockPath
                 });
             }
 
@@ -59,7 +64,7 @@ namespace ASNAOrders.Web
 
             CreateHostBuilder(args).Build().Run();
 
-            Log.CloseAndFlushAsync();
+            Log.CloseAndFlush();
         }
 
         /// <summary>
@@ -69,11 +74,11 @@ namespace ASNAOrders.Web
         /// <returns>IHostBuilder</returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
+                .UseSerilog(dispose: true)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                              .UseUrls("http://0.0.0.0:8080/");
+                       .UseUrls("http://0.0.0.0:8080/");
                 });
     }
 }

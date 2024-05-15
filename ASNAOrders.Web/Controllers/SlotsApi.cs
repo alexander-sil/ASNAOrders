@@ -22,6 +22,7 @@ using ASNAOrders.Web.Models;
 using ASNAOrders.Web.Filters;
 using ASNAOrders.Web.Data;
 using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
+using Castle.Core.Logging;
 
 namespace ASNAOrders.Web.Controllers
 {
@@ -32,6 +33,9 @@ namespace ASNAOrders.Web.Controllers
     [ApiController]
     public class SlotsApiController : ControllerBase
     {
+
+        private readonly Microsoft.Extensions.Logging.ILogger<SlotsApiController> logger;
+
         /// <summary>
         /// Контекст БД контроллера слотов
         /// </summary>
@@ -40,8 +44,9 @@ namespace ASNAOrders.Web.Controllers
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
-        public SlotsApiController(ASNAOrdersDbContext context)
+        public SlotsApiController(ASNAOrdersDbContext context, Microsoft.Extensions.Logging.ILogger<SlotsApiController> logger)
         {
+            this.logger = logger;
             Context = context;
         }
 
