@@ -9,7 +9,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
 {
     internal class Configuration
     {
-        public static string RabbitMQHostname { get; set; } = "rabbitmq.local";
+        public static string RabbitMQHostname { get; set; } = "localhost";
 
         public static ushort RabbitMQPort { get; set; } = 5672;
 
