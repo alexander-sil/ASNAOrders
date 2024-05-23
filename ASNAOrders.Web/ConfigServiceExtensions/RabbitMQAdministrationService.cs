@@ -16,11 +16,10 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
     /// </summary>
     public class RabbitMQAdministrationService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public class RabbitMQConfigService
-        {
+            public static IConnection Connection { get; private set; }
+
+            public static IModel Channel { get; private set; }
+            
             /// <summary>
             /// Initializes the RabbitMQ listener service and sets the event handler to update the config file.
             /// </summary>
@@ -35,10 +34,10 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                     Password = Properties.Resources.ConfigMQPassword
                 };
 
-                using var connection = factory.CreateConnection();
-                using var channel = connection.CreateModel();
+                Connection = factory.CreateConnection();
+                Channel = Connection.CreateModel();
 
-                channel.QueueDeclare(queue: Properties.Resources.AdminInQueue,
+                Channel.QueueDeclare(queue: Properties.Resources.AdminInQueue,
                                      durable: false,
                                      exclusive: false,
                                      autoDelete: false,
@@ -46,23 +45,26 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
                 Log.Information($"Waiting for RabbitMQ ADMIN-IN messages @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
 
-                var consumer = new EventingBasicConsumer(channel);
+                var consumer = new EventingBasicConsumer(Channel);
                 consumer.Received += OnReceived;
 
-                channel.BasicConsume(queue: Properties.Resources.AdminInQueue,
+                Channel.BasicConsume(queue: Properties.Resources.AdminInQueue,
                                      autoAck: true,
                                      consumer: consumer);
             }
 
             private static void OnReceived(object sender, BasicDeliverEventArgs e)
             {
+                
                 if (Encoding.UTF8.GetString(e.Body.ToArray()) == "NEED CONFIG")
                 {
                     var factory = new ConnectionFactory
                     {
                         HostName = StaticConfig.MQHostname,
                         Port = StaticConfig.MQPort,
-                        VirtualHost = StaticConfig.MQVHost
+                        VirtualHost = StaticConfig.MQVHost,
+                        UserName = Properties.Resources.ConfigMQUsername,
+                        Password = Properties.Resources.ConfigMQPassword
                     };
 
                     using var connection = factory.CreateConnection();
@@ -129,6 +131,6 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                     Log.Information($"Administration configuration notification issued to agent @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
                 }
             }       
-        }
+        
     }
 }

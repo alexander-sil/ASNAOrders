@@ -61,8 +61,16 @@ namespace ASNAOrders.Web
             StaticConfig.Load((Config)new XmlSerializerFactory().CreateSerializer(typeof(Config)).Deserialize(dfile));
 
             RabbitMQConfigService.Initialize();
+            RabbitMQAdministrationService.Initialize();
 
             CreateHostBuilder(args).Build().Run();
+
+            RabbitMQAdministrationService.Channel.Dispose();
+            RabbitMQAdministrationService.Connection.Dispose();
+
+
+            RabbitMQConfigService.Channel.Dispose();
+            RabbitMQConfigService.Connection.Dispose();
 
             Log.CloseAndFlush();
         }

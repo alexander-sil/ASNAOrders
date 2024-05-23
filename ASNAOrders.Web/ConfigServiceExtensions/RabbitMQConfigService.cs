@@ -16,6 +16,16 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
     public class RabbitMQConfigService
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public static IConnection Connection { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IModel Channel { get; private set; }
+
+        /// <summary>
         /// Initializes the RabbitMQ listener service and sets the event handler to update the config file.
         /// </summary>
         public static void Initialize()
@@ -29,10 +39,10 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 Password = Properties.Resources.ConfigMQPassword
             };
 
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            Connection = factory.CreateConnection();
+            Channel = Connection.CreateModel();
 
-            channel.QueueDeclare(queue: Properties.Resources.AdministrationQueue,
+            Channel.QueueDeclare(queue: Properties.Resources.AdministrationQueue,
                                  durable: true,
                                  exclusive: false,
                                  autoDelete: false,
@@ -40,10 +50,10 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
             Log.Information($"Waiting for RabbitMQ CONFIG messages @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
 
-            var consumer = new EventingBasicConsumer(channel);
+            var consumer = new EventingBasicConsumer(Channel);
             consumer.Received += OnReceived;
 
-            channel.BasicConsume(queue: Properties.Resources.AdministrationQueue,
+            Channel.BasicConsume(queue: Properties.Resources.AdministrationQueue,
                                  autoAck: true,
                                  consumer: consumer);
         }

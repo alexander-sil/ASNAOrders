@@ -15,6 +15,10 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices.RabbitMQ
     /// </summary>
     public static class RabbitMQService
     {
+        public static IConnection? Connection { get; private set; }
+
+        public static IModel? Channel { get; private set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -99,25 +103,29 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices.RabbitMQ
                 UserName = Properties.Resources.ConfigMQUsername,
                 Password = Properties.Resources.ConfigMQPassword
             };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            Connection = factory.CreateConnection();
+            Channel = Connection.CreateModel();
 
-            channel.QueueDeclare(queue: Properties.Resources.AdminOutQueue,
+            Channel.QueueDeclare(queue: Properties.Resources.AdminOutQueue,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
 
-            var consumer = new EventingBasicConsumer(channel);
+            var consumer = new EventingBasicConsumer(Channel);
 
             consumer.Received += OnReceived;
 
-            channel.BasicConsume(queue: Properties.Resources.AdminOutQueue,
+            Channel.BasicConsume(queue: Properties.Resources.AdminOutQueue,
                                  autoAck: true,
                                  consumer: consumer);
 
             RequestConfig(server, port, vhost);
-            Thread.Sleep(1000);
+
+            Thread.Sleep(5000);
+
+            Channel.Dispose();
+            Connection.Dispose();
 
             return ReceivedConfig;
         }

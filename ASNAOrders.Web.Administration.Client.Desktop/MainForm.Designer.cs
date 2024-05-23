@@ -1280,6 +1280,7 @@
             ButtonExitAction.TabIndex = 1;
             ButtonExitAction.Text = "Выход";
             ButtonExitAction.UseVisualStyleBackColor = true;
+            ButtonExitAction.Click += ButtonExitAction_Click;
             // 
             // ButtonApplyConfigurationAction
             // 
@@ -1342,6 +1343,7 @@
             Name = "MainForm";
             ShowIcon = false;
             Text = "Интерфейс администрации";
+            FormClosing += MainForm_FormClosing;
             CreateUser.ResumeLayout(false);
             CreateUser.PerformLayout();
             BanUser.ResumeLayout(false);

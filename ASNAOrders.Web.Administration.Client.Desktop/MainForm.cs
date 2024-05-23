@@ -80,7 +80,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
                 OpenApi.AuthenticationResponse response = new OpenApi.InterfaceClientFE($"{EditHostnameLogin.Text}:{EditPortLogin.Text}", new HttpClient()).Client.AuthenticateAsync(request).Result;
                 Configuration.AccessToken = response.AccessToken;
 
-                using HttpClient client = new HttpClient();
+                HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Configuration.AccessToken);
 
                 Configuration.ClientFE = new OpenApi.InterfaceClientFE($"{EditHostnameLogin.Text}:{EditPortLogin.Text}", client);
@@ -154,8 +154,11 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
                     ComboBoxDbTypeDatabase.SelectedIndex = 1;
                 }
 
+                LoggingOptions.Enabled = true;
+
                 if (conf.Sink.Contains("mail"))
                 {
+
                     PostOptions.Enabled = true;
 
                     EditMailHostPost.Text = conf.MailHost;
@@ -167,6 +170,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
 
                 if (conf.Sink.Contains("file"))
                 {
+                    ComboBoxSinkLogging.SelectedIndex = 2;
                     if (ComboBoxClientSecretTransmissionMethodSecretGenerator.SelectedIndex != 2 || ComboBoxSinkLogging.SelectedIndex != 1)
                     {
                         PostOptions.Enabled = false;
@@ -178,6 +182,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
                 }
                 else if (conf.Sink.Contains("mail"))
                 {
+                    ComboBoxSinkLogging.SelectedIndex = 1;
                     FileLoggingOptions.Enabled = false;
                     PostOptions.Enabled = true;
 
@@ -186,16 +191,42 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
                     EditMailUsernamePost.Text = conf.Sink.Split("*")[1];
                     EditMailPasswordPost.Text = conf.MailPassword;
                     EditMailPortPost.Text = conf.MailPort.ToString();
+
+                }
+                else if (conf.Sink.Contains("event"))
+                {
+                    ComboBoxSinkLogging.SelectedIndex = 0;
+                }
+
+                if (conf.MailSSLOptions.Contains("SSL"))
+                {
+                    ComboBoxMailSSLOptionsPost.SelectedIndex = 0;
+                }
+                else if (conf.MailSSLOptions.Contains("avail"))
+                {
+                    ComboBoxMailSSLOptionsPost.SelectedIndex = 1;
+                }
+                else if (conf.MailSSLOptions.Contains("uto"))
+                {
+                    ComboBoxMailSSLOptionsPost.SelectedIndex = 2;
+                }
+                else if (conf.MailSSLOptions.Contains("one"))
+                {
+                    ComboBoxMailSSLOptionsPost.SelectedIndex = 3;
                 }
 
                 EditMQHostnameRabbitMQ.Text = conf.MqHostname;
                 EditMQPortRabbitMQ.Text = conf.MqPort.ToString();
 
                 EditMQVhostRabbitMQ.Text = conf.MqvHost;
+
+                DBOptions.Enabled = false;
+                ButtonApplyConfigurationAction.Enabled = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}{Environment.NewLine}{ex.StackTrace}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ButtonApplyConfigurationAction.Enabled = false;
             }
         }
 
@@ -526,13 +557,29 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
 
                     ClientSecretTransmissionMethod = ComboBoxClientSecretTransmissionMethodSecretGenerator.SelectedIndex == 2 ? "email" : ComboBoxClientSecretTransmissionMethodSecretGenerator.SelectedIndex == 1 ? "file-INSECURE" : "file-TEMP",
                 });
-                ProgressBarStatusBarAction.Style = ProgressBarStyle.Blocks;
+
             }
             catch (Exception ex)
             {
-                ProgressBarStatusBarAction.Style = ProgressBarStyle.Blocks;
                 MessageBox.Show($"{ex.Message}{Environment.NewLine}{ex.StackTrace}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                ProgressBarStatusBarAction.Style = ProgressBarStyle.Blocks;
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Configuration.ClientFE is not null)
+            {
+                Configuration.ClientFE.Client.Dispose();
+            }
+        }
+
+        private void ButtonExitAction_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

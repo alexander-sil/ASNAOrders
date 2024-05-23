@@ -5,7 +5,7 @@
 namespace ASNAOrders.Web.Administration.Server.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,11 +14,11 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.Migrations
                 name: "Permissions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Operator = table.Column<bool>(type: "INTEGER", nullable: false),
-                    OptionsViewEdit = table.Column<bool>(type: "INTEGER", nullable: false),
-                    OptionsView = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Operator = table.Column<bool>(type: "bit", nullable: false),
+                    OptionsViewEdit = table.Column<bool>(type: "bit", nullable: false),
+                    OptionsView = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,14 +29,14 @@ namespace ASNAOrders.Web.Administration.Server.DataAccess.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
-                    PasswordHash = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
-                    EncryptedPasswordSalt = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
-                    BanIssued = table.Column<bool>(type: "INTEGER", nullable: false),
-                    BanReason = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
-                    PermissionsId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    EncryptedPasswordSalt = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    BanIssued = table.Column<bool>(type: "bit", nullable: false),
+                    BanReason = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    PermissionsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

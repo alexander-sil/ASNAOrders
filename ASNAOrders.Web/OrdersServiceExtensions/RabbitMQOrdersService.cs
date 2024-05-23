@@ -22,8 +22,17 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
     /// <summary>
     /// 
     /// </summary>
-    public class RabbitMQOrdersService
+    public class RabbitMQOrdersService : IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IConnection Connection { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IModel Channel { get; private set; }
 
         /// <summary>
         /// 
@@ -47,10 +56,10 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
                 Password = Properties.Resources.ConfigMQPassword
             };
 
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            Connection = factory.CreateConnection();
+            Channel = Connection.CreateModel();
 
-            channel.QueueDeclare(queue: Properties.Resources.OrdersQueueString,
+            Channel.QueueDeclare(queue: Properties.Resources.OrdersQueueString,
                                  durable: true,
                                  exclusive: false,
                                  autoDelete: false,
@@ -58,10 +67,10 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
 
             Log.Information($"Waiting for RabbitMQ ORDERS messages @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
 
-            var consumer = new EventingBasicConsumer(channel);
+            var consumer = new EventingBasicConsumer(Channel);
             consumer.Received += OnReceived;
 
-            channel.BasicConsume(queue: Properties.Resources.OrdersQueueString,
+            Channel.BasicConsume(queue: Properties.Resources.OrdersQueueString,
                                  autoAck: true,
                                  consumer: consumer);
         }
@@ -72,6 +81,24 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
 
             string placeId = (string)root["placeId"];
             EntityModelConverter.PlaceResponse = placeId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Dispose()
+        {
+            Channel.Dispose();
+            Connection.Dispose();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ~RabbitMQOrdersService()
+        {
+            this.Dispose();
         }
     }
 }

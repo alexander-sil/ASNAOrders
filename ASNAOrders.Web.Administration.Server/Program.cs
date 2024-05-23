@@ -17,7 +17,7 @@ namespace ASNAOrders.Web.Administration.Server
             // Add services to the container.
             builder.Services.AddDbContext<CustomDbContext>(options =>
             {
-                options.UseLazyLoadingProxies().UseSqlite(builder.Configuration.GetConnectionString("Sqlite"));
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
             });
 
             builder.Services.AddControllers();

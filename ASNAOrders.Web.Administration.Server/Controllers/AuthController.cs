@@ -119,7 +119,11 @@ namespace ASNAOrders.Web.Administration.Server.Controllers
                     {
                         Result = true,
                         AccessToken = stringToken,
-                        Information = null
+                        Information = new AuthenticationResponseErrorsInner()
+                        {
+                            Code = "0",
+                            Message = "Success"
+                        }
                     });
                 }
                 return Unauthorized(Properties.Resources.UnauthString);

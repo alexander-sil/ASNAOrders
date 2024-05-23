@@ -18,6 +18,11 @@ namespace ASNAOrders.Agent
 {
     public partial class AgentService : ServiceBase
     {
+
+        private IConnection Connection { get; set; }
+
+        private IModel Channel { get; set; }
+
         private Logic Logic { get; set; }
         public AgentService()
         {
@@ -74,25 +79,26 @@ namespace ASNAOrders.Agent
 
                     };
 
-                    using (var connection = factory.CreateConnection())
-                    {
-                        using (var channel = connection.CreateModel())
-                        {
-                            var consumer = new EventingBasicConsumer(channel);
 
-                            consumer.Received += Logic.OnReceiveNotification;
+                    Connection = factory.CreateConnection();
 
-                            channel.QueueDeclare(queue: Properties.Resources.NotifyQueueProperty,
+                    Channel = Connection.CreateModel();
+      
+                    var consumer = new EventingBasicConsumer(Channel);
+
+                    consumer.Received += Logic.OnReceiveNotification;
+
+                    Channel.QueueDeclare(queue: Properties.Resources.NotifyQueueProperty,
                                                  durable: true,
                                                  exclusive: false,
                                                  autoDelete: false,
                                                  arguments: null);
 
-                            channel.BasicConsume(queue: Properties.Resources.NotifyQueueProperty,
+                    Channel.BasicConsume(queue: Properties.Resources.NotifyQueueProperty,
                                 autoAck: true,
                                 consumer: consumer);
-                        }
-                    }
+                        
+                    
                 }  
             }
         }
@@ -109,6 +115,12 @@ namespace ASNAOrders.Agent
 
         protected override void OnStop()
         {
+            if ((Connection != null) || (Channel != null))
+            {
+                Channel.Dispose();
+                Connection.Dispose();
+            }
+
             AgentEventLog.Dispose();
         }
     }
