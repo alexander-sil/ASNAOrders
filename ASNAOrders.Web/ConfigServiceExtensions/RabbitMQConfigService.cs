@@ -119,10 +119,14 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
             Log.Information($"Start configuration reset procedure at {DateTime.Now}");
 
-            if (File.Exists(filename))
+            try
             {
                 File.Delete(filename);
                 Log.Information($"Config file reset at {DateTime.Now}");
+            }
+            catch
+            {
+                Log.Information($"{DateTime.Now} Config file at {filename} not found");
             }
 
             using FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
