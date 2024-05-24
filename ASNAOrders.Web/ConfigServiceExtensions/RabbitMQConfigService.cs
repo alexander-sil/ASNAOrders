@@ -117,9 +117,12 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
             string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
 
+            Log.Information($"Start configuration reset procedure at {DateTime.Now}");
+
             if (File.Exists(filename))
             {
                 File.Delete(filename);
+                Log.Information($"Config file reset at {DateTime.Now}");
             }
 
             using FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);

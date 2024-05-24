@@ -42,19 +42,27 @@ namespace ASNAOrders.Web.LogicServices
 
             Log.Information($"Started ImageWatcherService at {DateTime.Now}");
 
-            if (!Directory.Exists(StaticConfig.XMLStockPath))
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath);
+
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(StaticConfig.XMLStockPath);
+                Directory.CreateDirectory(path);
+                Log.Information($"XML directory created at {path}. Please point the FTP server to this exact folder.");
             }
 
-            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath)))
+            string path1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath);
+
+            if (!Directory.Exists(path1))
             {
-                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath));
+                Directory.CreateDirectory(path1);
+                Log.Information($"Images directory created at {path1}");
             }
 
-            if (!System.IO.File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)))
+            string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)
+
+            if (!System.IO.File.Exists(path2))
             {
-                System.IO.File.Create(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)).Dispose();
+                System.IO.File.Create(path2).Dispose();
             }
 
             if (new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)).Length == 0)
