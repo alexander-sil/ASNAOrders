@@ -58,7 +58,7 @@ namespace ASNAOrders.Web.LogicServices
                 Log.Information($"Images directory created at {path1}");
             }
 
-            string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)
+            string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath);
 
             if (!System.IO.File.Exists(path2))
             {
