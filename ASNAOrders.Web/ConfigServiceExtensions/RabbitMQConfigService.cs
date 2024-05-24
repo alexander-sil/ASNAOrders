@@ -60,6 +60,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
         private static void OnReceived(object sender, BasicDeliverEventArgs e)
         {
+            Log.Information($"Config accepted at {DateTime.Now}");
             JToken root = JToken.Parse(Encoding.UTF8.GetString(e.Body.ToArray()));
 
             Config config = new Config()

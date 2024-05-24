@@ -61,7 +61,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
                 || string.IsNullOrWhiteSpace(EditMQVhostRabbitMQ.Text))
 
             {
-                MessageBox.Show($"Не задано значение одного или нескольких из обязательных параметров", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"Не задано значение одного или нескольких обязательных параметров", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -512,6 +512,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
 
         private void ButtonApplyConfigurationAction_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Начало выдачи конфигурации", "Инфо", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             ProgressBarStatusBarAction.Style = ProgressBarStyle.Marquee;
 
             try

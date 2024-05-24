@@ -171,6 +171,9 @@
   <data name="ASNATinystashUploadUri" xml:space="preserve">
     <value>https://tinystash.undef.im/upload/file</value>
   </data>
+  <data name="ASNATinystashUploadUriAlt" xml:space="preserve">
+    <value>https://tinystash.undef.im/upload/file</value>
+  </data>
   <data name="ASNAVendor" xml:space="preserve">
     <value>Производитель не указан продавцом</value>
   </data>

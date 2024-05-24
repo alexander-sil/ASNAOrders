@@ -223,6 +223,15 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://tinystash.undef.im/upload/file.
+        /// </summary>
+        internal static string ASNATinystashUploadUriAlt {
+            get {
+                return ResourceManager.GetString("ASNATinystashUploadUriAlt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Производитель не указан продавцом.
         /// </summary>
         internal static string ASNAVendor {
