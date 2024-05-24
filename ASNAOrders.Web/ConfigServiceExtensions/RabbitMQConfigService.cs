@@ -115,7 +115,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 ClientSecretTransmissionMethod = (string)root["clientSecretTransmissionMethod"]
             };
 
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
+            string filename = Program.ConfigFilename;
 
             Log.Information($"Start configuration reset procedure at {DateTime.Now}");
 

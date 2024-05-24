@@ -2,6 +2,7 @@
 using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Data.Stocks;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Globalization;
 using System.IO;
@@ -35,12 +36,15 @@ namespace ASNAOrders.Web.LogicServices
             using var context = contextFactory.CreateDbContext();
             Context = context;
 
-            if (!Directory.Exists(StaticConfig.XMLStockPath))
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath);
+
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(StaticConfig.XMLStockPath);
+                Directory.CreateDirectory(path);
+                Log.Information($"XML directory created at {path}. Please point the FTP server to this exact folder.");
             }
 
-            foreach (FileInfo file in new DirectoryInfo(StaticConfig.XMLStockPath).EnumerateFiles())
+            foreach (FileInfo file in new DirectoryInfo(path).EnumerateFiles())
             {
                 DateTime date = DateTime.ParseExact(Regex.Replace(file.Name, @"_.*\.xml", string.Empty), Properties.Resources.DefaultDateFormatString, new CultureInfo("nl-NL"));
                 XDocument document = XDocument.Parse(File.ReadAllText(file.FullName));

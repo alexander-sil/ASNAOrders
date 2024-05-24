@@ -12,11 +12,17 @@ using System.Diagnostics;
 
 namespace ASNAOrders.Web
 {
+#nullable enable
     /// <summary>
     /// Program
     /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string? ConfigFilename { get; set; } = "";
+
         /// <summary>
         /// Main
         /// </summary>
@@ -25,6 +31,7 @@ namespace ASNAOrders.Web
         {
 
             string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
+            ConfigFilename = filename;
 
             if (!File.Exists(filename))
             {
