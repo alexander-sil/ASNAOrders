@@ -124,16 +124,18 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 File.Delete(filename);
                 Log.Information($"Config file reset at {DateTime.Now}");
             }
-            catch
+            catch (Exception ex)
             {
-                Log.Information($"{DateTime.Now} Config file at {filename} not found");
+                Log.Information($"{DateTime.Now} Config file at {filename} not found. {ex.Message} at {ex.StackTrace}");
             }
 
-            using FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             XmlSerializerFactory serializer = new XmlSerializerFactory();
 
             serializer.CreateSerializer(typeof(Config)).Serialize(file, config);
             StaticConfig.Load((Config)serializer.CreateSerializer(typeof(Config)).Deserialize(file));
+
+            file.Dispose();
         }
     }
 }

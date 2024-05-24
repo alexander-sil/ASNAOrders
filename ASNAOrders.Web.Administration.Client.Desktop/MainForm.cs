@@ -546,7 +546,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
                     MssqlServerUsername = EditUsernameMssql.Text,
                     MssqlServerPassword = EditPasswordMssql.Text,
 
-                    Sink = ComboBoxSinkLogging.SelectedIndex == 1 ? $"eventlog+mail*{EditMailUsernamePost}" : ComboBoxSinkLogging.SelectedIndex == 2 ? $"file*{EditFilenameFileLogging}" : "eventlog",
+                    Sink = ComboBoxSinkLogging.SelectedIndex == 1 ? $"eventlog+mail*{EditMailUsernamePost.Text}" : ComboBoxSinkLogging.SelectedIndex == 2 ? $"file*{EditFilenameFileLogging.Text}" : "eventlog",
                     ErrorLogPrefix = EditPrefixFileLogging.Text,
 
                     MailPassword = EditMailPasswordPost.Text,

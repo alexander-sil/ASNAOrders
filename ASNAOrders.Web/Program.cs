@@ -40,7 +40,7 @@ namespace ASNAOrders.Web
 
             if (new FileInfo(filename).Length == 0)
             {
-                using FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                FileStream file = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 XmlSerializerFactory serializer = new XmlSerializerFactory();
                 serializer.CreateSerializer(typeof(Config)).Serialize(file, 
                 new Config() 
@@ -62,10 +62,13 @@ namespace ASNAOrders.Web
                     MQVHost = Properties.Resources.ConfigMQVHost,
                     XMLStockPath = Properties.Resources.ConfigXMLStockPath
                 });
+                file.Dispose();
             }
 
-            using FileStream dfile = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream dfile = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             StaticConfig.Load((Config)new XmlSerializerFactory().CreateSerializer(typeof(Config)).Deserialize(dfile));
+
+            dfile.Dispose();
 
             RabbitMQConfigService.Initialize();
             RabbitMQAdministrationService.Initialize();
