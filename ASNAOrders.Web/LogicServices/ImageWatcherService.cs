@@ -19,7 +19,7 @@ namespace ASNAOrders.Web.LogicServices
     /// <summary>
     /// Logic service to watch for new and existing images uploaded to {StaticConfig.XMLStockPath}\images directory.
     /// </summary>
-    public class ImageWatcherService : IWatcherService
+    public class ImageWatcherService
     {
         /// <summary>
         /// 

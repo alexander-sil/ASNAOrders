@@ -15,7 +15,7 @@ namespace ASNAOrders.Web.LogicServices
     /// <summary>
     /// Service to watch for stock uploads from agent. XML format is used.
     /// </summary>
-    public class XMLStockWatcherService : IWatcherService
+    public class XMLStockWatcherService
     {
         /// <summary>
         /// 

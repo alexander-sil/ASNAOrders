@@ -115,8 +115,8 @@ namespace ASNAOrders.Web
             services.AddSingleton<RabbitMQOrdersService>();
             services.AddSingleton<DataFormattingService>();
 
-            services.AddSingleton<IWatcherService, XMLStockWatcherService>();
-            services.AddSingleton<IWatcherService, ImageWatcherService>();
+            services.AddSingleton<XMLStockWatcherService>();
+            services.AddSingleton<ImageWatcherService>();
 
 
             services.AddExceptionHandler<CustomExceptionHandler>();
