@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -43,13 +44,8 @@ namespace ASNAOrders.Web.LogicServices
             using var context = contextFactory.CreateDbContext();
             Context = context;
 
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath);
+            string path = Program.XMLPath;
 
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-                Logger.LogInformation($"XML directory created at {path}. Please point the FTP server to this exact folder.");
-            }
 
             foreach (FileInfo file in new DirectoryInfo(path).EnumerateFiles())
             {
@@ -81,7 +77,7 @@ namespace ASNAOrders.Web.LogicServices
 
             Context.SaveChanges();
 
-            Watcher = new FileSystemWatcher(StaticConfig.XMLStockPath);
+            Watcher = new FileSystemWatcher(Program.XMLPath);
 
             Watcher.Created += OnUpload;
         }

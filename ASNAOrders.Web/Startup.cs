@@ -110,13 +110,16 @@ namespace ASNAOrders.Web
                 if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlite(StaticConfig.ConnectionString); };
             });
 
+
+            services.AddSingleton<XMLStockWatcherService>();
+            services.AddSingleton<ImageWatcherService>();
+
             services.AddSingleton<RabbitMQNotificationService>();
             services.AddSingleton<EntityModelConverter>();
             services.AddSingleton<RabbitMQOrdersService>();
             services.AddSingleton<DataFormattingService>();
 
-            services.AddSingleton<XMLStockWatcherService>();
-            services.AddSingleton<ImageWatcherService>();
+
 
 
             services.AddExceptionHandler<CustomExceptionHandler>();

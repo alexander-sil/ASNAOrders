@@ -48,32 +48,9 @@ namespace ASNAOrders.Web.LogicServices
 
             Logger.LogInformation($"Started ImageWatcherService at {DateTime.Now}");
 
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath);
-
-            if (!Directory.Exists(path))
+            if (new FileInfo(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)).Length == 0)
             {
-                Directory.CreateDirectory(path);
-                Logger.LogInformation($"XML directory created at {path}. Please point the FTP server to this exact folder.");
-            }
-
-            string path1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath);
-
-            if (!Directory.Exists(path1))
-            {
-                Directory.CreateDirectory(path1);
-                Logger.LogInformation($"Images directory created at {path1}");
-            }
-
-            string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath);
-
-            if (!System.IO.File.Exists(path2))
-            {
-                System.IO.File.Create(path2).Dispose();
-            }
-
-            if (new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath)).Length == 0)
-            {
-                foreach (FileInfo file in new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath)).EnumerateFiles())
+                foreach (FileInfo file in new DirectoryInfo(Program.ImagePath).EnumerateFiles())
                 {
                     using HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, Properties.Resources.ASNATinystashUploadUriAlt);
                     using HttpClient client = new HttpClient();
@@ -88,12 +65,12 @@ namespace ASNAOrders.Web.LogicServices
                     HttpResponseMessage response = client.Send(message);
                     string url = response.EnsureSuccessStatusCode().Content.ToString();
 
-                    System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(file.Name, file.Extension, string.Empty)}\t{url}{Environment.NewLine}");
+                    System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(file.Name, file.Extension, string.Empty)}\t{url}{Environment.NewLine}");
                 }
             }
 
 
-            Watcher = new FileSystemWatcher(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath));
+            Watcher = new FileSystemWatcher(Program.ImagePath);
 
             Watcher.Created += OnUpload;
         }
@@ -113,7 +90,7 @@ namespace ASNAOrders.Web.LogicServices
             HttpResponseMessage response = client.Send(message);
             string url = response.EnsureSuccessStatusCode().Content.ToString();
 
-            System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
+            System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
         }
 
         /// <summary>
@@ -123,7 +100,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <returns>Tinystash.undef.im URL for the concrete product image.</returns>
         public static string GetImageTinystash(string unicode)
         {
-            string[] data = System.IO.File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath));
+            string[] data = System.IO.File.ReadAllLines(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath));
 
             foreach (string line in data)
             {
@@ -143,7 +120,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <returns>SHA-1 hash contained in hexadecimal string form.</returns>
         public static string GetImageSha1(string unicode)
         {
-            foreach (FileInfo file in new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath)).EnumerateFiles())
+            foreach (FileInfo file in new DirectoryInfo(Program.ImagePath).EnumerateFiles())
             {
                 if (file.Name.Contains(unicode))
                 {

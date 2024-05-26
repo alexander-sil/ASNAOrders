@@ -24,11 +24,22 @@ namespace ASNAOrders.Web
         public static string? ConfigFilename { get; set; } = "";
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static string? XMLPath { get; set; } = "";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string? ImagePath { get; set; } = "";
+
+        /// <summary>
         /// Main
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
+
 
             string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
             ConfigFilename = filename;
@@ -69,6 +80,27 @@ namespace ASNAOrders.Web
             StaticConfig.Load((Config)new XmlSerializerFactory().CreateSerializer(typeof(Config)).Deserialize(dfile));
 
             dfile.Dispose();
+
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath);
+            string path1 = Path.Combine(path, Properties.Resources.ASNAImagesPath);
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                string message = $"XML directory created at {path}. Please point the FTP server to this exact folder.";
+
+                Log.Information(message);
+
+                if (!Directory.Exists(path1))
+                {
+                    Directory.CreateDirectory(path1);
+                    Log.Information($"Images directory created at {path1}");
+                }
+            }
+
+            XMLPath = path;
+            ImagePath = path1;
 
             RabbitMQConfigService.Initialize();
             RabbitMQAdministrationService.Initialize();
