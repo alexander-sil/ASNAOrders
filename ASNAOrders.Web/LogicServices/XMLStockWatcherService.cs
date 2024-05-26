@@ -2,6 +2,7 @@
 using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Data.Stocks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Globalization;
@@ -28,11 +29,17 @@ namespace ASNAOrders.Web.LogicServices
         public FileSystemWatcher Watcher { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public ILogger<XMLStockWatcherService> Logger { get; set; }
+
+        /// <summary>
         /// Constructor for native instantiation. DI use only.
         /// </summary>
         /// <param name="contextFactory">Database context to write to. NativeStocks table is used.</param>
-        public XMLStockWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory) 
-        { 
+        public XMLStockWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory, ILogger<XMLStockWatcherService> logger) 
+        {
+            Logger = logger;
             using var context = contextFactory.CreateDbContext();
             Context = context;
 
@@ -41,7 +48,7 @@ namespace ASNAOrders.Web.LogicServices
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
-                Log.Information($"XML directory created at {path}. Please point the FTP server to this exact folder.");
+                Logger.LogInformation($"XML directory created at {path}. Please point the FTP server to this exact folder.");
             }
 
             foreach (FileInfo file in new DirectoryInfo(path).EnumerateFiles())

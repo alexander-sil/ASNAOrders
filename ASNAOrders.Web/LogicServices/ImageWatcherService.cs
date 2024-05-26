@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
+using Microsoft.Extensions.Logging;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -32,22 +33,27 @@ namespace ASNAOrders.Web.LogicServices
         public FileSystemWatcher Watcher { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public ILogger<ImageWatcherService> Logger { get; set; }
+
+        /// <summary>
         /// Constructor for native instantiation. DI use only.
         /// </summary>
         /// <param name="contextFactory">Database context to write to. Stocks table is used.</param>
-        public ImageWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
+        public ImageWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory, ILogger<ImageWatcherService> logger)
         {
             using var context = contextFactory.CreateDbContext();
             Context = context;
 
-            Log.Information($"Started ImageWatcherService at {DateTime.Now}");
+            Logger.LogInformation($"Started ImageWatcherService at {DateTime.Now}");
 
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath);
 
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
-                Log.Information($"XML directory created at {path}. Please point the FTP server to this exact folder.");
+                Logger.LogInformation($"XML directory created at {path}. Please point the FTP server to this exact folder.");
             }
 
             string path1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImagesPath);
@@ -55,7 +61,7 @@ namespace ASNAOrders.Web.LogicServices
             if (!Directory.Exists(path1))
             {
                 Directory.CreateDirectory(path1);
-                Log.Information($"Images directory created at {path1}");
+                Logger.LogInformation($"Images directory created at {path1}");
             }
 
             string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, StaticConfig.XMLStockPath, Properties.Resources.ASNAImageListPath);
