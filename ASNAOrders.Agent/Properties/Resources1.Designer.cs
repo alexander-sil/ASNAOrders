@@ -399,6 +399,33 @@ namespace ASNAOrders.Agent.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка RabbitMQ. Для получения подробной информации см. Журнал событий..
+        /// </summary>
+        internal static string ErrorMessageRabbitMQDescTray {
+            get {
+                return ResourceManager.GetString("ErrorMessageRabbitMQDescTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка RabbitMQ..
+        /// </summary>
+        internal static string ErrorMessageRabbitMQLog {
+            get {
+                return ResourceManager.GetString("ErrorMessageRabbitMQLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка RabbitMQ.
+        /// </summary>
+        internal static string ErrorMessageRabbitMQTitleTray {
+            get {
+                return ResourceManager.GetString("ErrorMessageRabbitMQTitleTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка SQL. Неверный формат запроса. .
         /// </summary>
         internal static string ErrorMessageSqlExcSyntaxLog {

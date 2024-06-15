@@ -229,6 +229,15 @@
   <data name="ErrorMessageInfoXMLRootLog" xml:space="preserve">
     <value>Произошла ошибка парсинга XML-информации. </value>
   </data>
+  <data name="ErrorMessageRabbitMQDescTray" xml:space="preserve">
+    <value>Произошла ошибка RabbitMQ. Для получения подробной информации см. Журнал событий.</value>
+  </data>
+  <data name="ErrorMessageRabbitMQLog" xml:space="preserve">
+    <value>Произошла ошибка RabbitMQ.</value>
+  </data>
+  <data name="ErrorMessageRabbitMQTitleTray" xml:space="preserve">
+    <value>Ошибка RabbitMQ</value>
+  </data>
   <data name="ErrorMessageSqlExcSyntaxLog" xml:space="preserve">
     <value>Ошибка SQL. Неверный формат запроса. </value>
   </data>

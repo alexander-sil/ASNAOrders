@@ -37,74 +37,89 @@ namespace ASNAOrders.Agent
 
         protected override void OnStart(string[] args)
         {
-
-            if (Properties.Settings.Default.Disabled == true)
+            try
             {
-                AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.DisabledIcon.GetHicon());
-
-                AgentNotifyIcon.BalloonTipClicked += AgentNotifyIconClicked;
-            }
-
-            if (Properties.Settings.Default.Disabled == false)
-            {
-                if (Properties.Settings.Default.PlaceId == 0)
+                if (Properties.Settings.Default.Disabled == true)
                 {
-                    Properties.Settings.Default.PlaceId = new Random().Next(1, int.MaxValue);
-                    Properties.Settings.Default.Save();
+                    AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.DisabledIcon.GetHicon());
+
+                    AgentNotifyIcon.BalloonTipClicked += AgentNotifyIconClicked;
                 }
 
-                AgentEventLog.WriteEntry($"{DateTime.Now} {Assembly.GetExecutingAssembly().GetName().Name} " + Properties.Resources.VersionWord + $" {Assembly.GetExecutingAssembly().GetName().Version} " + Properties.Resources.AtYourService);
-                AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ReadyIcon.GetHicon());
-
-                AgentNotifyIcon.BalloonTipClicked += AgentNotifyIconClicked;
-
-                StdSchedulerFactory schFactory = new StdSchedulerFactory();
-                var scheduler = schFactory.GetScheduler().Result;
-
-                var job = new JobDetailImpl(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup, typeof(Logic));
-
-                var trigger = TriggerBuilder.Create()
-                    .WithIdentity(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup)
-                    .WithSimpleSchedule(x => x
-                        .WithInterval(new TimeSpan(days: (int)Properties.Settings.Default.RepeatIntervalInDays, 0, 0 ,0))
-                        .RepeatForever())
-                    .Build();
-
-                scheduler.AddJob(job, true);
-                scheduler.ScheduleJob(trigger);
-
-                if (Properties.Settings.Default.ListenForOrders)
+                if (Properties.Settings.Default.Disabled == false)
                 {
-                    var factory = new ConnectionFactory
+                    if (Properties.Settings.Default.PlaceId == 0)
                     {
-                        HostName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQHostname) ? Properties.Settings.Default.MQHostname : Properties.Resources.RabbitmqLocal,
-                        Port = Properties.Settings.Default.MQPort != 0 ? Properties.Settings.Default.MQPort : 5672,
-                        UserName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQUsername) ? Properties.Settings.Default.MQUsername : Properties.Resources.ConfigMQUsername,
-                        Password = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQPassword) ? Properties.Settings.Default.MQPassword : Properties.Resources.ConfigMQPassword
+                        Properties.Settings.Default.PlaceId = new Random().Next(1, int.MaxValue);
+                        Properties.Settings.Default.Save();
+                    }
 
-                    };
+                    AgentEventLog.WriteEntry($"{DateTime.Now} {Assembly.GetExecutingAssembly().GetName().Name} " + Properties.Resources.VersionWord + $" {Assembly.GetExecutingAssembly().GetName().Version} " + Properties.Resources.AtYourService);
+                    AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ReadyIcon.GetHicon());
+
+                    AgentNotifyIcon.BalloonTipClicked += AgentNotifyIconClicked;
+
+                    StdSchedulerFactory schFactory = new StdSchedulerFactory();
+                    var scheduler = schFactory.GetScheduler().Result;
+
+                    var job = new JobDetailImpl(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup, typeof(Logic));
+
+                    var trigger = TriggerBuilder.Create()
+                        .WithIdentity(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup)
+                        .WithSimpleSchedule(x => x
+                            .WithInterval(new TimeSpan(days: (int)Properties.Settings.Default.RepeatIntervalInDays, 0, 0, 0))
+                            .RepeatForever())
+                        .Build();
+
+                    scheduler.AddJob(job, true);
+                    scheduler.ScheduleJob(trigger);
+
+                    if (Properties.Settings.Default.ListenForOrders)
+                    {
+                        var factory = new ConnectionFactory
+                        {
+                            HostName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQHostname) ? Properties.Settings.Default.MQHostname : Properties.Resources.RabbitmqLocal,
+                            Port = Properties.Settings.Default.MQPort != 0 ? Properties.Settings.Default.MQPort : 5672,
+                            UserName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQUsername) ? Properties.Settings.Default.MQUsername : Properties.Resources.ConfigMQUsername,
+                            Password = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQPassword) ? Properties.Settings.Default.MQPassword : Properties.Resources.ConfigMQPassword
+
+                        };
 
 
-                    Connection = factory.CreateConnection();
+                        Connection = factory.CreateConnection();
 
-                    Channel = Connection.CreateModel();
-      
-                    var consumer = new EventingBasicConsumer(Channel);
+                        Channel = Connection.CreateModel();
 
-                    consumer.Received += Logic.OnReceiveNotification;
+                        var consumer = new EventingBasicConsumer(Channel);
 
-                    Channel.QueueDeclare(queue: Properties.Resources.NotifyQueueProperty,
-                                                 durable: true,
-                                                 exclusive: false,
-                                                 autoDelete: false,
-                                                 arguments: null);
+                        consumer.Received += Logic.OnReceiveNotification;
 
-                    Channel.BasicConsume(queue: Properties.Resources.NotifyQueueProperty,
-                                autoAck: true,
-                                consumer: consumer);
-                        
-                    
-                }  
+                        Channel.QueueDeclare(queue: Properties.Resources.NotifyQueueProperty,
+                                                     durable: true,
+                                                     exclusive: false,
+                                                     autoDelete: false,
+                                                     arguments: null);
+
+                        Channel.BasicConsume(queue: Properties.Resources.NotifyQueueProperty,
+                                    autoAck: true,
+                                    consumer: consumer);
+
+
+                    }
+                }
+            }
+            catch (RabbitMQ.Client.Exceptions.RabbitMQClientException ex)
+            {
+                AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageRabbitMQTitleTray;
+                AgentNotifyIcon.Text = Properties.Resources.ErrorMessageRabbitMQDescTray;
+                AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+
+                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
+            }
+            catch (RabbitMQ.Client.Exceptions.{ }
+            catch (Exception ex)
+            {
+
             }
         }
 
