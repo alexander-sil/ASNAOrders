@@ -219,6 +219,15 @@ namespace ASNAOrders.Agent.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка подключения.
+        /// </summary>
+        internal static string ErrorMessageInfoConnectionTitleTray {
+            get {
+                return ResourceManager.GetString("ErrorMessageInfoConnectionTitleTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Произошла ошибка файловой системы. Для получения подробной информации см. Журнал событий. .
         /// </summary>
         internal static string ErrorMessageInfoFNFDescTray {

@@ -116,10 +116,21 @@ namespace ASNAOrders.Agent
 
                 AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
             }
-            catch (RabbitMQ.Client.Exceptions.{ }
+            catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException ex)
+            {
+                AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageRabbitMQTitleTray;
+                AgentNotifyIcon.Text = Properties.Resources.ErrorMessageRabbitMQDescTray;
+                AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+
+                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
+            }
             catch (Exception ex)
             {
+                AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageInfoConnectionTitleTray;
+                AgentNotifyIcon.Text = Properties.Resources.ErrorMessageInfoGenericDescTray;
+                AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
 
+                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageInfoGenericLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
             }
         }
 

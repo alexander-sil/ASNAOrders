@@ -169,6 +169,9 @@
   <data name="ErrorMessageInfoArgumentLog" xml:space="preserve">
     <value>Произошла ошибка парсинга данных. </value>
   </data>
+  <data name="ErrorMessageInfoConnectionTitleTray" xml:space="preserve">
+    <value>Ошибка подключения</value>
+  </data>
   <data name="ErrorMessageInfoFNFDescTray" xml:space="preserve">
     <value>Произошла ошибка файловой системы. Для получения подробной информации см. Журнал событий. </value>
   </data>
