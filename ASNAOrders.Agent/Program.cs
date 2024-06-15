@@ -14,12 +14,18 @@ namespace ASNAOrders.Agent
         /// </summary>
         static void Main()
         {
+#if (!DEBUG)
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
                 new AgentService()
             };
             ServiceBase.Run(ServicesToRun);
+#else
+            AgentService service = new AgentService();
+            service.OnDebug();
+            System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+#endif
         }
     }
 }

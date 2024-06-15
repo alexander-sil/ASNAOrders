@@ -30,6 +30,11 @@ namespace ASNAOrders.Agent
             InitializeComponent();
         }
 
+        internal void OnDebug()
+        {
+            OnStart(null);
+        }
+
         protected override void OnStart(string[] args)
         {
 
