@@ -36,7 +36,7 @@
             // 
             // AgentEventLog
             // 
-            this.AgentEventLog.Log = "Application";
+            this.AgentEventLog.Log = "Service";
             this.AgentEventLog.Source = "ASNAOrdersAgent";
             // 
             // AgentNotifyIcon
