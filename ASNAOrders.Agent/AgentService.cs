@@ -111,26 +111,29 @@ namespace ASNAOrders.Agent
             catch (RabbitMQ.Client.Exceptions.RabbitMQClientException ex)
             {
                 AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageRabbitMQTitleTray;
-                AgentNotifyIcon.Text = Properties.Resources.ErrorMessageRabbitMQDescTray;
+                AgentNotifyIcon.BalloonTipText = Properties.Resources.ErrorMessageRabbitMQDescTray;
                 AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                AgentNotifyIcon.ShowBalloonTip(5);
 
-                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
+                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}", EventLogEntryType.Error);
             }
             catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException ex)
             {
                 AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageRabbitMQTitleTray;
-                AgentNotifyIcon.Text = Properties.Resources.ErrorMessageRabbitMQDescTray;
+                AgentNotifyIcon.BalloonTipText = Properties.Resources.ErrorMessageRabbitMQDescTray;
                 AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                AgentNotifyIcon.ShowBalloonTip(5);
 
-                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
+                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageRabbitMQLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}", EventLogEntryType.Error);
             }
             catch (Exception ex)
             {
                 AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageInfoConnectionTitleTray;
-                AgentNotifyIcon.Text = Properties.Resources.ErrorMessageInfoGenericDescTray;
+                AgentNotifyIcon.BalloonTipText = Properties.Resources.ErrorMessageInfoGenericDescTray;
                 AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
+                AgentNotifyIcon.ShowBalloonTip(5);
 
-                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageInfoGenericLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}");
+                AgentEventLog.WriteEntry($"{Properties.Resources.ErrorMessageInfoGenericLog}{Properties.Resources.ExceptionMessageTrayLog}{ex.Message}{Properties.Resources.StackTraceTrayLog}{ex.StackTrace}", EventLogEntryType.Error);
             }
         }
 

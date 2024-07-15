@@ -1,4 +1,4 @@
-﻿namespace ASNAOrders.Agent
+﻿   namespace ASNAOrders.Agent
 {
     partial class ProjectInstaller
     {
