@@ -60,7 +60,7 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
             Channel = Connection.CreateModel();
 
             Channel.QueueDeclare(queue: Properties.Resources.OrdersQueueString,
-                                 durable: true,
+                                 durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);

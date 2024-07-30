@@ -95,7 +95,7 @@ namespace ASNAOrders.Agent
                         consumer.Received += Logic.OnReceiveNotification;
 
                         Channel.QueueDeclare(queue: Properties.Resources.NotifyQueueProperty,
-                                                     durable: true,
+                                                     durable: false,
                                                      exclusive: false,
                                                      autoDelete: false,
                                                      arguments: null);

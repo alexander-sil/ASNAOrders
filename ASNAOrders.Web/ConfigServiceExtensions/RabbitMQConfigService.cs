@@ -43,7 +43,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             Channel = Connection.CreateModel();
 
             Channel.QueueDeclare(queue: Properties.Resources.AdministrationQueue,
-                                 durable: true,
+                                 durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);

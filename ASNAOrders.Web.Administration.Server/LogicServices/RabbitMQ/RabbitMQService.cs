@@ -43,7 +43,7 @@ namespace ASNAOrders.Web.Administration.Server.LogicServices.RabbitMQ
             using var channel = connection.CreateModel();
 
             channel.QueueDeclare(queue: Properties.Resources.AdministrationQueue,
-                                 durable: true,
+                                 durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);

@@ -171,7 +171,7 @@ namespace ASNAOrders.Agent
                     using (var channel = connection.CreateModel())
                     {
                         channel.QueueDeclare(queue: Properties.Resources.OrdersQueueProperty,
-                         durable: true,
+                         durable: false,
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);

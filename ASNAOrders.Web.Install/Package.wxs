@@ -1,0 +1,9 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="ASNAOrders.Web.Install" Manufacturer="TODO Manufacturer" Version="1.0.0.0" UpgradeCode="8de6fa1f-7d34-4919-98cc-f1748acace95">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="ExampleComponents" />
+    </Feature>
+  </Package>
+</Wix>
