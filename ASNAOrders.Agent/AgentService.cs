@@ -34,7 +34,7 @@ namespace ASNAOrders.Agent
                 Instance = this;
             }
 
-            Logic = new Logic(this);
+            LogicInst = new Logic(this);
             InitializeComponent();
         }
 
@@ -102,7 +102,7 @@ namespace ASNAOrders.Agent
 
                         var consumer = new EventingBasicConsumer(Channel);
 
-                        consumer.Received += Logic.OnReceiveNotification;
+                        consumer.Received += LogicInst.OnReceiveNotification;
 
                         Channel.QueueDeclare(queue: Properties.Resources.NotifyQueueProperty,
                                                      durable: false,
