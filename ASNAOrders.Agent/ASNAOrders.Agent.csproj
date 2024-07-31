@@ -116,6 +116,7 @@
       <DependentUpon>AgentService.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic.cs" />
+    <Compile Include="LogicJobStub.cs" />
     <Compile Include="OrderNotification.cs" />
     <Compile Include="OrderResponse.cs" />
     <Compile Include="Program.cs" />

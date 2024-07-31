@@ -22,7 +22,7 @@ using System.Globalization;
 
 namespace ASNAOrders.Agent
 {
-    internal class Logic : IJob
+    public class Logic
     {
         private AgentService Service { get; set; }
 
@@ -525,11 +525,6 @@ namespace ASNAOrders.Agent
                     reader.Close();
                 }
             }
-        }
-
-        public Task Execute(IJobExecutionContext context)
-        {
-            return Task.Run(Go);
         }
     }
 }

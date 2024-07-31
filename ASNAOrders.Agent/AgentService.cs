@@ -23,9 +23,17 @@ namespace ASNAOrders.Agent
 
         private IModel Channel { get; set; }
 
-        private Logic Logic { get; set; }
+        public Logic LogicInst { get; set; }
+
+        public static AgentService Instance { get; set; }
+
         public AgentService()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+
             Logic = new Logic(this);
             InitializeComponent();
         }
