@@ -196,25 +196,25 @@
     <value>mssqlserver</value>
   </data>
   <data name="ConfigDomain" xml:space="preserve">
-    <value>farmoffice.ru</value>
+    <value>farmofficeru.ru</value>
   </data>
   <data name="ConfigInitialCatalog" xml:space="preserve">
     <value>AsnaOrders</value>
   </data>
   <data name="ConfigMailHost" xml:space="preserve">
-    <value>farmoffice.ru</value>
+    <value>farmofficeru.ru</value>
   </data>
   <data name="ConfigMailPassword" xml:space="preserve">
     <value>Passlogin1.</value>
   </data>
   <data name="ConfigMailPort" xml:space="preserve">
-    <value>25</value>
+    <value>125</value>
   </data>
   <data name="ConfigMailSSLOptions" xml:space="preserve">
     <value>none</value>
   </data>
   <data name="ConfigMailTo" xml:space="preserve">
-    <value>krykoff.vp@mail.ru</value>
+    <value>sanya.silitskiy2@yandex.ru</value>
   </data>
   <data name="ConfigMQHostname" xml:space="preserve">
     <value>localhost</value>
@@ -244,7 +244,7 @@
     <value>sa</value>
   </data>
   <data name="ConfigSerilogSink" xml:space="preserve">
-    <value>eventlog+mail*sys@farmoffice.ru</value>
+    <value>eventlog+mail*informator@farmofficeru.ru</value>
   </data>
   <data name="ConfigSigningKeyFile" xml:space="preserve">
     <value>skey</value>
@@ -283,10 +283,10 @@
     <value>licenses</value>
   </data>
   <data name="MailBatchLimitString" xml:space="preserve">
-    <value>30</value>
+    <value>100</value>
   </data>
   <data name="MailBatchPeriodString" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="MedicalGoodsString" xml:space="preserve">
     <value>Медицинское изделие</value>
@@ -323,6 +323,9 @@
   </data>
   <data name="SecretMailSubj" xml:space="preserve">
     <value>OAuth 2 Client Secret transferred</value>
+  </data>
+  <data name="ServiceSecretHashSuffix" xml:space="preserve">
+    <value>-hash</value>
   </data>
   <data name="UnauthorizedString" xml:space="preserve">
     <value>Unauthorized</value>

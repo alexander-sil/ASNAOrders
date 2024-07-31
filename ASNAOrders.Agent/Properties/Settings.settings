@@ -42,7 +42,7 @@
       <Value Profile="(Default)">asna-orders</Value>
     </Setting>
     <Setting Name="MQHostname" Type="System.String" Scope="User">
-      <Value Profile="(Default)">farmoffice.ru</Value>
+      <Value Profile="(Default)">farmofficeru.ru</Value>
     </Setting>
     <Setting Name="MQPort" Type="System.UInt16" Scope="User">
       <Value Profile="(Default)">5672</Value>

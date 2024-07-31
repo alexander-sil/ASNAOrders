@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using ASNAOrders.Web.ConfigServiceExtensions;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -42,12 +43,12 @@ namespace ASNAOrders.Web.LogicServices
 
                 if (StaticConfig.ClientSecretTransmissionMethod == "file-INSECURE")
                 {
-                    Log.Warning($"VERY IMPORTANT: A client secret has been written to the same location as its hash. This option is VERY insecure and should NEVER be used.");
+                    Log.Warning($"VERY IMPORTANT: A client secret has been written to the same location as its hash. This option is VERY insecure and should NEVER be used in production.");
                     File.AppendAllText(path, Convert.ToBase64String(secret));
                 } else if (StaticConfig.ClientSecretTransmissionMethod == "file-TEMP")
                 {
                     Log.Warning($"VERY IMPORTANT: Preserve your client secret immediately or it will be LOST FOREVER after restart! It is located at {Path.GetTempPath()}");
-                    File.AppendAllText(Path.Combine(Path.GetTempPath(), path), Convert.ToBase64String(secret));
+                    File.AppendAllText(Path.Combine(Path.GetTempPath(), Regex.Replace(path, Properties.Resources.ServiceSecretHashSuffix, string.Empty)), Convert.ToBase64String(secret));
                 } else
                 {
                     using MailMessage message = new MailMessage()

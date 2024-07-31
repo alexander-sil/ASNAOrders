@@ -295,7 +295,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to farmoffice.ru.
+        ///   Looks up a localized string similar to farmofficeru.ru.
         /// </summary>
         internal static string ConfigDomain {
             get {
@@ -313,7 +313,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to farmoffice.ru.
+        ///   Looks up a localized string similar to farmofficeru.ru.
         /// </summary>
         internal static string ConfigMailHost {
             get {
@@ -331,7 +331,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 25.
+        ///   Looks up a localized string similar to 125.
         /// </summary>
         internal static string ConfigMailPort {
             get {
@@ -349,7 +349,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to krykoff.vp@mail.ru.
+        ///   Looks up a localized string similar to sanya.silitskiy2@yandex.ru.
         /// </summary>
         internal static string ConfigMailTo {
             get {
@@ -439,7 +439,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eventlog+mail*sys@farmoffice.ru.
+        ///   Looks up a localized string similar to eventlog+mail*informator@farmofficeru.ru.
         /// </summary>
         internal static string ConfigSerilogSink {
             get {
@@ -556,7 +556,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 30.
+        ///   Looks up a localized string similar to 100.
         /// </summary>
         internal static string MailBatchLimitString {
             get {
@@ -565,7 +565,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.
+        ///   Looks up a localized string similar to 5.
         /// </summary>
         internal static string MailBatchPeriodString {
             get {
@@ -678,6 +678,15 @@ namespace ASNAOrders.Web.Properties {
         internal static string SecretMailSubj {
             get {
                 return ResourceManager.GetString("SecretMailSubj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -hash.
+        /// </summary>
+        internal static string ServiceSecretHashSuffix {
+            get {
+                return ResourceManager.GetString("ServiceSecretHashSuffix", resourceCulture);
             }
         }
         

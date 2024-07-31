@@ -217,7 +217,7 @@ namespace ASNAOrders.Web
                         {
                             Name = "Alexander Silitskiy",
                             Url = new Uri("https://github.com/alexander-sil"),
-                            Email = ""
+                            Email = "sanya.silitskiy2@yandex.ru"
                         },
                         Version = "1.0-oas3",
                     });
