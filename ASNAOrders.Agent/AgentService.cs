@@ -67,7 +67,7 @@ namespace ASNAOrders.Agent
                     var trigger = TriggerBuilder.Create()
                         .WithIdentity(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup)
                         .WithSimpleSchedule(x => x
-                            .WithInterval(new TimeSpan(days: (int)Properties.Settings.Default.RepeatIntervalInDays, 0, 0, 0))
+                            .WithInterval(new TimeSpan(days: (int)Properties.Settings.Default.RepeatIntervalInDays, 0, 5, 0))
                             .RepeatForever())
                         .Build();
 

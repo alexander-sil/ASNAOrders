@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Disabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="TimingOptions" Type="System.String" Scope="User">
       <Value Profile="(Default)">DAY</Value>
@@ -15,7 +15,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DBConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Data Source=127.0.0.1,1433;Initial Catalog=wSklad;User ID=sa;Password=Passlogin1.;TrustServerCertificate=true;App=ASNAOrdersAgent</Value>
     </Setting>
     <Setting Name="FtpServerAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">farmofficeru.ru</Value>
@@ -48,7 +48,7 @@
       <Value Profile="(Default)">5672</Value>
     </Setting>
     <Setting Name="ListenForOrders" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RepeatIntervalInDays" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">30</Value>
