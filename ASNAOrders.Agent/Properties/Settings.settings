@@ -9,7 +9,7 @@
       <Value Profile="(Default)">DAY</Value>
     </Setting>
     <Setting Name="LinesPerFile" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">80</Value>
+      <Value Profile="(Default)">800</Value>
     </Setting>
     <Setting Name="OneFile" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -51,13 +51,13 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RepeatIntervalInDays" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">30</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LoadBalancingOneFile" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LoadBalancingRowsPerFile" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">80</Value>
+      <Value Profile="(Default)">800</Value>
     </Setting>
     <Setting Name="MQUsername" Type="System.String" Scope="User">
       <Value Profile="(Default)">administrator</Value>
