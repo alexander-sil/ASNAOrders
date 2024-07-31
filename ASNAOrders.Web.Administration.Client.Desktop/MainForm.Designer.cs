@@ -1179,6 +1179,7 @@
             EditHostnameLogin.Name = "EditHostnameLogin";
             EditHostnameLogin.Size = new Size(121, 27);
             EditHostnameLogin.TabIndex = 5;
+            EditHostnameLogin.Text = "http://";
             // 
             // LabelHostnameLogin
             // 
@@ -1249,7 +1250,7 @@
             Actions.Controls.Add(ButtonApplyConfigurationAction);
             Actions.Location = new Point(534, 485);
             Actions.Name = "Actions";
-            Actions.Size = new Size(329, 98);
+            Actions.Size = new Size(330, 98);
             Actions.TabIndex = 17;
             Actions.TabStop = false;
             Actions.Text = "Действия";
@@ -1344,6 +1345,7 @@
             ShowIcon = false;
             Text = "Интерфейс администрации";
             FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
             CreateUser.ResumeLayout(false);
             CreateUser.PerformLayout();
             BanUser.ResumeLayout(false);

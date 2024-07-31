@@ -80,6 +80,8 @@ namespace ASNAOrders.Agent
                         {
                             HostName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQHostname) ? Properties.Settings.Default.MQHostname : Properties.Resources.RabbitmqLocal,
                             Port = Properties.Settings.Default.MQPort != 0 ? Properties.Settings.Default.MQPort : 5672,
+                            VirtualHost = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQVHost) ? Properties.Settings.Default.MQVHost : Properties.Resources.AsnaOrders,
+
                             UserName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQUsername) ? Properties.Settings.Default.MQUsername : Properties.Resources.ConfigMQUsername,
                             Password = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQPassword) ? Properties.Settings.Default.MQPassword : Properties.Resources.ConfigMQPassword
 
@@ -149,9 +151,14 @@ namespace ASNAOrders.Agent
 
         protected override void OnStop()
         {
-            if ((Connection != null) || (Channel != null))
+            if (Channel != null)
             {
                 Channel.Dispose();
+                
+            }
+
+            if (Connection != null)
+            {
                 Connection.Dispose();
             }
 

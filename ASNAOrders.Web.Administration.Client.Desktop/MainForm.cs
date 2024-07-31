@@ -582,5 +582,10 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
         {
             this.Close();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
