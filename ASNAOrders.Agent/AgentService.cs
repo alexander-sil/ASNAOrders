@@ -70,7 +70,7 @@ namespace ASNAOrders.Agent
                     StdSchedulerFactory schFactory = new StdSchedulerFactory();
                     var scheduler = schFactory.GetScheduler().Result;
 
-                    var job = new JobDetailImpl(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup, typeof(Logic));
+                    var job = new JobDetailImpl(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup, typeof(LogicJobStub));
 
                     var trigger = TriggerBuilder.Create()
                         .WithIdentity(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup)
@@ -82,6 +82,8 @@ namespace ASNAOrders.Agent
                     scheduler.AddJob(job, true);
                     scheduler.ScheduleJob(trigger);
 
+                    scheduler.Start();
+
                     if (Properties.Settings.Default.ListenForOrders)
                     {
                         var factory = new ConnectionFactory
@@ -92,7 +94,6 @@ namespace ASNAOrders.Agent
 
                             UserName = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQUsername) ? Properties.Settings.Default.MQUsername : Properties.Resources.ConfigMQUsername,
                             Password = !string.IsNullOrWhiteSpace(Properties.Settings.Default.MQPassword) ? Properties.Settings.Default.MQPassword : Properties.Resources.ConfigMQPassword
-
                         };
 
 
