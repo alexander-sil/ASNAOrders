@@ -20,7 +20,7 @@ namespace ASNAOrders.Web.Converters
     /// <summary>
     /// 
     /// </summary>
-    public class EntityModelConverter
+    public class EntityModelConverter : IDisposable
     {
         /// <summary>
         /// 
@@ -35,16 +35,14 @@ namespace ASNAOrders.Web.Converters
         /// <summary>
         /// 
         /// </summary>
-        private ASNAOrdersDbContext Context { get; set; }
+        public ASNAOrdersDbContext Context { get; set; }
         
         /// <summary>
         /// 
         /// </summary>
         public EntityModelConverter(IDbContextFactory<ASNAOrdersDbContext> factory, RabbitMQNotificationService notifyService)
         {
-            using var context = factory.CreateDbContext();
-            Context = context;
-
+            Context = factory.CreateDbContext();
             NotifyService = notifyService;
         }
 
@@ -326,6 +324,14 @@ namespace ASNAOrders.Web.Converters
                 Comment = Properties.Resources.OrderDataString,
                 UpdatedAt = DateTime.Now
             };
+        }
+
+        /// <summary>
+        /// Удаление контекста
+        /// </summary>
+        public void Dispose()
+        {
+            Context.Dispose();
         }
     }
 }

@@ -5,6 +5,7 @@ using Castle.Components.DictionaryAdapter.Xml;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Pqc.Crypto.Lms;
 using SQLitePCL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -14,7 +15,7 @@ namespace ASNAOrders.Web.LogicServices
     /// <summary>
     /// Logic service to process (aka format) raw native stock uploads to YE-ready nomenclature format.
     /// </summary>
-    public class DataFormattingService
+    public class DataFormattingService : IDisposable
     {
         /// <summary>
         /// 
@@ -28,8 +29,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <param name="contextFactory">Database context to write to. NativeStocks table and Nomenclature cluster are used.</param>
         public DataFormattingService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
         {
-            using var context = contextFactory.CreateDbContext();
-            Context = context;
+            Context = contextFactory.CreateDbContext();
 
             if (Context.Categories.Count() == 0)
             {
@@ -166,6 +166,11 @@ namespace ASNAOrders.Web.LogicServices
             Context.SaveChanges();
 
             ReconstituteSavedChangesEvent();
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
         }
     }
 }

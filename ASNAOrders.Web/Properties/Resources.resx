@@ -262,7 +262,7 @@
     <value>deadfacedeadfacedeadfacedeadfacedeadface</value>
   </data>
   <data name="DefaultDateFormatString" xml:space="preserve">
-    <value>dd-MM-YYYY</value>
+    <value>dd-MM-yyyy</value>
   </data>
   <data name="ErrorSecret" xml:space="preserve">
     <value>[ERRORERRORERRORERRORERRORERROR]</value>

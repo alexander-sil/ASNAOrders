@@ -20,7 +20,7 @@ namespace ASNAOrders.Web.LogicServices
     /// <summary>
     /// Logic service to watch for new and existing images uploaded to {StaticConfig.XMLStockPath}\images directory.
     /// </summary>
-    public class ImageWatcherService
+    public class ImageWatcherService : IDisposable
     {
         /// <summary>
         /// 
@@ -43,8 +43,8 @@ namespace ASNAOrders.Web.LogicServices
         /// <param name="contextFactory">Database context to write to. Stocks table is used.</param>
         public ImageWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory, ILogger<ImageWatcherService> logger)
         {
-            using var context = contextFactory.CreateDbContext();
-            Context = context;
+            Context = contextFactory.CreateDbContext();
+            Logger = logger;
 
             Logger.LogInformation($"Started ImageWatcherService at {DateTime.Now}");
 
@@ -129,6 +129,11 @@ namespace ASNAOrders.Web.LogicServices
             }
 
             return Properties.Resources.DeadfaceString;
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
         }
     }
 }

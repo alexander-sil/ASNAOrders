@@ -44,7 +44,7 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
         /// </summary>
         public RabbitMQOrdersService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
         {
-            using var context = contextFactory.CreateDbContext();
+            var context = contextFactory.CreateDbContext();
             Context = context;
 
             var factory = new ConnectionFactory
@@ -91,6 +91,8 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
         {
             Channel.Dispose();
             Connection.Dispose();
+
+            Context.Dispose();
         }
 
         /// <summary>

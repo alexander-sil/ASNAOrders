@@ -17,7 +17,7 @@ namespace ASNAOrders.Web.LogicServices
     /// <summary>
     /// Service to watch for stock uploads from agent. XML format is used.
     /// </summary>
-    public class XMLStockWatcherService
+    public class XMLStockWatcherService : IDisposable
     {
         /// <summary>
         /// 
@@ -41,8 +41,7 @@ namespace ASNAOrders.Web.LogicServices
         public XMLStockWatcherService(IDbContextFactory<ASNAOrdersDbContext> contextFactory, ILogger<XMLStockWatcherService> logger) 
         {
             Logger = logger;
-            using var context = contextFactory.CreateDbContext();
-            Context = context;
+            Context = contextFactory.CreateDbContext();
 
             string path = Program.XMLPath;
 
@@ -114,6 +113,11 @@ namespace ASNAOrders.Web.LogicServices
             }
 
             Context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
         }
     }
 }
