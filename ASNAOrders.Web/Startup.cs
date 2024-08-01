@@ -110,22 +110,20 @@ namespace ASNAOrders.Web
                 if (StaticConfig.DatabaseType == "mssqlserver") { options.UseLazyLoadingProxies().UseSqlServer(StaticConfig.ConnectionString); } else { options.UseLazyLoadingProxies().UseSqlite(StaticConfig.ConnectionString); };
             });
 
-
-            services.AddSingleton<XMLStockWatcherService>();
-            services.AddSingleton<ImageWatcherService>();
-
+            services.AddHostedService<RabbitMQOrdersService>();
             services.AddSingleton<RabbitMQNotificationService>();
+
+            services.AddHostedService<XMLStockWatcherService>();
+            services.AddHostedService<ImageWatcherService>();
+            services.AddHostedService<DataFormattingService>();
+
             services.AddSingleton<EntityModelConverter>();
-            services.AddSingleton<RabbitMQOrdersService>();
-            services.AddSingleton<DataFormattingService>();
 
-
-
-
-            services.AddExceptionHandler<CustomExceptionHandler>();
-            services.AddExceptionHandler<BadRequestErrorHandler>();
-
+            services.AddSingleton<LogicServices.NotFoundMiddleware>();
             services.AddSingleton<LogicServices.AuthorizationMiddleware>();
+
+            services.AddExceptionHandler<BadRequestErrorHandler>();
+            services.AddExceptionHandler<CustomExceptionHandler>();
 
             // Add framework services.
             services
@@ -243,6 +241,8 @@ namespace ASNAOrders.Web
             app.UseDeveloperExceptionPage();
             app.UseHttpContext();
             app.UseDefaultFiles();
+            app.UseMiddleware<LogicServices.NotFoundMiddleware>();
+            app.UseMiddleware<LogicServices.AuthorizationMiddleware>();
             app.UseExceptionHandler(o => { });
             app.UseStaticFiles();
 
@@ -260,8 +260,6 @@ namespace ASNAOrders.Web
                     //TODO: Or alternatively use the original OpenAPI contract that's included in the static files
                     c.SwaggerEndpoint("/openapi-original.json", "API для интеграции сервиса Яндекс.Еда Original");
                 });
-
-            app.UseMiddleware<LogicServices.AuthorizationMiddleware>();
 
             app.UseRouting();
 

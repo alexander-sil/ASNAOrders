@@ -3,19 +3,23 @@ using ASNAOrders.Web.Data.Orders;
 using ASNAOrders.Web.Data.YENomenclature;
 using Castle.Components.DictionaryAdapter.Xml;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Org.BouncyCastle.Pqc.Crypto.Lms;
 using SQLitePCL;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ASNAOrders.Web.LogicServices
 {
     /// <summary>
     /// Logic service to process (aka format) raw native stock uploads to YE-ready nomenclature format.
     /// </summary>
-    public class DataFormattingService : IDisposable
+    public class DataFormattingService : IDisposable, IHostedService
     {
         /// <summary>
         /// 
@@ -168,9 +172,45 @@ namespace ASNAOrders.Web.LogicServices
             ReconstituteSavedChangesEvent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void DoWork()
+        {
+
+            if (Context.Categories.Count() == 0)
+            {
+                Context.Categories.Add(new Data.YENomenclature.Category()
+                {
+                    Name = Properties.Resources.ASNAYECategoryName,
+                    Images = new System.Collections.Generic.List<Data.YENomenclature.CategoryImage>
+                    {
+                        new Data.YENomenclature.CategoryImage()
+                        {
+                            Url = Properties.Resources.ASNAYECategoryDefaultImageUri,
+                            Hash = Properties.Resources.ASNAYECategoryDefaultImageHash
+                        }
+                    }
+                });
+            }
+
+            Context.SavedChanges += OnSaveChanges;
+        }
+
         public void Dispose()
         {
             Context.Dispose();
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            Log.Information($"DataFormattingService running at {DateTime.Now}");
+            return Task.Run(DoWork);
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
         }
     }
 }

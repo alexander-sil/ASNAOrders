@@ -16,13 +16,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Newtonsoft.Json;
 using ASNAOrders.Web.Converters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ASNAOrders.Web.OrdersServiceExtensions
 {
     /// <summary>
     /// 
     /// </summary>
-    public class RabbitMQOrdersService : IDisposable
+    public class RabbitMQOrdersService : IDisposable, IHostedService
     {
         /// <summary>
         /// 
@@ -45,8 +48,34 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
         public RabbitMQOrdersService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
         {
             var context = contextFactory.CreateDbContext();
-            Context = context;
+            Context = context;           
+        }
 
+        private void OnReceived(object sender, BasicDeliverEventArgs e)
+        {
+            JToken root = JToken.Parse(Encoding.UTF8.GetString(e.Body.ToArray()));
+
+            string placeId = (string)root["placeId"];
+            EntityModelConverter.PlaceResponse = placeId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Dispose()
+        {
+            Channel.Dispose();
+            Connection.Dispose();
+
+            Context.Dispose();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void DoWork()
+        {
             var factory = new ConnectionFactory
             {
                 HostName = StaticConfig.MQHostname,
@@ -75,24 +104,25 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
                                  consumer: consumer);
         }
 
-        private void OnReceived(object sender, BasicDeliverEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            JToken root = JToken.Parse(Encoding.UTF8.GetString(e.Body.ToArray()));
-
-            string placeId = (string)root["placeId"];
-            EntityModelConverter.PlaceResponse = placeId;
+            Log.Information($"RabbitMQOrdersService running at {DateTime.Now}");
+            return Task.Run(DoWork);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Dispose()
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task StopAsync(CancellationToken cancellationToken)
         {
-            Channel.Dispose();
-            Connection.Dispose();
-
-            Context.Dispose();
+            return Task.CompletedTask;
         }
 
         /// <summary>

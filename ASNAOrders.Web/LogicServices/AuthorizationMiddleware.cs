@@ -84,26 +84,6 @@ namespace ASNAOrders.Web.LogicServices
                     );
                 }
             }
-            else if (context.Response.StatusCode == StatusCodes.Status404NotFound)
-            {
-                var response = new List<ErrorListV1Inner>()
-                {
-                    new ErrorListV1Inner()
-                    {
-                        Code = 404,
-                        Description = Properties.Resources.KeyNotFoundString
-                    }
-                };
-
-                await context.Response.WriteAsJsonAsync
-                (
-                    response,
-                    new JsonSerializerOptions()
-                    {
-                        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
-                    }
-                );
-            }
         }
     }
 }

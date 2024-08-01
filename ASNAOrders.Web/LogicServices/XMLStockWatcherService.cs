@@ -2,6 +2,7 @@
 using ASNAOrders.Web.Data;
 using ASNAOrders.Web.Data.Stocks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
@@ -10,6 +11,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace ASNAOrders.Web.LogicServices
@@ -17,7 +20,7 @@ namespace ASNAOrders.Web.LogicServices
     /// <summary>
     /// Service to watch for stock uploads from agent. XML format is used.
     /// </summary>
-    public class XMLStockWatcherService : IDisposable
+    public class XMLStockWatcherService : IDisposable, IHostedService
     {
         /// <summary>
         /// 
@@ -43,42 +46,7 @@ namespace ASNAOrders.Web.LogicServices
             Logger = logger;
             Context = contextFactory.CreateDbContext();
 
-            string path = Program.XMLPath;
-
-
-            foreach (FileInfo file in new DirectoryInfo(path).EnumerateFiles())
-            {
-                DateTime date = DateTime.ParseExact(Regex.Replace(file.Name, @"_.*\.xml", string.Empty), Properties.Resources.DefaultDateFormatString, new CultureInfo("nl-NL"));
-                XDocument document = XDocument.Parse(File.ReadAllText(file.FullName));
-
-                foreach (XElement element in document.Elements())
-                {
-                    if (Context.NativeStocks.Where(f => f.ItemName.Equals(element.Element("item_name").Value)).Count() < 1)
-                    {
-                        Context.NativeStocks.Add(new NativeStock()
-                        {
-                            Category = element.Element("category").Value,
-                            Composition = element.Element("composition").Value,
-                            Qtty = int.Parse(element.Element("qtty").Value),
-                            Country = element.Element("country").Value,
-                            ItemId = element.Element("item_id").Value,
-                            Price = double.Parse(element.Element("price").Value, new CultureInfo("ru-RU")),
-                            ItemDesc = element.Element("item_desc").Value,
-                            ItemName = element.Element("item_name").Value,
-                            PlaceId = element.Element("place_id").Value,
-                            Barcode = element.Element("barcode").Value,
-                            UploadRecordedDate = date,
-
-                        });
-                    }
-                }
-            }
-
-            Context.SaveChanges();
-
-            Watcher = new FileSystemWatcher(Program.XMLPath);
-
-            Watcher.Created += OnUpload;
+            
         }
         
         /// <summary>
@@ -118,6 +86,57 @@ namespace ASNAOrders.Web.LogicServices
         public void Dispose()
         {
             Context.Dispose();
+        }
+
+        public void DoWork()
+        {
+            string path = Program.XMLPath;
+
+
+            foreach (FileInfo file in new DirectoryInfo(path).EnumerateFiles())
+            {
+                DateTime date = DateTime.ParseExact(Regex.Replace(file.Name, @"_.*\.xml", string.Empty), Properties.Resources.DefaultDateFormatString, new CultureInfo("nl-NL"));
+                XDocument document = XDocument.Parse(File.ReadAllText(file.FullName));
+
+                foreach (XElement element in document.Elements())
+                {
+                    if (Context.NativeStocks.Where(f => f.ItemName.Equals(element.Element("item_name").Value)).Count() < 1)
+                    {
+                        Context.NativeStocks.Add(new NativeStock()
+                        {
+                            Category = element.Element("category").Value,
+                            Composition = element.Element("composition").Value,
+                            Qtty = int.Parse(element.Element("qtty").Value),
+                            Country = element.Element("country").Value,
+                            ItemId = element.Element("item_id").Value,
+                            Price = double.Parse(element.Element("price").Value, new CultureInfo("ru-RU")),
+                            ItemDesc = element.Element("item_desc").Value,
+                            ItemName = element.Element("item_name").Value,
+                            PlaceId = element.Element("place_id").Value,
+                            Barcode = element.Element("barcode").Value,
+                            UploadRecordedDate = date,
+
+                        });
+                    }
+                }
+            }
+
+            Context.SaveChanges();
+
+            Watcher = new FileSystemWatcher(Program.XMLPath);
+
+            Watcher.Created += OnUpload;
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            Log.Information($"Started XMLStockWatcherService {DateTime.Now}");
+            return Task.Run(DoWork);
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
         }
     }
 }

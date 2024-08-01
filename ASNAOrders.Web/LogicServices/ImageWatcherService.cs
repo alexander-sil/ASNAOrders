@@ -14,13 +14,16 @@ using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ASNAOrders.Web.LogicServices
 {
     /// <summary>
     /// Logic service to watch for new and existing images uploaded to {StaticConfig.XMLStockPath}\images directory.
     /// </summary>
-    public class ImageWatcherService : IDisposable
+    public class ImageWatcherService : IDisposable, IHostedService
     {
         /// <summary>
         /// 
@@ -47,7 +50,31 @@ namespace ASNAOrders.Web.LogicServices
             Logger = logger;
 
             Logger.LogInformation($"Started ImageWatcherService at {DateTime.Now}");
+        }
 
+        private void OnUpload(object sender, FileSystemEventArgs e)
+        {
+            using HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, Properties.Resources.ASNATinystashUploadUri);
+            using HttpClient client = new HttpClient();
+
+            message.Content = new ByteArrayContent(System.IO.File.ReadAllBytes(e.FullPath));
+
+            message.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(e.FullPath));
+            message.Content.Headers.ContentLength = new FileInfo(e.FullPath).Length;
+
+            message.Headers.Add(Properties.Resources.ASNAAppIdKey, Properties.Resources.ASNAAppIdValue);
+
+            HttpResponseMessage response = client.Send(message);
+            string url = response.EnsureSuccessStatusCode().Content.ToString();
+
+            System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public void DoWork()
+        {
             if (new FileInfo(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)).Length == 0)
             {
                 foreach (FileInfo file in new DirectoryInfo(Program.ImagePath).EnumerateFiles())
@@ -73,24 +100,6 @@ namespace ASNAOrders.Web.LogicServices
             Watcher = new FileSystemWatcher(Program.ImagePath);
 
             Watcher.Created += OnUpload;
-        }
-
-        private void OnUpload(object sender, FileSystemEventArgs e)
-        {
-            using HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, Properties.Resources.ASNATinystashUploadUri);
-            using HttpClient client = new HttpClient();
-
-            message.Content = new ByteArrayContent(System.IO.File.ReadAllBytes(e.FullPath));
-
-            message.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(e.FullPath));
-            message.Content.Headers.ContentLength = new FileInfo(e.FullPath).Length;
-
-            message.Headers.Add(Properties.Resources.ASNAAppIdKey, Properties.Resources.ASNAAppIdValue);
-
-            HttpResponseMessage response = client.Send(message);
-            string url = response.EnsureSuccessStatusCode().Content.ToString();
-
-            System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
         }
 
         /// <summary>
@@ -134,6 +143,17 @@ namespace ASNAOrders.Web.LogicServices
         public void Dispose()
         {
             Context.Dispose();
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            Log.Information($"Started ImageWatcherService at {DateTime.Now}");
+            return Task.Run(DoWork);
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
         }
     }
 }
