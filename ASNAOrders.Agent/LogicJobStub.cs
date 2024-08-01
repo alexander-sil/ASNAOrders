@@ -14,9 +14,9 @@ namespace ASNAOrders.Agent
 
         }
 
-        public Task Execute(IJobExecutionContext context)
+        public void Execute(IJobExecutionContext context)
         {
-            return Task.Run(AgentService.Instance.LogicInst.Go);
+            AgentService.Instance.LogicInst.Go();
         }
     }
 }

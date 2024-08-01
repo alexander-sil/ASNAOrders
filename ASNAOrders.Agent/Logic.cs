@@ -355,12 +355,13 @@ namespace ASNAOrders.Agent
                     }
                     rowNode.Add(valueNode);
 
-                    XElement placeIdNode = new XElement("place_id");
-
-                    placeIdNode.Add(Properties.Settings.Default.PlaceId);
-
                     if (j < columnNames.Length) j++;
                 }
+                XElement placeIdNode = new XElement("place_id");
+
+                placeIdNode.Add(Properties.Settings.Default.PlaceId);
+                rowNode.Add(placeIdNode);
+
                 subroot.Add(rowNode);
                 i++;
             }
@@ -454,7 +455,7 @@ namespace ASNAOrders.Agent
                 using (var client = new WebClient())
                 {
                     client.Credentials = new NetworkCredential(username, password);
-                    client.UploadFile($"ftp://{address}//{DateTime.Now.ToString("dd-MM-YYYY", new CultureInfo("nl-NL"))}_{parcellatedStanza.Name}", WebRequestMethods.Ftp.UploadFile, parcellatedStanza.FullName);
+                    client.UploadFile($"ftp://{address}/{DateTime.Now.ToString("dd-MM-yyyy", new CultureInfo("nl-NL"))}_{parcellatedStanza.Name}", WebRequestMethods.Ftp.UploadFile, parcellatedStanza.FullName);
                 }
             }
         }

@@ -184,6 +184,9 @@
   <data name="ErrorMessageInfoGenericLog" xml:space="preserve">
     <value>Произошла прочая ошибка. </value>
   </data>
+  <data name="ErrorMessageInfoGenericTitleTray" xml:space="preserve">
+    <value>Прочая ошибка</value>
+  </data>
   <data name="ErrorMessageInfoIndexOORDescTray" xml:space="preserve">
     <value>Произошла ошибка парсинга списка столбцов. Неверный формат данных. Для получения подробной информации см. Журнал событий.</value>
   </data>

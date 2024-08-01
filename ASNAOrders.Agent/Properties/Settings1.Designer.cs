@@ -25,7 +25,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Disabled {
             get {
                 return ((bool)(this["Disabled"]));
@@ -49,7 +49,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
         public int LinesPerFile {
             get {
                 return ((int)(this["LinesPerFile"]));
@@ -73,7 +73,8 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\MSSQLSERVER2;Initial Catalog=wSklad;User ID=sa;Password=Passlogin1." +
+            ";TrustServerCertificate=true;App=ASNAOrdersAgent")]
         public string DBConnectionString {
             get {
                 return ((string)(this["DBConnectionString"]));
@@ -85,7 +86,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("farmofficeru.ru")]
         public string FtpServerAddress {
             get {
                 return ((string)(this["FtpServerAddress"]));
@@ -97,7 +98,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ASNAOrders")]
         public string FtpServerUsername {
             get {
                 return ((string)(this["FtpServerUsername"]));
@@ -109,7 +110,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Passlogin1.")]
         public string FtpServerPassword {
             get {
                 return ((string)(this["FtpServerPassword"]));
@@ -214,10 +215,10 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public uint RepeatIntervalInDays {
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int RepeatIntervalInDays {
             get {
-                return ((uint)(this["RepeatIntervalInDays"]));
+                return ((int)(this["RepeatIntervalInDays"]));
             }
             set {
                 this["RepeatIntervalInDays"] = value;
@@ -238,7 +239,7 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
         public int LoadBalancingRowsPerFile {
             get {
                 return ((int)(this["LoadBalancingRowsPerFile"]));
@@ -269,6 +270,18 @@ namespace ASNAOrders.Agent.Properties {
             }
             set {
                 this["MQPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RepeatIntervalInMins {
+            get {
+                return ((int)(this["RepeatIntervalInMins"]));
+            }
+            set {
+                this["RepeatIntervalInMins"] = value;
             }
         }
     }

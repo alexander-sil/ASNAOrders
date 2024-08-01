@@ -15,7 +15,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DBConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data Source=127.0.0.1,1433;Initial Catalog=wSklad;User ID=sa;Password=Passlogin1.;TrustServerCertificate=true;App=ASNAOrdersAgent</Value>
+      <Value Profile="(Default)">Data Source=.\MSSQLSERVER2;Initial Catalog=wSklad;User ID=sa;Password=Passlogin1.;TrustServerCertificate=true;App=ASNAOrdersAgent</Value>
     </Setting>
     <Setting Name="FtpServerAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">farmofficeru.ru</Value>
@@ -50,8 +50,8 @@
     <Setting Name="ListenForOrders" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="RepeatIntervalInDays" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="RepeatIntervalInDays" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="LoadBalancingOneFile" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -64,6 +64,9 @@
     </Setting>
     <Setting Name="MQPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)">administrator</Value>
+    </Setting>
+    <Setting Name="RepeatIntervalInMins" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

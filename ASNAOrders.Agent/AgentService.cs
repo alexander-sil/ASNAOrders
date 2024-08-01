@@ -68,20 +68,18 @@ namespace ASNAOrders.Agent
                     AgentNotifyIcon.BalloonTipClicked += AgentNotifyIconClicked;
 
                     StdSchedulerFactory schFactory = new StdSchedulerFactory();
-                    var scheduler = schFactory.GetScheduler().Result;
+                    var scheduler = schFactory.GetScheduler();
 
-                    var job = new JobDetailImpl(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup, typeof(LogicJobStub));
+                    var job = JobBuilder.Create<LogicJobStub>().WithIdentity(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup).Build();
 
                     var trigger = TriggerBuilder.Create()
                         .WithIdentity(Properties.Resources.UploadJobName, Properties.Resources.UploadJobGroup)
                         .WithSimpleSchedule(x => x
-                            .WithInterval(new TimeSpan(days: (int)Properties.Settings.Default.RepeatIntervalInDays, 0, 5, 0))
+                            .WithInterval(new TimeSpan(Properties.Settings.Default.RepeatIntervalInDays, 0, Properties.Settings.Default.RepeatIntervalInMins, 0))
                             .RepeatForever())
                         .Build();
 
-                    scheduler.AddJob(job, true);
-                    scheduler.ScheduleJob(trigger);
-
+                    scheduler.ScheduleJob(job, trigger);
                     scheduler.Start();
 
                     if (Properties.Settings.Default.ListenForOrders)
@@ -139,7 +137,7 @@ namespace ASNAOrders.Agent
             }
             catch (Exception ex)
             {
-                AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageInfoConnectionTitleTray;
+                AgentNotifyIcon.BalloonTipTitle = Properties.Resources.ErrorMessageInfoGenericTitleTray;
                 AgentNotifyIcon.BalloonTipText = Properties.Resources.ErrorMessageInfoGenericDescTray;
                 AgentNotifyIcon.Icon = Icon.FromHandle(Properties.Resources.ErrorIcon.GetHicon());
                 AgentNotifyIcon.ShowBalloonTip(5);

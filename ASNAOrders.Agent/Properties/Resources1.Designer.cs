@@ -264,6 +264,15 @@ namespace ASNAOrders.Agent.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Прочая ошибка.
+        /// </summary>
+        internal static string ErrorMessageInfoGenericTitleTray {
+            get {
+                return ResourceManager.GetString("ErrorMessageInfoGenericTitleTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Произошла ошибка парсинга списка столбцов. Неверный формат данных. Для получения подробной информации см. Журнал событий..
         /// </summary>
         internal static string ErrorMessageInfoIndexOORDescTray {
