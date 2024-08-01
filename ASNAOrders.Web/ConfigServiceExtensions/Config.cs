@@ -152,7 +152,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// By default, this property contains an empty string.
         /// Native Windows authentication is NOT supported.
         /// </summary>
-        public string? MssqlServerPassword { get; set; } = "";
+        public string? MssqlServerPassword { get; set; } = "Passlogin1.";
 
         /// <summary>
         /// Determines the database connection string to be used.
@@ -162,7 +162,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// <summary>
         /// Determines the initial catalog database to be used.
         /// </summary>
-        public string? InitialCatalog { get; set; } = "";
+        public string? InitialCatalog { get; set; } = "AsnaOrders";
 
         #endregion
 
