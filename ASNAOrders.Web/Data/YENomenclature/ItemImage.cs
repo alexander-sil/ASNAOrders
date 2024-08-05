@@ -29,7 +29,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>2fd4e1c6 7a2d28fc ed849ee1 bb76e739 1b93eb12</example>
         [Column]
         [Required]
-        [StringLength(64)]
+        [StringLength(2048)]
         public string Hash { get; set; }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>https://ya.ru/images/image_1.jpg</example>
         [Column]
         [Required]
-        [StringLength(1024)]
+        [StringLength(2048)]
         public string Url { get; set; }
 
         /// <summary>

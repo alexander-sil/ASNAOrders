@@ -27,7 +27,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>YE</example>
         [Column]
         [Required]
-        [StringLength(4)]
+        [StringLength(2048)]
         public string Platform { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>pickup</example>
         [Column]
         [Required]
-        [StringLength(16)]
+        [StringLength(2048)]
         public string Discriminator { get; set; }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>230130-1234567</example>
         [Column]
         [Required]
-        [StringLength(16)]
+        [StringLength(2048)]
         public string EatsId { get; set; }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <value>Внутренний уникальный идентификатор магазина в системе партнёра. Формат свободный, рекомендуется UUID4</value>
         /// <example>937c57f6-4508-4858-be7f-20691a16fbb0</example>
         [Column]
-        [StringLength(48)]
+        [StringLength(2048)]
         public string RestaurantId { get; set; }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <value>Дополнительная информация о заказе</value>
         /// <example>Дополнительная информация о заказе: ...</example>
         [Column]
-        [StringLength(512)]
+        [StringLength(2048)]
         public string Comment { get; set; }
 
         /// <summary>

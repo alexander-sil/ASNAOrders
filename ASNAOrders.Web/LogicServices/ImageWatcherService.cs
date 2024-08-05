@@ -33,7 +33,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// 
         /// </summary>
-        public FileSystemWatcher Watcher { get; set; }
+        private FileSystemWatcher Watcher { get; set; }
 
         /// <summary>
         /// 
@@ -48,8 +48,6 @@ namespace ASNAOrders.Web.LogicServices
         {
             Context = contextFactory.CreateDbContext();
             Logger = logger;
-
-            Logger.LogInformation($"Started ImageWatcherService at {DateTime.Now}");
         }
 
         private void OnUpload(object sender, FileSystemEventArgs e)
@@ -63,11 +61,14 @@ namespace ASNAOrders.Web.LogicServices
             message.Content.Headers.ContentLength = new FileInfo(e.FullPath).Length;
 
             message.Headers.Add(Properties.Resources.ASNAAppIdKey, Properties.Resources.ASNAAppIdValue);
+            Thread.Sleep(250);
 
             HttpResponseMessage response = client.Send(message);
             string url = response.EnsureSuccessStatusCode().Content.ToString();
 
             System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
+
+            Log.Information($"Image {e.Name} hosted at Tinystash URI {url}");
         }
         
         /// <summary>
@@ -75,7 +76,9 @@ namespace ASNAOrders.Web.LogicServices
         /// </summary>
         public void DoWork()
         {
-            if (new FileInfo(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)).Length == 0)
+
+
+            if (new FileInfo(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)).Length > 0)
             {
                 foreach (FileInfo file in new DirectoryInfo(Program.ImagePath).EnumerateFiles())
                 {
@@ -88,11 +91,14 @@ namespace ASNAOrders.Web.LogicServices
                     message.Content.Headers.ContentLength = file.Length;
 
                     message.Headers.Add(Properties.Resources.ASNAAppIdKey, Properties.Resources.ASNAAppIdValue);
+                    Thread.Sleep(250);
 
                     HttpResponseMessage response = client.Send(message);
                     string url = response.EnsureSuccessStatusCode().Content.ToString();
 
                     System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(file.Name, file.Extension, string.Empty)}\t{url}{Environment.NewLine}");
+
+                    Log.Information($"Image {file.Name} uploaded and hosted at Tinystash URI {url}");
                 }
             }
 
@@ -148,6 +154,12 @@ namespace ASNAOrders.Web.LogicServices
         public Task StartAsync(CancellationToken cancellationToken)
         {
             Log.Information($"Started ImageWatcherService at {DateTime.Now}");
+
+            if (!System.IO.File.Exists(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)))
+            {
+                System.IO.File.Create(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)).Dispose();
+            }
+
             return Task.Run(DoWork);
         }
 

@@ -23,7 +23,7 @@ using System.Threading;
 namespace ASNAOrders.Web.OrdersServiceExtensions
 {
     /// <summary>
-    /// 
+    /// Hosted service for managing agent responses. For DI use only.
     /// </summary>
     public class RabbitMQOrdersService : IDisposable, IHostedService
     {
@@ -94,7 +94,7 @@ namespace ASNAOrders.Web.OrdersServiceExtensions
                                  autoDelete: false,
                                  arguments: null);
 
-            Log.Information($"Waiting for RabbitMQ ORDERS messages @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
+            Log.Information($"Waiting for RabbitMQ response messages @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
 
             var consumer = new EventingBasicConsumer(Channel);
             consumer.Received += OnReceived;

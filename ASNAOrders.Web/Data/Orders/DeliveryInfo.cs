@@ -25,7 +25,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Discriminator { get; set; }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>Иванов Иван Иванович</example>
         [Column]
         [Required]
-        [StringLength(128)]
+        [StringLength(2048)]
         public string ClientName { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>+74732006745 доб. 12099</example>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string PhoneNumber { get; set; }
 
         /// <summary>

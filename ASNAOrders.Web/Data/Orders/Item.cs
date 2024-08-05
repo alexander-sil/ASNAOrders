@@ -25,7 +25,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>Молоко Домик в деревне</example>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Name { get; set; }
 
         /// <summary>

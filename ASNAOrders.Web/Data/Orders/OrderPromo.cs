@@ -27,6 +27,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <value>Параметр не поддерживается в интеграции магазинов и передается пустым - GIFT - PERCENTAGE - FIXED</value>
         /// <example>FIXED</example>
         [Column]
+        [StringLength(2048)]
         public string Type { get; set; }
 
         /// <summary>

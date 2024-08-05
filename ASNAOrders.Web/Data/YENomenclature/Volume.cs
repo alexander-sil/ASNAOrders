@@ -35,7 +35,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>DMQ</example>
         [Column]
         [Required]
-        [StringLength(8)]
+        [StringLength(2048)]
         public string Unit { get; set; }
     }
 }

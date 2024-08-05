@@ -314,12 +314,12 @@ namespace ASNAOrders.Agent
         {
             if (oneFile)
             {
-                XDocument root = ConvertDataToXml(rawData, columnNames);
+                XElement root = ConvertDataToXml(rawData, columnNames);
                 return new string[][] { new string[] { root.ToString() } };
             }
             else
             {
-                XDocument root = ConvertDataToXml(rawData, columnNames);
+                XElement root = ConvertDataToXml(rawData, columnNames);
                 File.WriteAllText("unparcellated.xml", root.ToString());
                 string[][] parcellatedStanzas = ParcellateStanzas(linesPerPage, "unparcellated.xml");
 
@@ -329,9 +329,8 @@ namespace ASNAOrders.Agent
             }
         }
 
-        public static XDocument ConvertDataToXml(List<List<string>> rawData, string[] columnNames)
+        public static XElement ConvertDataToXml(List<List<string>> rawData, string[] columnNames)
         {
-            XDocument root = new XDocument();
             int i = 1;
             XElement subroot = new XElement("Root");
 
@@ -365,15 +364,14 @@ namespace ASNAOrders.Agent
                 subroot.Add(rowNode);
                 i++;
             }
-            root.Add(subroot);
 
-            return root;
+            return subroot;
         }
 
         public static List<XElement> ReadXml(string path)
         {
-            XDocument doc = XDocument.Load(path);
-            XElement root = doc.Element("Root");
+            XElement doc = XElement.Load(path);
+            XElement root = doc;
             List<XElement> buffer = root.Elements().ToList();
             return buffer;
         }
@@ -438,7 +436,7 @@ namespace ASNAOrders.Agent
                     secondaryBuffer += j + Environment.NewLine;
                 }
 
-                File.WriteAllText($"Data{stanzaIndex}.xml", secondaryBuffer);
+                File.WriteAllText($"Data{stanzaIndex}.xml", $"<Root>{Environment.NewLine}{secondaryBuffer}</Root>");
                 buffer.Add(new FileInfo($"Data{stanzaIndex}.xml"));
 
                 stanzaIndex++;

@@ -28,7 +28,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <example>Нарезать</example>
         [Column]
         [Required]
-        [StringLength(64)]
+        [StringLength(2048)]
         public string Name { get; set; }
 
         /// <summary>

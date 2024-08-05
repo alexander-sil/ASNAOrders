@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASNAOrders.Web.Migrations
 {
     [DbContext(typeof(ASNAOrdersDbContext))]
-    [Migration("20240512073829_InitialCreate")]
+    [Migration("20240805123122_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,15 +38,18 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Full")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Latitude")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Longitude")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -66,18 +69,18 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("ClientName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -94,8 +97,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
@@ -128,7 +131,8 @@ namespace ASNAOrders.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -147,8 +151,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int?>("OwnerId")
                         .HasColumnType("int");
@@ -175,21 +179,21 @@ namespace ASNAOrders.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("DeliveryInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("EatsId")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("PaymentInfoId")
                         .HasColumnType("int");
@@ -199,12 +203,12 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Platform")
                         .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("RestaurantId")
-                        .HasMaxLength(48)
-                        .HasColumnType("nvarchar(48)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -230,7 +234,8 @@ namespace ASNAOrders.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -252,15 +257,16 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<double>("ItemsCost")
                         .HasColumnType("float");
 
                     b.Property<string>("PaymentType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2480)
+                        .HasColumnType("nvarchar(2480)");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
@@ -279,36 +285,36 @@ namespace ASNAOrders.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Barcode")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Category")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Composition")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Country")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("ItemDesc")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("ItemId")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("ItemName")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("PlaceId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -316,8 +322,9 @@ namespace ASNAOrders.Web.Migrations
                     b.Property<int>("Qtty")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UploadRecordedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("UploadRecordedDate")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -334,20 +341,20 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Values")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WeightEncoding")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -364,8 +371,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
@@ -385,16 +392,16 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Hash")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int?>("OwnerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -412,40 +419,40 @@ namespace ASNAOrders.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Composition")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("ExpiresIn")
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("General")
-                        .HasMaxLength(4096)
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("NutritionalValue")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("PackageInfo")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Purpose")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("StorageRequirements")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("VendorCountry")
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("VendorName")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -462,8 +469,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Hash")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -473,8 +480,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -496,8 +503,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
@@ -520,15 +527,15 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("CategoryId")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("DescriptionId")
                         .HasColumnType("int");
 
                     b.Property<string>("ExciseValue")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsCatchWeight")
                         .HasColumnType("bit");
@@ -537,16 +544,16 @@ namespace ASNAOrders.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("MeasureId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<float?>("OldPrice")
                         .HasColumnType("real");
@@ -562,8 +569,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("VendorCode")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int?>("VolumeId")
                         .HasColumnType("int");
@@ -591,8 +598,8 @@ namespace ASNAOrders.Web.Migrations
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -26,40 +27,10 @@ namespace ASNAOrders.Web.LogicServices
         /// </summary>
         public ASNAOrdersDbContext Context { get; set; }
 
-
         /// <summary>
-        /// Constructor for native instantiation. DI use only.
+        /// 
         /// </summary>
-        /// <param name="contextFactory">Database context to write to. NativeStocks table and Nomenclature cluster are used.</param>
-        public DataFormattingService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
-        {
-            Context = contextFactory.CreateDbContext();
-
-            if (Context.Categories.Count() == 0)
-            {
-                Context.Categories.Add(new Data.YENomenclature.Category()
-                {
-                    Name = Properties.Resources.ASNAYECategoryName,
-                    Images = new System.Collections.Generic.List<Data.YENomenclature.CategoryImage>
-                    {
-                        new Data.YENomenclature.CategoryImage()
-                        {
-                            Url = Properties.Resources.ASNAYECategoryDefaultImageUri,
-                            Hash = Properties.Resources.ASNAYECategoryDefaultImageHash
-                        }
-                    }
-                });
-            }
-
-            Context.SavedChanges += OnSaveChanges;
-        }
-
-        private void ReconstituteSavedChangesEvent()
-        {
-            Context.SavedChanges += OnSaveChanges;
-        }
-
-        private void OnSaveChanges(object sender, Microsoft.EntityFrameworkCore.SavedChangesEventArgs e)
+        public void FormatData()
         {
             if (Context.YENomenclatureItems.Count() > 0)
             {
@@ -72,27 +43,11 @@ namespace ASNAOrders.Web.LogicServices
                 }
             }
 
-            if (Context.Categories.Count() == 0)
-            {
-                Context.Categories.Add(new Data.YENomenclature.Category()
-                {
-                    Name = Properties.Resources.ASNAYECategoryName,
-                    Images = new System.Collections.Generic.List<Data.YENomenclature.CategoryImage>
-                    {
-                        new Data.YENomenclature.CategoryImage()
-                        {
-                            Url = Properties.Resources.ASNAYECategoryDefaultImageUri,
-                            Hash = Properties.Resources.ASNAYECategoryDefaultImageHash
-                        }
-                    }
-                });  
-            }
-
             foreach (var item in Context.NativeStocks)
             {
-                if (item != null)
+                if (item is not null)
                 {
-                    if (Context.YENomenclatureItems.Where(f => f.Name == item.ItemName).Count() == 0)
+                    if (Context.YENomenclatureItems.Where(f => f.Name == item.ItemName).Count() < 1)
                     {
                         Regex unitSegregator = new Regex("([0-9]{1,4}|([0-9]{1,4},[0-9]{1,2}))[а-я]{1,3}");
                         MatchCollection unparsedUnits = unitSegregator.Matches(item.ItemName);
@@ -104,8 +59,8 @@ namespace ASNAOrders.Web.LogicServices
                             if (match.Success)
                             {
                                 if (match.Value.Contains(Properties.Resources.Mgr)
-                                    || match.Value.Contains(Properties.Resources.Mkg) 
-                                    || match.Value.Contains(Properties.Resources.Mlt) 
+                                    || match.Value.Contains(Properties.Resources.Mkg)
+                                    || match.Value.Contains(Properties.Resources.Mlt)
                                     || match.Value.Contains(Properties.Resources.Grm))
                                 {
                                     units.Add(match.Value);
@@ -120,7 +75,7 @@ namespace ASNAOrders.Web.LogicServices
 
                         int measure = int.Parse(Regex.Replace(units[0], $"{Properties.Resources.Grm}|{Properties.Resources.Mgr}|{Properties.Resources.Mkg}|{Properties.Resources.Mlt}", string.Empty));
 
-                        Context.YENomenclatureItems.Add(new Data.YENomenclature.NomenclatureItem()
+                        var newItem = new Data.YENomenclature.NomenclatureItem()
                         {
                             CategoryId = Context.Categories.First().Id.ToString(),
                             Name = item.ItemName,
@@ -146,7 +101,7 @@ namespace ASNAOrders.Web.LogicServices
                             IsCatchWeight = false,
                             Barcode = new Barcode()
                             {
-                                Type = "upce",
+                                Type = "ean13",
                                 Value = item.Barcode,
                                 WeightEncoding = "none"
                             },
@@ -154,22 +109,31 @@ namespace ASNAOrders.Web.LogicServices
                             Labels = new System.Collections.Generic.List<string>() { Properties.Resources.MedicalGoodsString },
                             VendorCode = item.ItemId,
                             Price = (float)item.Price,
-                            Vat = 0,
+                            Vat = 20,
                             Measure = new Measure()
                             {
-                                Quantum = 0,
                                 Value = measure,
                                 Unit = Regex.IsMatch(units[0], Properties.Resources.Mlt) ? "MLT" : "GRM"
-                            },
-                        });
+                            }
+                        };
+
+                        Context.YENomenclatureItems.Add(newItem);
+
+                        Log.Information($"Formatted native stock {item.ItemName} with NNT {item.ItemId} as YE nomenclature item {newItem.Name}");
                     }
                 }
             }
 
-            Context.SavedChanges -= OnSaveChanges;
             Context.SaveChanges();
+        }
 
-            ReconstituteSavedChangesEvent();
+        /// <summary>
+        /// Constructor for native instantiation. DI use only.
+        /// </summary>
+        /// <param name="contextFactory">Database context to write to. NativeStocks table and Nomenclature cluster are used.</param>
+        public DataFormattingService(IDbContextFactory<ASNAOrdersDbContext> contextFactory)
+        {
+            Context = contextFactory.CreateDbContext();
         }
 
         /// <summary>
@@ -177,7 +141,6 @@ namespace ASNAOrders.Web.LogicServices
         /// </summary>
         public void DoWork()
         {
-
             if (Context.Categories.Count() == 0)
             {
                 Context.Categories.Add(new Data.YENomenclature.Category()
@@ -192,9 +155,9 @@ namespace ASNAOrders.Web.LogicServices
                         }
                     }
                 });
-            }
+            };
 
-            Context.SavedChanges += OnSaveChanges;
+            FormatData();
         }
 
         public void Dispose()
@@ -210,6 +173,7 @@ namespace ASNAOrders.Web.LogicServices
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
+            DoWork();
             return Task.CompletedTask;
         }
     }

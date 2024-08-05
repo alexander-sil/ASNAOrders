@@ -42,7 +42,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>GRM</example>
         [Column]
         [Required]
-        [StringLength(8)]
+        [StringLength(2048)]
         public string Unit { get; set; }
     }
 }

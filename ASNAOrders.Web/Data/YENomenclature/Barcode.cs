@@ -26,7 +26,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>987654321098</example>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Value { get; set; }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>ean13</example>
         [Column]
         [Required]
-        [StringLength(20)]
+        [StringLength(2048)]
         public string Type { get; set; }
 
 
@@ -52,7 +52,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Алгоритм кодирования веса в штрихкоде</value>
         /// <example>ean13-tail-gram-4</example>
         [Column]
-        [StringLength(20)]
+        [StringLength(2048)]
         public string WeightEncoding { get; set; }
     }
 }

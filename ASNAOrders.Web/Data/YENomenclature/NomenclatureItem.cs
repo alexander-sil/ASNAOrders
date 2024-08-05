@@ -26,7 +26,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Артикул товара в системе партнера</value>
         [Column]
         [Required]
-        [StringLength(16)]
+        [StringLength(2048)]
         public string VendorCode { get; set; }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>some-uniq-identifier</example>
         [Column]
         [Required]
-        [StringLength(16)]
+        [StringLength(2048)]
         public string CategoryId { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Расположение товара в маганизе. Можно не передавать.</value>
         /// <example>Бакалея. Линия 8</example>
         [Column]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Location { get; set; }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>Молоко Домик в деревне</example>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Name { get; set; }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Тип акциза. Пример, ССН (кириллица - сахаросодержащие напитки)</value>
         /// <example>ССН</example>
         [Column]
-        [StringLength(16)]
+        [StringLength(2048)]
         public string ExciseValue { get; set; }
 
         /// <summary>

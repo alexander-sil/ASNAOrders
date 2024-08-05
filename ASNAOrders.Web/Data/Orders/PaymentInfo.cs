@@ -22,7 +22,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Discriminator { get; set; }
 
         /// <summary>
@@ -31,6 +31,7 @@ namespace ASNAOrders.Web.Data.Orders
         /// <value>Информация о типе оплаты</value>
         [Column]
         [Required]
+        [StringLength(2480)]
         public string PaymentType { get; set; }
 
         /// <summary>

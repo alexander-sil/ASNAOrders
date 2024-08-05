@@ -21,7 +21,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// </summary>
         /// <value>Общее описание товара</value>
         [Column]
-        [StringLength(4096)]
+        [StringLength(2048)]
         public string General { get; set; }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Сведения о составе</value>
         /// <example>молоко нормализованное (молоко цельное, молоко обезжиренное)</example>
         [Column]
-        [StringLength(256)]
+        [StringLength(2048)]
         public string Composition { get; set; }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Пищевая ценность</value>
         /// <example>600 ккал, 8 белки, 3,2 жиры, 40 углеводы</example>
         [Column]
-        [StringLength(256)]
+        [StringLength(2048)]
         public string NutritionalValue { get; set; }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// </summary>
         /// <value>Назначение</value>
         [Column]
-        [StringLength(64)]
+        [StringLength(2048)]
         public string Purpose { get; set; }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Условия хранения</value>
         /// <example>от -5 до 5 градусов</example>
         [Column]
-        [StringLength(256)]
+        [StringLength(2048)]
         public string StorageRequirements { get; set; }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Срок годности в днях</value>
         /// <example>60</example>
         [Column]
-        [StringLength(8)]
+        [StringLength(2048)]
         public string ExpiresIn { get; set; }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Страна изготовления</value>
         /// <example>Россия</example>
         [Column]
-        [StringLength(80)]
+        [StringLength(2048)]
         public string VendorCountry { get; set; }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Сведения об упаковке</value>
         /// <example>Тетрапак</example>
         [Column]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string PackageInfo { get; set; }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <value>Производитель</value>
         /// <example>ООО Молочный завод</example>
         [Column]
-        [StringLength(128)]
+        [StringLength(2048)]
         public string VendorName { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// <example>Молоко</example>
         [Column]
         [Required]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string Name { get; set; }
 
         /// <summary>

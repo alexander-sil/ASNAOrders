@@ -17,10 +17,10 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Value = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Values = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    WeightEncoding = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    Type = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    WeightEncoding = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -47,9 +47,9 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Full = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Full = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Latitude = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Longitude = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,9 +62,9 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Discriminator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ClientName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    ClientName = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     ClientArrivementDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -78,15 +78,15 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    General = table.Column<string>(type: "nvarchar(max)", maxLength: 4096, nullable: true),
-                    Composition = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NutritionalValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Purpose = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    StorageRequirements = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ExpiresIn = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
-                    VendorCountry = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
-                    PackageInfo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    VendorName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true)
+                    General = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Composition = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    NutritionalValue = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Purpose = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    StorageRequirements = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    ExpiresIn = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    VendorCountry = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    PackageInfo = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    VendorName = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,7 +101,7 @@ namespace ASNAOrders.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Value = table.Column<int>(type: "int", nullable: false),
                     Quantum = table.Column<float>(type: "real", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)
+                    Unit = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,17 +114,17 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UploadRecordedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PlaceId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    Composition = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    ItemName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    ItemId = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    UploadRecordedDate = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    PlaceId = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Composition = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    ItemName = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    ItemId = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     Qtty = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    ItemDesc = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Barcode = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true)
+                    Category = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    ItemDesc = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Barcode = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,8 +137,8 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Discriminator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    PaymentType = table.Column<string>(type: "nvarchar(2480)", maxLength: 2480, nullable: false),
                     ItemsCost = table.Column<double>(type: "float", nullable: false),
                     Total = table.Column<double>(type: "float", nullable: false),
                     Change = table.Column<double>(type: "float", nullable: false)
@@ -155,7 +155,7 @@ namespace ASNAOrders.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Value = table.Column<int>(type: "int", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)
+                    Unit = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,8 +169,8 @@ namespace ASNAOrders.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: true),
-                    Hash = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
+                    Hash = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,14 +188,14 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Platform = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    EatsId = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    RestaurantId = table.Column<string>(type: "nvarchar(48)", maxLength: 48, nullable: true),
+                    Platform = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    EatsId = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    RestaurantId = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     DeliveryInfoId = table.Column<int>(type: "int", nullable: false),
                     PaymentInfoId = table.Column<int>(type: "int", nullable: false),
                     Persons = table.Column<int>(type: "int", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true)
+                    Comment = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -220,10 +220,10 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VendorCode = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    CategoryId = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    VendorCode = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    CategoryId = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     DescriptionId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     OldPrice = table.Column<float>(type: "real", nullable: true),
@@ -232,7 +232,7 @@ namespace ASNAOrders.Web.Migrations
                     MeasureId = table.Column<int>(type: "int", nullable: false),
                     VolumeId = table.Column<int>(type: "int", nullable: true),
                     IsCatchWeight = table.Column<bool>(type: "bit", nullable: false),
-                    ExciseValue = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+                    ExciseValue = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
                     Labels = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -270,7 +270,7 @@ namespace ASNAOrders.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Quantity = table.Column<float>(type: "real", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: true)
@@ -292,7 +292,7 @@ namespace ASNAOrders.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -312,8 +312,8 @@ namespace ASNAOrders.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: true),
-                    Hash = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    Hash = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -333,7 +333,7 @@ namespace ASNAOrders.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -353,7 +353,7 @@ namespace ASNAOrders.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
                 },

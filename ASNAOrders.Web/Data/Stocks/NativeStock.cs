@@ -20,41 +20,42 @@ namespace ASNAOrders.Web.Data.Stocks
         /// Timestamp of UploadRecordedToDatabase event. For utility use only.
         /// </summary>
         [Column]
-        public DateTime UploadRecordedDate { get; set; }
+        [StringLength(2048)]
+        public string UploadRecordedDate { get; set; }
 
         /// <summary>
         /// Unique place identifier sent by agent.
         /// </summary>
         [Column]
-        [StringLength(50)]
+        [StringLength(2048)]
         public string PlaceId { get; set; }
 
         /// <summary>
         /// cntr_name column in wSklad.ws_Prt
         /// </summary>
         [Column]
-        [StringLength(64)]
+        [StringLength(2048)]
         public string Country { get; set; }
 
         /// <summary>
         /// rnp_name column in wSklad.ws_Prt
         /// </summary>
         [Column]
-        [StringLength(64)]
+        [StringLength(2048)]
         public string Composition { get; set; }
 
         /// <summary>
         /// cmp_name column in wSklad.ws_Prt
         /// </summary>
         [Column]
-        [StringLength(500)]
+        [StringLength(2048)]
         public string ItemName { get; set; }
 
         /// <summary>
         /// cmp_unicode column in wSklad.ws_Prt - ННТ ака артикул Трейд Фарм
         /// </summary>
         [Column]
-        [StringLength(32)]
+        [StringLength(2048)]
         public string ItemId { get; set; }
 
         /// <summary>
@@ -62,7 +63,6 @@ namespace ASNAOrders.Web.Data.Stocks
         /// </summary>
         [Column]
         public int Qtty { get; set; }
-
 
         /// <summary>
         /// Str_Value4_04 column in wSklad.ws_Prt - розничная цена без НДС
@@ -74,21 +74,21 @@ namespace ASNAOrders.Web.Data.Stocks
         /// pro_name column in wSklad.ws_Prt - производитель/категория
         /// </summary>
         [Column]
-        [StringLength(64)]
+        [StringLength(2048)]
         public string Category { get; set; }
 
         /// <summary>
         /// info_str_11 column in wSklad.ws_Prt
         /// </summary>
         [Column]
-        [StringLength(500)]
+        [StringLength(2048)]
         public string ItemDesc { get; set; }
 
         /// <summary>
         /// str_barcode column in wSklad.ws_Prt
         /// </summary>
         [Column]
-        [StringLength(16)]
+        [StringLength(2048)]
         public string Barcode { get; set; }
 
     }

@@ -30,7 +30,7 @@ namespace ASNAOrders.Web.LogicServices
         /// <summary>
         /// 
         /// </summary>
-        public FileSystemWatcher Watcher { get; set; }
+        private FileSystemWatcher Watcher { get; set; }
 
         /// <summary>
         /// 
@@ -59,11 +59,13 @@ namespace ASNAOrders.Web.LogicServices
             DateTime date = DateTime.ParseExact(Regex.Replace(e.Name, @"_.*\.xml", string.Empty), Properties.Resources.DefaultDateFormatString, new CultureInfo("nl-NL"));
             XDocument document = XDocument.Parse(File.ReadAllText(e.FullPath));
 
-            foreach (XElement element in document.Elements())
+            int i = 0;
+
+            foreach (XElement element in document.Element("Root").Elements())
             {
                 if (Context.NativeStocks.Where(f => f.ItemName.Equals(element.Element("item_name").Value)).Count() < 1)
                 {
-                    Context.NativeStocks.Add(new NativeStock()
+                    var newStock = new NativeStock()
                     {
                         Category = element.Element("category").Value,
                         Composition = element.Element("composition").Value,
@@ -74,13 +76,19 @@ namespace ASNAOrders.Web.LogicServices
                         ItemDesc = element.Element("item_desc").Value,
                         ItemName = element.Element("item_name").Value,
                         PlaceId = element.Element("place_id").Value,
-                        UploadRecordedDate = date,
+                        UploadRecordedDate = date.ToString(),
 
-                    });
+                    };
+
+                    Context.NativeStocks.Add(newStock);
+
+                    Log.Information($"Processed new stock info. NNT {newStock.ItemId} name {newStock.ItemName} quantity {newStock.Qtty} category {newStock.Category}");
+                    i++;
                 }
             }
 
             Context.SaveChanges();
+            Log.Information($"Processed a total of {i} native stock objects. The changes will come into effect (AKA formatted) upon next stop operation.");
         }
 
         public void Dispose()
@@ -92,17 +100,16 @@ namespace ASNAOrders.Web.LogicServices
         {
             string path = Program.XMLPath;
 
-
             foreach (FileInfo file in new DirectoryInfo(path).EnumerateFiles())
             {
                 DateTime date = DateTime.ParseExact(Regex.Replace(file.Name, @"_.*\.xml", string.Empty), Properties.Resources.DefaultDateFormatString, new CultureInfo("nl-NL"));
                 XDocument document = XDocument.Parse(File.ReadAllText(file.FullName));
 
-                foreach (XElement element in document.Elements())
+                foreach (XElement element in document.Element("Root").Elements())
                 {
                     if (Context.NativeStocks.Where(f => f.ItemName.Equals(element.Element("item_name").Value)).Count() < 1)
                     {
-                        Context.NativeStocks.Add(new NativeStock()
+                        var extStock = new NativeStock()
                         {
                             Category = element.Element("category").Value,
                             Composition = element.Element("composition").Value,
@@ -114,22 +121,25 @@ namespace ASNAOrders.Web.LogicServices
                             ItemName = element.Element("item_name").Value,
                             PlaceId = element.Element("place_id").Value,
                             Barcode = element.Element("barcode").Value,
-                            UploadRecordedDate = date,
+                            UploadRecordedDate = date.ToString(),
 
-                        });
+                        };
+
+                        Context.NativeStocks.Add(extStock);
+                        Log.Information($"Processed existing stock info. NNT {extStock.ItemId} name {extStock.ItemName} quantity {extStock.Qtty} category {extStock.Category}");
                     }
                 }
             }
 
             Context.SaveChanges();
-
-            Watcher = new FileSystemWatcher(Program.XMLPath);
-
-            Watcher.Created += OnUpload;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            Watcher = new FileSystemWatcher(Program.XMLPath);
+
+            Watcher.Created += OnUpload;
+
             Log.Information($"Started XMLStockWatcherService {DateTime.Now}");
             return Task.Run(DoWork);
         }

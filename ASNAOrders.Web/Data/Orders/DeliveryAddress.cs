@@ -21,7 +21,9 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Полный адрес</value>
         /// <example>Москва, улица Тверская, дом 1 строение 4, подъезд 2. 4-й этаж, код домофона: 123 К 4567</example>
+        [Column]
         [Required]
+        [StringLength(2048)]
         public string Full { get; set; }
 
         /// <summary>
@@ -29,7 +31,9 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Широта точки доставки</value>
         /// <example>55.756994</example>
+        [Column]
         [Required]
+        [StringLength(2048)]
         public string Latitude { get; set; }
 
         /// <summary>
@@ -37,7 +41,9 @@ namespace ASNAOrders.Web.Data.Orders
         /// </summary>
         /// <value>Долгота точки доставки</value>
         /// <example>37.614006</example>
+        [Column]
         [Required]
+        [StringLength(2048)]
         public string Longitude { get; set; }
     }
 }
