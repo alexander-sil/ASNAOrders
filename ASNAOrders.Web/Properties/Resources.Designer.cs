@@ -502,6 +502,15 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 15.
+        /// </summary>
+        internal static string DFSStartCountdown {
+            get {
+                return ResourceManager.GetString("DFSStartCountdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [ERRORERRORERRORERRORERRORERROR].
         /// </summary>
         internal static string ErrorSecret {

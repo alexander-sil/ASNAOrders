@@ -264,6 +264,9 @@
   <data name="DefaultDateFormatString" xml:space="preserve">
     <value>dd-MM-yyyy</value>
   </data>
+  <data name="DFSStartCountdown" xml:space="preserve">
+    <value>15</value>
+  </data>
   <data name="ErrorSecret" xml:space="preserve">
     <value>[ERRORERRORERRORERRORERRORERROR]</value>
   </data>

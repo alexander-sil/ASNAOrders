@@ -32,6 +32,12 @@ namespace ASNAOrders.Web.LogicServices
         /// </summary>
         public void FormatData()
         {
+            for (int i = int.Parse(Properties.Resources.DFSStartCountdown); i >= 0; i--)
+            {
+                Log.Information($"DataFormattingService activates in {i} seconds");
+                Thread.Sleep(1000);
+            }
+
             if (Context.YENomenclatureItems.Count() > 0)
             {
                 foreach (var item in Context.YENomenclatureItems)
