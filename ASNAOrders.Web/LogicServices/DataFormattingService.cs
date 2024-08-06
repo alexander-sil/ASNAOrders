@@ -161,6 +161,8 @@ namespace ASNAOrders.Web.LogicServices
                         }
                     }
                 });
+
+                Context.SaveChanges();
             };
 
             FormatData();
