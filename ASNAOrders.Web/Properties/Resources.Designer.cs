@@ -502,7 +502,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 15.
+        ///   Looks up a localized string similar to 6.
         /// </summary>
         internal static string DFSStartCountdown {
             get {

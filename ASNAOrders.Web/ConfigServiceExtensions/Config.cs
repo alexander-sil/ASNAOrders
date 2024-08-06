@@ -19,7 +19,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
         /// </summary>
         public Config()
         {
-            this.ConnectionString = this.DatabaseType == "sqlite" ? $"Data Source={this.SqliteDbCacheFilename};Cache=Shared" : $"Data Source={this.MssqlServerHost},{this.MssqlServerPort};Initial Catalog={InitialCatalog};User ID={MssqlServerUsername};Password={MssqlServerPassword};TrustServerCertificate=True;App=ASNAOrders";
+            this.ConnectionString = this.DatabaseType == "sqlite" ? $"Data Source={this.SqliteDbCacheFilename};Cache=Shared" : $"Data Source={this.MssqlServerHost},{this.MssqlServerPort};Initial Catalog={InitialCatalog};User ID={MssqlServerUsername};Password={MssqlServerPassword};TrustServerCertificate=True;App=ASNAOrders;MultipleActiveResultSets=True";
             this.ErrorLogPrefix = $"hs_log_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
         }
 
