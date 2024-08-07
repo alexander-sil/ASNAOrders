@@ -79,53 +79,56 @@ namespace ASNAOrders.Web.LogicServices
                             units.Add("100мл");
                         }
 
-                        int measure = int.Parse(Regex.Replace(units[0], $"{Properties.Resources.Grm}|{Properties.Resources.Mgr}|{Properties.Resources.Mkg}|{Properties.Resources.Mlt}", string.Empty));
+                        bool parseSuccess = int.TryParse(Regex.Replace(units[0], $"{Properties.Resources.Grm}|{Properties.Resources.Mgr}|{Properties.Resources.Mkg}|{Properties.Resources.Mlt}", string.Empty), out int measure);
 
-                        var newItem = new Data.YENomenclature.NomenclatureItem()
+                        if (parseSuccess)
                         {
-                            CategoryId = Context.Categories.First().Id.ToString(),
-                            Name = item.ItemName,
-                            Description = new Data.YENomenclature.Description()
+                            var newItem = new Data.YENomenclature.NomenclatureItem()
                             {
-                                VendorName = item.Category != null ? item.Category : Properties.Resources.ASNAPurpose,
-                                VendorCountry = item.Country != null ? item.Country : Properties.Resources.ASNACountry,
-                                Composition = item.Composition != null ? item.Composition : Properties.Resources.ASNAComposition,
-                                General = item.ItemDesc,
-                                Purpose = Properties.Resources.ASNAPurpose,
-                                NutritionalValue = Properties.Resources.ASNANutritionalValue,
-                                ExpiresIn = Properties.Resources.ASNAExpiresIn
-
-                            },
-                            Images = new System.Collections.Generic.List<Data.YENomenclature.ItemImage>()
-                            {
-                                new Data.YENomenclature.ItemImage()
+                                CategoryId = Context.Categories.First().Id.ToString(),
+                                Name = item.ItemName,
+                                Description = new Data.YENomenclature.Description()
                                 {
-                                    Url = ImageWatcherService.GetImageTinystash(item.ItemId),
-                                    Hash = ImageWatcherService.GetImageSha1(item.ItemId)
+                                    VendorName = item.Category != null ? item.Category : Properties.Resources.ASNAPurpose,
+                                    VendorCountry = item.Country != null ? item.Country : Properties.Resources.ASNACountry,
+                                    Composition = item.Composition != null ? item.Composition : Properties.Resources.ASNAComposition,
+                                    General = item.ItemDesc,
+                                    Purpose = Properties.Resources.ASNAPurpose,
+                                    NutritionalValue = Properties.Resources.ASNANutritionalValue,
+                                    ExpiresIn = Properties.Resources.ASNAExpiresIn
+
+                                },
+                                Images = new System.Collections.Generic.List<Data.YENomenclature.ItemImage>()
+                                {
+                                    new Data.YENomenclature.ItemImage()
+                                    {
+                                        Url = ImageWatcherService.GetImageTinystash(item.ItemId),
+                                        Hash = ImageWatcherService.GetImageSha1(item.ItemId)
+                                    }
+                                },
+                                IsCatchWeight = false,
+                                Barcode = new Barcode()
+                                {
+                                    Type = "ean13",
+                                    Value = item.Barcode,
+                                    WeightEncoding = "none"
+                                },
+                                ExciseValue = "",
+                                Labels = new System.Collections.Generic.List<string>() { Properties.Resources.MedicalGoodsString },
+                                VendorCode = item.ItemId,
+                                Price = (float)item.Price,
+                                Vat = 20,
+                                Measure = new Measure()
+                                {
+                                    Value = measure,
+                                    Unit = Regex.IsMatch(units[0], Properties.Resources.Mlt) ? "MLT" : "GRM"
                                 }
-                            },
-                            IsCatchWeight = false,
-                            Barcode = new Barcode()
-                            {
-                                Type = "ean13",
-                                Value = item.Barcode,
-                                WeightEncoding = "none"
-                            },
-                            ExciseValue = "",
-                            Labels = new System.Collections.Generic.List<string>() { Properties.Resources.MedicalGoodsString },
-                            VendorCode = item.ItemId,
-                            Price = (float)item.Price,
-                            Vat = 20,
-                            Measure = new Measure()
-                            {
-                                Value = measure,
-                                Unit = Regex.IsMatch(units[0], Properties.Resources.Mlt) ? "MLT" : "GRM"
-                            }
-                        };
+                            };
 
-                        Context.YENomenclatureItems.Add(newItem);
+                            Context.YENomenclatureItems.Add(newItem);
 
-                        Log.Information($"Formatted native stock {item.ItemName} with NNT {item.ItemId} as YE nomenclature item {newItem.Name}");
+                            Log.Information($"Formatted native stock {item.ItemName} with NNT {item.ItemId} as YE nomenclature item {newItem.Name}");
+                        }
                     }
                 }
             }
