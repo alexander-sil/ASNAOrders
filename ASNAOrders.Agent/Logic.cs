@@ -502,7 +502,7 @@ namespace ASNAOrders.Agent
 
                             if (reader.IsDBNull(ordinal))
                             {
-                                temp.Add("NULL");
+                                temp.Add("");
                             }
 
                             for (int j = 0; j < sqlTypeCheckConds.Length; j++)
