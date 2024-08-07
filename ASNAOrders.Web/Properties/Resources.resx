@@ -261,11 +261,11 @@
   <data name="ConfigXMLStockPath" xml:space="preserve">
     <value>XMLStock</value>
   </data>
-  <data name="DeadfaceString" xml:space="preserve">
-    <value>deadfacedeadfacedeadfacedeadfacedeadface</value>
-  </data>
   <data name="DefaultDateFormatString" xml:space="preserve">
     <value>dd-MM-yyyy</value>
+  </data>
+  <data name="DefaultHashString" xml:space="preserve">
+    <value>f2253477cca6fdf6820f3b3fb994ef6ee29241c2</value>
   </data>
   <data name="DFSStartCountdown" xml:space="preserve">
     <value>6</value>

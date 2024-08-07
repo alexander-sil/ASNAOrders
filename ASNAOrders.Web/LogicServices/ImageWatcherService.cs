@@ -143,7 +143,7 @@ namespace ASNAOrders.Web.LogicServices
                 }
             }
 
-            return Properties.Resources.DeadfaceString;
+            return Properties.Resources.DefaultHashString;
         }
 
         public void Dispose()

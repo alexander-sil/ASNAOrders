@@ -493,20 +493,20 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to deadfacedeadfacedeadfacedeadfacedeadface.
-        /// </summary>
-        internal static string DeadfaceString {
-            get {
-                return ResourceManager.GetString("DeadfaceString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to dd-MM-yyyy.
         /// </summary>
         internal static string DefaultDateFormatString {
             get {
                 return ResourceManager.GetString("DefaultDateFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to f2253477cca6fdf6820f3b3fb994ef6ee29241c2.
+        /// </summary>
+        internal static string DefaultHashString {
+            get {
+                return ResourceManager.GetString("DefaultHashString", resourceCulture);
             }
         }
         
