@@ -346,7 +346,7 @@ namespace ASNAOrders.Agent
 
                     if (string.IsNullOrEmpty(value))
                     {
-                        valueNode.Add("?");
+                        valueNode.Add("");
                     }
                     else
                     {
