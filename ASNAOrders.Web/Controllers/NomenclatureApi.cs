@@ -108,7 +108,7 @@ namespace ASNAOrders.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(placeId))
             {
-                throw new BadHttpRequestException(Properties.Resources.ReqInvDataString, 400);
+                return new StatusCodeResult(400);
             }
 
             return new ContentResult()

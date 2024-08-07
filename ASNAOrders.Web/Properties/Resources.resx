@@ -186,6 +186,9 @@
   <data name="ASNAYECategoryName" xml:space="preserve">
     <value>Товары АСНА</value>
   </data>
+  <data name="BadRequestString" xml:space="preserve">
+    <value>Bad Request</value>
+  </data>
   <data name="ConfigClientSecretFilename" xml:space="preserve">
     <value>client-secret-hash</value>
   </data>

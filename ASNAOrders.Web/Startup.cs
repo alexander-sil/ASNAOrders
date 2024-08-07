@@ -51,6 +51,10 @@ using ASNAOrders.Web.Converters;
 using ASNAOrders.Web.NotificationServiceExtensions;
 using ASNAOrders.Web.OrdersServiceExtensions;
 using Serilog.Filters;
+using Microsoft.AspNetCore.Diagnostics;
+using ASNAOrders.Web.Models;
+using System.Text.Json;
+using System.Threading;
 
 namespace ASNAOrders.Web
 {
@@ -118,11 +122,6 @@ namespace ASNAOrders.Web
             services.AddHostedService<DataFormattingService>();
 
             services.AddSingleton<EntityModelConverter>();
-
-            services.AddSingleton<LogicServices.NotFoundMiddleware>();
-            services.AddSingleton<LogicServices.AuthorizationMiddleware>();
-
-            services.AddExceptionHandler<BadRequestErrorHandler>();
             services.AddExceptionHandler<CustomExceptionHandler>();
 
             // Add framework services.
@@ -241,8 +240,124 @@ namespace ASNAOrders.Web
             app.UseDeveloperExceptionPage();
             app.UseHttpContext();
             app.UseDefaultFiles();
-            app.UseMiddleware<LogicServices.NotFoundMiddleware>();
-            app.UseMiddleware<LogicServices.AuthorizationMiddleware>();
+            app.UseStatusCodePages((StatusCodeContext statusCodeContext) =>
+            {
+
+                var context = statusCodeContext.HttpContext;
+
+                if (context.Response.StatusCode == StatusCodes.Status400BadRequest)
+                {
+                    string ctype =
+                        (((context.Request.Method == "POST") && context.Request.Path.ToString().Contains("order"))
+                        || context.Request.Path.ToString().Contains("nomenclature")
+                        || context.Request.Path.ToString().Contains("security/oauth"))
+                        ? "application/vnd.eda.picker.errors.v1+json"
+                        : "application/json";
+
+                    var response = new List<ErrorListV1Inner>()
+                    {
+                        new ErrorListV1Inner()
+                        {
+                            Code = 400,
+                            Description = Properties.Resources.BadRequestString
+                        }
+                    };
+
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    return context.Response.WriteAsJsonAsync
+                    (
+                        response,
+                        new JsonSerializerOptions()
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                        },
+                        ctype
+                    );
+                }
+
+                if (context.Response.StatusCode == StatusCodes.Status401Unauthorized)
+                {
+                    string ctype =
+                        (((context.Request.Method == "POST") && context.Request.Path.ToString().Contains("order"))
+                        || context.Request.Path.ToString().Contains("nomenclature")
+                        || context.Request.Path.ToString().Contains("security/oauth"))
+                        ? "application/vnd.eda.picker.errors.v1+json"
+                        : "application/json";
+
+                    if ((context.Request.Method == "PUT" || context.Request.Method == "GET") && context.Request.Path.ToString().Contains("order"))
+                    {
+                        string reason;
+
+                        if (!context.Request.Headers.ContainsKey("Authorization"))
+                        {
+                            reason = Properties.Resources.MissingOrInvalidTokenString;
+                        }
+                        else
+                        {
+                            reason = Properties.Resources.AccessTokenExpiredString;
+                        }
+
+                        var response = new AuthorizationRequiredResponse()
+                        {
+                            Reason = reason
+                        };
+
+                        return context.Response.WriteAsJsonAsync
+                        (
+                            response,
+                            new JsonSerializerOptions()
+                            {
+                                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                            },
+                            ctype
+                        );
+                    }
+                    else
+                    {
+                        var response = new List<ErrorListV1Inner>()
+                        {
+                            new ErrorListV1Inner()
+                            {
+                                Code = 401,
+                                Description = Properties.Resources.UnauthorizedString,
+                            }
+                        };
+
+                        return context.Response.WriteAsJsonAsync
+                        (
+                            response,
+                            new JsonSerializerOptions()
+                            {
+                                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                            },
+                            ctype
+                        );
+                    }
+                }
+
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                {
+                    var response = new List<ErrorListV1Inner>()
+                    {
+                        new ErrorListV1Inner()
+                        {
+                            Code = 404,
+                            Description = Properties.Resources.KeyNotFoundString
+                        }
+                    };
+
+                    return context.Response.WriteAsJsonAsync
+                    (
+                        response,
+                        new JsonSerializerOptions()
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                        }
+                    );
+                }
+
+                return Task.CompletedTask;
+            });
             app.UseExceptionHandler(o => { });
             app.UseStaticFiles();
 

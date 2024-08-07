@@ -268,6 +268,15 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bad Request.
+        /// </summary>
+        internal static string BadRequestString {
+            get {
+                return ResourceManager.GetString("BadRequestString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to client-secret-hash.
         /// </summary>
         internal static string ConfigClientSecretFilename {
