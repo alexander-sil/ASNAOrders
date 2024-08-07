@@ -374,6 +374,8 @@ namespace ASNAOrders.Web
 
                     //TODO: Or alternatively use the original OpenAPI contract that's included in the static files
                     c.SwaggerEndpoint("/openapi-original.json", "API для интеграции сервиса Яндекс.Еда Original");
+
+                    c.ConfigObject.AdditionalItems.Add("syntaxHighlight", false);
                 });
 
             app.UseRouting();
