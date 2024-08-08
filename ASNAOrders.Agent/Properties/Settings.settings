@@ -5,12 +5,6 @@
     <Setting Name="Disabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="TimingOptions" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DAY</Value>
-    </Setting>
-    <Setting Name="LinesPerFile" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">800</Value>
-    </Setting>
     <Setting Name="OneFile" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

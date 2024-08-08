@@ -19,8 +19,6 @@ namespace ASNAOrders.Web.LogicServices
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            await next(context);
-
             if (context.Response.StatusCode == StatusCodes.Status404NotFound)
             {
                 var response = new List<ErrorListV1Inner>()
@@ -40,6 +38,10 @@ namespace ASNAOrders.Web.LogicServices
                         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
                     }
                 );
+            }
+            else
+            {
+                await next(context);
             }
         }
     }

@@ -82,13 +82,16 @@ namespace ASNAOrders.Web.LogicServices
 
                     Context.NativeStocks.Add(newStock);
 
+                    #if DEBUG
                     Log.Information($"Processed new stock info. NNT {newStock.ItemId} name {newStock.ItemName} quantity {newStock.Qtty} category {newStock.Category}");
+                    #endif
+
                     i++;
                 }
             }
 
             Context.SaveChanges();
-            Log.Information($"Processed a total of {i} native stock objects. The changes will come into effect (AKA formatted) upon next stop operation.");
+            Log.Information($"Processed a total of {i} native stock objects. The changes will come into effect (AKA formatted) upon next stop or restart operation.");
         }
 
         public void Dispose()
@@ -126,7 +129,9 @@ namespace ASNAOrders.Web.LogicServices
                         };
 
                         Context.NativeStocks.Add(extStock);
+                        #if DEBUG
                         Log.Information($"Processed existing stock info. NNT {extStock.ItemId} name {extStock.ItemName} quantity {extStock.Qtty} category {extStock.Category}");
+                        #endif
                     }
                 }
             }
@@ -140,7 +145,7 @@ namespace ASNAOrders.Web.LogicServices
 
             Watcher.Created += OnUpload;
 
-            Log.Information($"Started XMLStockWatcherService {DateTime.Now}");
+            Log.Information($"Started XML stock watcher service {DateTime.Now}");
             return Task.Run(DoWork);
         }
 

@@ -127,7 +127,9 @@ namespace ASNAOrders.Web.LogicServices
 
                             Context.YENomenclatureItems.Add(newItem);
 
+                            #if DEBUG
                             Log.Information($"Formatted native stock {item.ItemName} with NNT {item.ItemId} as YE nomenclature item {newItem.Name}");
+                            #endif
                         }
                     }
                 }
@@ -178,7 +180,7 @@ namespace ASNAOrders.Web.LogicServices
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Log.Information($"DataFormattingService running at {DateTime.Now}");
+            Log.Information($"Data formatting service running at {DateTime.Now}");
             return Task.Run(DoWork);
         }
 

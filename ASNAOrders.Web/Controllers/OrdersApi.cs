@@ -70,18 +70,12 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
         public virtual IActionResult PartnerOrderCreate([FromBody] PartnerOrderCreateRequest partnerOrderCreateRequest)
         {
-            try
+            return new ContentResult()
             {
-                return new ContentResult()
-                {
-                    ContentType = Properties.Resources.ApplicationJsonString,
-                    Content = JsonConvert.SerializeObject(Converter.CreateOrder(partnerOrderCreateRequest)),
-                    StatusCode = 200
-                };  
-            } catch (KeyNotFoundException)
-            {
-                return StatusCode(404);
-            }
+                ContentType = Properties.Resources.ApplicationJsonString,
+                Content = JsonConvert.SerializeObject(Converter.CreateOrder(partnerOrderCreateRequest)),
+                StatusCode = 200
+            };    
         }
 
         /// <summary>
@@ -106,19 +100,12 @@ namespace ASNAOrders.Web.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", ContentTypes = ["application/json"])]
         public virtual IActionResult PartnerOrderGet([FromRoute(Name = "orderId")][Required] string orderId)
         {
-            try
+            return new ContentResult()
             {
-                return new ContentResult()
-                {
-                    ContentType = Properties.Resources.ApplicationOrderString,
-                    Content = JsonConvert.SerializeObject(Converter.GetOrderById(orderId)),
-                    StatusCode = 200
-                };
-            }
-            catch (KeyNotFoundException)
-            {
-                return StatusCode(404);
-            }
+                ContentType = Properties.Resources.ApplicationOrderString,
+                Content = JsonConvert.SerializeObject(Converter.GetOrderById(orderId)),
+                StatusCode = 200
+            };
         }
 
         /// <summary>
@@ -183,7 +170,7 @@ namespace ASNAOrders.Web.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(List<ErrorListInner>));
 
-            throw new NotImplementedException();
+            return new EmptyResult();
         }
     }
 }

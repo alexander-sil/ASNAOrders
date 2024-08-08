@@ -68,7 +68,9 @@ namespace ASNAOrders.Web.LogicServices
 
             System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(e.Name, new FileInfo(e.FullPath).Extension, string.Empty)}\t{url}{Environment.NewLine}");
 
+            #if DEBUG
             Log.Information($"Image {e.Name} hosted at Tinystash URI {url}");
+            #endif
         }
         
         /// <summary>
@@ -98,7 +100,9 @@ namespace ASNAOrders.Web.LogicServices
 
                     System.IO.File.AppendAllText(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath), $"{Regex.Replace(file.Name, file.Extension, string.Empty)}\t{url}{Environment.NewLine}");
 
+                    #if DEBUG
                     Log.Information($"Image {file.Name} uploaded and hosted at Tinystash URI {url}");
+                    #endif
                 }
             }
 
@@ -153,7 +157,7 @@ namespace ASNAOrders.Web.LogicServices
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Log.Information($"Started ImageWatcherService at {DateTime.Now}");
+            Log.Information($"Started image watcher service at {DateTime.Now}");
 
             if (!System.IO.File.Exists(Path.Combine(Program.ImagePath, Properties.Resources.ASNAImageListPath)))
             {

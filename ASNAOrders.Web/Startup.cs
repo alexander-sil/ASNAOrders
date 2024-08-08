@@ -121,6 +121,7 @@ namespace ASNAOrders.Web
             services.AddHostedService<ImageWatcherService>();
             services.AddHostedService<DataFormattingService>();
 
+            services.AddScoped<NotFoundMiddleware>();
             services.AddSingleton<EntityModelConverter>();
             services.AddExceptionHandler<CustomExceptionHandler>();
 
@@ -237,7 +238,6 @@ namespace ASNAOrders.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSerilogRequestLogging();
-            app.UseDeveloperExceptionPage();
             app.UseHttpContext();
             app.UseDefaultFiles();
             app.UseStatusCodePages((StatusCodeContext statusCodeContext) =>

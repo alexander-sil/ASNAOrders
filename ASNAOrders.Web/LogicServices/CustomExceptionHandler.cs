@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,7 +32,30 @@ namespace ASNAOrders.Web.LogicServices
                     return false;
                 }
 
-                var response = new List<ErrorListV1Inner>()
+                if (ex is KeyNotFoundException)
+                {
+                    var response = new List<ErrorListV1Inner>()
+                    {
+                        new ErrorListV1Inner()
+                        {
+                            Code = 404,
+                            Description = ex.Message
+                        }
+                    };
+
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    await context.Response.WriteAsJsonAsync
+                    (
+                        response,
+                        new JsonSerializerOptions()
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                        },
+                        cancellationToken
+                    );
+                }
+
+                var responseAlt = new List<ErrorListV1Inner>()
                     {
                         new ErrorListV1Inner()
                         {
@@ -42,7 +66,7 @@ namespace ASNAOrders.Web.LogicServices
 
                 await context.Response.WriteAsJsonAsync
                 (
-                    response,
+                    responseAlt,
                     new JsonSerializerOptions()
                     {
                         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
@@ -52,6 +76,6 @@ namespace ASNAOrders.Web.LogicServices
             }
 
             return true;
-        }
+        } 
     }
 }

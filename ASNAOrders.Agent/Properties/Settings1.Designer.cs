@@ -37,30 +37,6 @@ namespace ASNAOrders.Agent.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DAY")]
-        public string TimingOptions {
-            get {
-                return ((string)(this["TimingOptions"]));
-            }
-            set {
-                this["TimingOptions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("800")]
-        public int LinesPerFile {
-            get {
-                return ((int)(this["LinesPerFile"]));
-            }
-            set {
-                this["LinesPerFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool OneFile {
             get {

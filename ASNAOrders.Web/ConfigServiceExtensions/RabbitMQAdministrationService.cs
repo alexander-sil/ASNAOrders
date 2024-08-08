@@ -128,7 +128,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                                      basicProperties: null,
                                      body: body);
 
-                    Log.Information($"Administration configuration notification issued to agent @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
+                    Log.Information($"Administration configuration notification issued to admin interface @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
                 }
             }       
         
