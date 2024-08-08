@@ -3,6 +3,7 @@ using ASNAOrders.Web.Administration.Server.DataAccess;
 using ASNAOrders.Web.Administration.Server.LogicServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -17,13 +18,20 @@ namespace ASNAOrders.Web.Administration.Server
 
             try
             {
+
                 var builder = WebApplication.CreateBuilder(args);
                 builder.Services.AddSerilog(dispose: true);
 
                 // Add services to the container.
                 builder.Services.AddDbContext<CustomDbContext>(options =>
                 {
+                    #if DEBUG
+                    options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("SqlServerDev"));
+                    #endif
+
+                    #if !DEBUG
                     options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+                    #endif
                 });
 
                 builder.Services.AddControllers();

@@ -537,7 +537,7 @@ namespace ASNAOrders.Web.Administration.Client.Desktop
 
 
                     XmlStockPath = EditXMLStockPathContent.Text,
-                    DatabaseType = ComboBoxDbTypeDatabase.SelectedIndex == 1 ? "mssqlserver" : "sqlite",
+                    DatabaseType = "mssqlserver",
                     InitialCatalog = EditCatalogMssql.Text,
 
                     SqliteDbCacheFilename = EditCatalogSqlite.Text,

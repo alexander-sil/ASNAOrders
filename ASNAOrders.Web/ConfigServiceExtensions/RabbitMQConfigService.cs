@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using System.IO;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Globalization;
 
 namespace ASNAOrders.Web.ConfigServiceExtensions
 {
@@ -87,7 +90,7 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
                 ClientSecret = (string)root["clientSecret"],
 
 
-                DatabaseType = (string)root["dbType"],
+                DatabaseType = (string)root["databaseType"],
                 InitialCatalog = (string)root["initialCatalog"],
 
                 XMLStockPath = (string)root["xmlStockPath"],
@@ -114,6 +117,9 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
                 ClientSecretTransmissionMethod = (string)root["clientSecretTransmissionMethod"]
             };
+
+            config.ConnectionString = config.DatabaseType == "sqlite" ? $"Data Source={config.SqliteDbCacheFilename};Cache=Shared" : $"Data Source={config.MssqlServerHost},{config.MssqlServerPort};Initial Catalog={config.InitialCatalog};User ID={config.MssqlServerUsername};Password={config.MssqlServerPassword};TrustServerCertificate=True;App=ASNAOrders";
+            config.ErrorLogPrefix = $"hs_log_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
 
             string filename = Program.ConfigFilename;
 

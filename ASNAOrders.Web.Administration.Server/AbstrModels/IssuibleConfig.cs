@@ -99,7 +99,7 @@ namespace ASNAOrders.Web.Administration.Server.AbstrModels
         /// Determines the type of the database to be used by the server.
         /// Possible values are "sqlite" and "mssqlserver".
         /// </summary>
-        public string? DatabaseType { get; set; } = Properties.Resources.ConfigDatabaseType;
+        public string? DatabaseType { get; set; }
 
         #region TypeSpecificDBOpts
 

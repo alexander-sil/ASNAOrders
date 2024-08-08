@@ -23,12 +23,16 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
             this.ErrorLogPrefix = $"hs_log_id{Task.Run(() => { Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL"); return DateTime.Now.ToShortDateString(); }).Result}_";
         }
 
+        /// <summary>
+        /// Sets the connection string after model creation.
+        /// </summary>
+
 #nullable enable
             #region RabbitMQOptions 
 
-            /// <summary>
-            /// Determines the RabbitMQ Virtual Host to be used.
-            /// </summary>
+        /// <summary>
+        /// Determines the RabbitMQ Virtual Host to be used.
+        /// </summary>
         public string MQVHost { get; set; } = Properties.Resources.ConfigMQVHost;
 
         /// <summary>
