@@ -100,7 +100,6 @@ namespace ASNAOrders.Web.Data
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Игнорируем List<string> как сущность
             modelBuilder.Ignore<List<string>>();
 
             var listComparer = new ValueComparer<List<string>>(
@@ -118,13 +117,10 @@ namespace ASNAOrders.Web.Data
 
             modelBuilder.Entity<Barcode>(entity =>
             {
-                // Конфигурация для Values
                 entity.Property(e => e.Values)
                     .HasConversion(converter)
                     .HasColumnType("nvarchar(max)")
                     .Metadata.SetValueComparer(listComparer);
-
-                // Остальная конфигурация...
             });
 
             base.OnModelCreating(modelBuilder);
