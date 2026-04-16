@@ -65,11 +65,11 @@ namespace ASNAOrders.Web.Controllers
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("PartnerNearestSlotsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<NearestSlotsResponseInner>), description: "Усредненные слоты", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Ошибка в запросе, в ответе список ошибок", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListInner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Не найден ресурс, в ответе список ошибок", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(List<NearestSlotsResponseInner>), description: "Усредненные слоты", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Ошибка в запросе, в ответе список ошибок", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListInner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Не найден ресурс, в ответе список ошибок", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера, в ответе список ошибок", contentTypes: "application/json"    )]
         public virtual IActionResult PartnerNearestSlotsGet([FromBody] NearestSlots nearestSlots)
         {
             List<NearestSlotsResponseInner> slots = new List<NearestSlotsResponseInner>()
@@ -112,11 +112,11 @@ namespace ASNAOrders.Web.Controllers
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("PartnerSlotsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(SlotsCheckoutResponse), description: "Успешный запрос слотов", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Ошибка в запросе, в ответе список ошибок", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListInner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Не найден ресурс, в ответе список ошибок", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(SlotsCheckoutResponse), description: "Успешный запрос слотов", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Ошибка в запросе, в ответе список ошибок", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListInner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Не найден ресурс, в ответе список ошибок", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера, в ответе список ошибок", contentTypes: "application/json")]
         public virtual IActionResult PartnerSlotsGet([FromRoute(Name = "placeId")][Required] string placeId, [FromBody] SlotsCheckout slotsCheckout)
         {
             return new ContentResult()

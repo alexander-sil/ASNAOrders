@@ -67,9 +67,9 @@ namespace ASNAOrders.Web.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         [ValidateModelState]
         [SwaggerOperation("PartnerAuthPost")]
-        [SwaggerResponse(statusCode: 200, type: typeof(AuthenticationResponse), description: "Успешная аутентификация", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(AuthenticationResponse), description: "Успешная аутентификация", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
         public virtual IActionResult PartnerAuthPost([FromForm(Name = "client_id")][Required()] string clientId, [FromForm(Name = "client_secret")][Required()] string clientSecret, [FromForm(Name = "grant_type")][Required()] string grantType, [FromForm(Name = "scope")][Required()] string scope)
         {
 

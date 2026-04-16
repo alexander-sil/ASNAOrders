@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Text.Json;
+using ASNAOrders.Web.Data.YENomenclature;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ASNAOrders.Web.Data
@@ -88,5 +91,15 @@ namespace ASNAOrders.Web.Data
         /// </summary>
         /// <param name="options"></param>
         public ASNAOrdersDbContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Barcode>()
+                .Property(e => e.Values)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null) ?? new List<string>()
+                );
+        }
     }
 }

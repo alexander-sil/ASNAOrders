@@ -1,12 +1,16 @@
 ﻿using ASNAOrders.Web.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -15,6 +19,31 @@ namespace ASNAOrders.Web.LogicServices
     /// </summary>
     public class CustomExceptionHandler : IExceptionHandler
     {
+        public Task HandleAsync(ExceptionHandlerContext context, CancellationToken cancellationToken)
+        {
+            if (context.Exception is KeyNotFoundException && context.ExceptionContext.Response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+            {
+                context.Result = (IHttpActionResult)new JsonResult
+                (
+                    new List<ErrorListV1Inner>()
+                    {
+                        new ErrorListV1Inner()
+                        {
+                            Code = 404,
+                            Description = context.Exception.Message
+                        }
+                    }, 
+                    new JsonSerializerOptions()
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                    }
+
+                );
+            }
+
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 
         /// </summary>

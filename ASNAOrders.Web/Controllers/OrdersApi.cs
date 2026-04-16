@@ -64,10 +64,10 @@ namespace ASNAOrders.Web.Controllers
         [Consumes("application/vnd.eats.order.v2+json")]
         [ValidateModelState]
         [SwaggerOperation("PartnerOrderCreate")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PartnerOrderCreate200Response), description: "Заказ успешно создан в системе партнера", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(PartnerOrderCreate200Response), description: "Заказ успешно создан в системе партнера", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
         public virtual IActionResult PartnerOrderCreate([FromBody] PartnerOrderCreateRequest partnerOrderCreateRequest)
         {
             return new ContentResult()
@@ -93,11 +93,11 @@ namespace ASNAOrders.Web.Controllers
         [Route("/order/{orderId}")]
         [ValidateModelState]
         [SwaggerOperation("PartnerOrderGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PartnerOrderGet200Response), description: "Информация о заказе успешно передана", ContentTypes = ["application/vnd.eats.order.v2+json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Bad request. Ошибка в параметрах, в ответе список ошибок валидации", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(AuthorizationRequiredResponse), description: "Не пройдена авторизация - истек токен, либо не был передан в запросе", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Заказ не найден в системе", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", ContentTypes = ["application/json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(PartnerOrderGet200Response), description: "Информация о заказе успешно передана", contentTypes: "application/vnd.eats.order.v2+json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Bad request. Ошибка в параметрах, в ответе список ошибок валидации", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(AuthorizationRequiredResponse), description: "Не пройдена авторизация - истек токен, либо не был передан в запросе", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Заказ не найден в системе", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", contentTypes: "application/json")]
         public virtual IActionResult PartnerOrderGet([FromRoute(Name = "orderId")][Required] string orderId)
         {
             return new ContentResult()
@@ -122,11 +122,11 @@ namespace ASNAOrders.Web.Controllers
         [Route("/order/{orderId}/status")]
         [ValidateModelState]
         [SwaggerOperation("PartnerOrderStatus")]
-        [SwaggerResponse(statusCode: 200, type: typeof(OrderStatus), description: "Статус заказа успешно выдан", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Bad request. Ошибка в параметрах, в ответе список ошибок валидации", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(AuthorizationRequiredResponse), description: "Не пройдена авторизация - истек токен, либо не был передан в запросе", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Заказ не найден в системе", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", ContentTypes = ["application/json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(OrderStatus), description: "Статус заказа успешно выдан", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Bad request. Ошибка в параметрах, в ответе список ошибок валидации", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(AuthorizationRequiredResponse), description: "Не пройдена авторизация - истек токен, либо не был передан в запросе", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Заказ не найден в системе", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", contentTypes: "application/json")]
         public virtual IActionResult PartnerOrderStatus([FromRoute(Name = "orderId")][Required] string orderId)
         {
             return new ContentResult()
@@ -152,10 +152,10 @@ namespace ASNAOrders.Web.Controllers
         [Consumes("application/vnd.eats.order.status.v1+json")]
         [ValidateModelState]
         [SwaggerOperation("PartnerOrderStatusPut")]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Bad request. Ошибка в параметрах, в ответе список ошибок валидации", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(AuthorizationRequiredResponse), description: "Не пройдена авторизация - истек токен, либо не был передан в запросе", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Заказ не найден в системе", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", ContentTypes = ["application/json"])]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListInner>), description: "Bad request. Ошибка в параметрах, в ответе список ошибок валидации", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(AuthorizationRequiredResponse), description: "Не пройдена авторизация - истек токен, либо не был передан в запросе", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListInner>), description: "Заказ не найден в системе", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListInner>), description: "Внутренние ошибки сервера", contentTypes: "application/json")]
         public virtual IActionResult PartnerOrderStatusPut([FromRoute(Name = "orderId")][Required] string orderId, [FromBody] OrderStatus orderStatus)
         {
 

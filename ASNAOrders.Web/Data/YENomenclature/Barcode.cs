@@ -33,7 +33,7 @@ namespace ASNAOrders.Web.Data.YENomenclature
         /// Список штрихкодов товара
         /// </summary>
         /// <value>Список штрихкодов товара</value>
-        public List<string> Values { get; set; }
+        public virtual List<string> Values { get; set; }
 
         /// <summary>
         /// Тип штрихкода. Возможные значения см. TypeEnum

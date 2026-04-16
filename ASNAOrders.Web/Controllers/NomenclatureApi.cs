@@ -65,11 +65,11 @@ namespace ASNAOrders.Web.Controllers
         [Route("/nomenclature/{placeId}/availability")]
         [ValidateModelState]
         [SwaggerOperation("PartnerNomenclatureAvailabilityGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Availability), description: "Список товаров с актуальными остатками товаров. Чтобы отсутствующие в списке товары были недоступны для заказа - надо это согласовать с сотрудниками Яндекса. По умолчанию остатки не изменяются, если партнер не передал по ним новое значение.", ContentTypes = ["application/json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(Availability), description: "Список товаров с актуальными остатками товаров. Чтобы отсутствующие в списке товары были недоступны для заказа - надо это согласовать с сотрудниками Яндекса. По умолчанию остатки не изменяются, если партнер не передал по ним новое значение.", contentTypes: "application/json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
         public virtual IActionResult PartnerNomenclatureAvailabilityGet([FromRoute(Name = "placeId")][Required] string placeId)
         {
             if (string.IsNullOrWhiteSpace(placeId))
@@ -99,11 +99,11 @@ namespace ASNAOrders.Web.Controllers
         [Route("/nomenclature/{placeId}/composition")]
         [ValidateModelState]
         [SwaggerOperation("PartnerNomenclatureCompositionGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Nomenclature), description: "Актуальная номенклатура", ContentTypes = ["application/vnd.eda.picker.nomenclature.v1+json"])]
-        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListV1Inner>), description: "Не найден ресурс, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
-        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", ContentTypes = ["application/vnd.eda.picker.errors.v1+json"])]
+        [SwaggerResponse(statusCode: 200, type: typeof(Nomenclature), description: "Актуальная номенклатура", contentTypes: "application/vnd.eda.picker.nomenclature.v1+json")]
+        [SwaggerResponse(statusCode: 400, type: typeof(List<ErrorListV1Inner>), description: "Ошибка в запросе, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 401, type: typeof(List<ErrorListV1Inner>), description: "Не пройдена авторизация, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 404, type: typeof(List<ErrorListV1Inner>), description: "Не найден ресурс, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
+        [SwaggerResponse(statusCode: 500, type: typeof(List<ErrorListV1Inner>), description: "Внутренние ошибки сервера, в ответе список ошибок", contentTypes: "application/vnd.eda.picker.errors.v1+json")]
         public virtual IActionResult PartnerNomenclatureCompositionGet([FromRoute(Name = "placeId")][Required] string placeId)
         {
             if (string.IsNullOrWhiteSpace(placeId))

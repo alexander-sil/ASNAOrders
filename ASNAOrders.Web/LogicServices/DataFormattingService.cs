@@ -1,11 +1,7 @@
 ﻿using ASNAOrders.Web.Data;
-using ASNAOrders.Web.Data.Orders;
 using ASNAOrders.Web.Data.YENomenclature;
-using Castle.Components.DictionaryAdapter.Xml;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
-using Org.BouncyCastle.Pqc.Crypto.Lms;
-using SQLitePCL;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -13,7 +9,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ASNAOrders.Web.LogicServices
 {

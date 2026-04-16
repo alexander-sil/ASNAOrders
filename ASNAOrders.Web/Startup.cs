@@ -123,7 +123,7 @@ namespace ASNAOrders.Web
 
             services.AddScoped<NotFoundMiddleware>();
             services.AddSingleton<EntityModelConverter>();
-            services.AddExceptionHandler<CustomExceptionHandler>();
+            services.AddExceptionHandler<CustomExceptionHandler>((o, h) => { });
 
             // Add framework services.
             services

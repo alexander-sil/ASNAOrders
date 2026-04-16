@@ -376,7 +376,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to administrator.
+        ///   Looks up a localized string similar to as21as21.
         /// </summary>
         internal static string ConfigMQPassword {
             get {
@@ -394,7 +394,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to administrator.
+        ///   Looks up a localized string similar to as21as21.
         /// </summary>
         internal static string ConfigMQUsername {
             get {
@@ -403,7 +403,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to asna-orders.
+        ///   Looks up a localized string similar to /.
         /// </summary>
         internal static string ConfigMQVHost {
             get {
