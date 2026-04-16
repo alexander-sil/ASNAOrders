@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using System.Text.Json;
 using ASNAOrders.Web.Data.YENomenclature;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASNAOrders.Web.Data
 {
@@ -92,14 +97,37 @@ namespace ASNAOrders.Web.Data
         /// <param name="options"></param>
         public ASNAOrdersDbContext(DbContextOptions options) : base(options) { }
 
+        /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Barcode>()
-                .Property(e => e.Values)
-                .HasConversion(
-                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null) ?? new List<string>()
-                );
+            // Игнорируем List<string> как сущность
+            modelBuilder.Ignore<List<string>>();
+
+            var listComparer = new ValueComparer<List<string>>(
+                (c1, c2) => (c1 == null && c2 == null) || (c1 != null && c2 != null && c1.SequenceEqual(c2)),
+                c => c == null ? 0 : c.Aggregate(0, (hash, item) => HashCode.Combine(hash, item.GetHashCode())),
+                c => c == null ? new List<string>() : c.ToList()
+            );
+
+            var converter = new ValueConverter<List<string>, string>(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => string.IsNullOrEmpty(v)
+                    ? new List<string>()
+                    : JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions?)null) ?? new List<string>() ?? new List<string>()
+            );
+
+            modelBuilder.Entity<Barcode>(entity =>
+            {
+                // Конфигурация для Values
+                entity.Property(e => e.Values)
+                    .HasConversion(converter)
+                    .HasColumnType("nvarchar(max)")
+                    .Metadata.SetValueComparer(listComparer);
+
+                // Остальная конфигурация...
+            });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
