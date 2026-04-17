@@ -286,7 +286,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to file-TEMP.
+        ///   Looks up a localized string similar to mail.
         /// </summary>
         internal static string ConfigClientSecretTransmissionMethod {
             get {
@@ -322,7 +322,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to farmofficeru.ru.
+        ///   Looks up a localized string similar to 127.0.0.1.
         /// </summary>
         internal static string ConfigMailHost {
             get {
@@ -331,7 +331,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Passlogin1..
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string ConfigMailPassword {
             get {
@@ -340,7 +340,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 125.
+        ///   Looks up a localized string similar to 25.
         /// </summary>
         internal static string ConfigMailPort {
             get {
@@ -448,7 +448,7 @@ namespace ASNAOrders.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eventlog+mail*informator@farmofficeru.ru.
+        ///   Looks up a localized string similar to eventlog+mail*.
         /// </summary>
         internal static string ConfigSerilogSink {
             get {

@@ -142,6 +142,7 @@ namespace ASNAOrders.Web
             });
 
             HttpContextExtensions.AddHttpContextAccessor(services);
+            Microsoft.Extensions.DependencyInjection.HttpServiceCollectionExtensions.AddHttpContextAccessor(services);
 
             services.AddAuthentication(options =>
             {
@@ -171,7 +172,7 @@ namespace ASNAOrders.Web
                     }
                 )
             );
-
+            
             services
                 .AddSwaggerGen(c =>
                 {
@@ -187,7 +188,7 @@ namespace ASNAOrders.Web
                         {
                             ClientCredentials = new OpenApiOAuthFlow
                             {
-                                TokenUrl = new Uri($"{ParametersHttpContext.ApplicationUrl}/security/oauth/token"),
+                                TokenUrl = new Uri("/security/oauth/token", UriKind.Relative),
                                 Scopes = new Dictionary<string, string>()
                                 {
                                     { "read", "Read access" },
@@ -237,6 +238,12 @@ namespace ASNAOrders.Web
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (context, next) => {
+                var baseUrl = $"{context.Request.Scheme}://{context.Request.Host}";
+                context.Items["BaseUrl"] = baseUrl;
+                await next();
+            });
+
             app.UseSerilogRequestLogging();
             app.UseHttpContext();
             app.UseDefaultFiles();

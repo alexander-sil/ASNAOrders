@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ASNAOrders.Web.LogicServices
 {
@@ -13,7 +14,7 @@ namespace ASNAOrders.Web.LogicServices
 
         public static HttpContext current => accessor.HttpContext;
 
-        public static string ApplicationUrl => $"{current.Request.Scheme}://{current.Request.Host}{current.Request.PathBase}";
+        // public static string ApplicationUrl => $"{current.Request.Scheme}://{current.Request.Host}{current.Request.PathBase}";
 
         internal static void Configure(IHttpContextAccessor context)
         {
@@ -25,7 +26,7 @@ namespace ASNAOrders.Web.LogicServices
     {
         public static void AddHttpContextAccessor(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<HttpContextAccessor>();
         }
 
         public static IApplicationBuilder UseHttpContext(this IApplicationBuilder app)

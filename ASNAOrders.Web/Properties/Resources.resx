@@ -193,7 +193,7 @@
     <value>client-secret-hash</value>
   </data>
   <data name="ConfigClientSecretTransmissionMethod" xml:space="preserve">
-    <value>file-TEMP</value>
+    <value>mail</value>
   </data>
   <data name="ConfigDatabaseType" xml:space="preserve">
     <value>mssqlserver</value>
@@ -205,13 +205,13 @@
     <value>AsnaOrders</value>
   </data>
   <data name="ConfigMailHost" xml:space="preserve">
-    <value>farmofficeru.ru</value>
+    <value>127.0.0.1</value>
   </data>
   <data name="ConfigMailPassword" xml:space="preserve">
-    <value>Passlogin1.</value>
+    <value />
   </data>
   <data name="ConfigMailPort" xml:space="preserve">
-    <value>125</value>
+    <value>25</value>
   </data>
   <data name="ConfigMailSSLOptions" xml:space="preserve">
     <value>none</value>
@@ -247,7 +247,7 @@
     <value>sa</value>
   </data>
   <data name="ConfigSerilogSink" xml:space="preserve">
-    <value>eventlog+mail*informator@farmofficeru.ru</value>
+    <value>eventlog+mail*</value>
   </data>
   <data name="ConfigSigningKeyFile" xml:space="preserve">
     <value>skey</value>

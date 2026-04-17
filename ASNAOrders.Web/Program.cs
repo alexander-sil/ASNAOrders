@@ -41,7 +41,7 @@ namespace ASNAOrders.Web
         {
 
 
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
+            var filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Properties.Resources.ConfigXmlPath);
             ConfigFilename = filename;
 
             if (!File.Exists(filename))
@@ -127,6 +127,7 @@ namespace ASNAOrders.Web
                 .UseSerilog(dispose: true)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    
                     webBuilder.UseStartup<Startup>()
                        .UseUrls("http://0.0.0.0:8080/");
                 });

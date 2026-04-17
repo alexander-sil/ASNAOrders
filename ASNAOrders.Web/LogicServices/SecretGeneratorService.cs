@@ -31,6 +31,7 @@ namespace ASNAOrders.Web.LogicServices
         {
             if (!File.Exists(path) || new FileInfo(path).Length == 0)
             {
+            mark:
                 RandomNumberGenerator rng = new RNGCryptoServiceProvider();
 
                 byte[] secret = new byte[32];
@@ -54,7 +55,7 @@ namespace ASNAOrders.Web.LogicServices
                     using MailMessage message = new MailMessage()
                     {
                         Subject = Properties.Resources.SecretMailSubj,
-                        From = new MailAddress(StaticConfig.Sink.Split("*")[1]),
+                        From = new MailAddress(!string.IsNullOrWhiteSpace(StaticConfig.Sink.Split("*")[1]) ? StaticConfig.Sink.Split("*")[1] : "sanya.silitskiy2@yandex.ru"),
                         Body = $"This is your OAuth2 client secret for logging on to the {Assembly.GetExecutingAssembly().GetName().Name} application.{Environment.NewLine}It is very important you store the below string in a secure place.{Environment.NewLine}{Environment.NewLine}{Convert.ToBase64String(secret)}{Environment.NewLine}{Environment.NewLine}In case this secret becomes lost, you WILL NOT be able to log on to the service specified."
                     };
 
@@ -62,12 +63,20 @@ namespace ASNAOrders.Web.LogicServices
 
                     using SmtpClient client = new SmtpClient(StaticConfig.MailHost, StaticConfig.MailPort);
 
-                    client.Credentials = new NetworkCredential(StaticConfig.Sink.Split("*")[1], StaticConfig.MailPassword);
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(!string.IsNullOrEmpty(StaticConfig.Sink.Split("*")[1]) ? StaticConfig.Sink.Split("*")[1] : string.Empty, !string.IsNullOrEmpty(StaticConfig.MailPassword) ? StaticConfig.MailPassword : string.Empty);
+                    
+
                     client.EnableSsl = StaticConfig.MailSSLOptions == "STARTTLSavail" ? false : StaticConfig.MailSSLOptions == "SSL" ? true : StaticConfig.MailSSLOptions == "none" ? false : true;
 
                     client.Send(message);
                 }
-               
+                if (hash is null)
+                {
+                    goto mark;
+                }
                 return hash;
             }
 
@@ -105,13 +114,13 @@ namespace ASNAOrders.Web.LogicServices
                 }
                 
 
-                string encKey = Convert.ToHexString(ProtectedData.Protect(key, null, DataProtectionScope.LocalMachine));
+                string encKey = Convert.ToHexString(ProtectedData.Protect(key, null, DataProtectionScope.CurrentUser));
 
                 File.Create(path).Dispose();
                 File.AppendAllText(path, encKey);
             }
 
-            return ProtectedData.Unprotect(Convert.FromHexString(File.ReadAllText(path)), null, DataProtectionScope.LocalMachine);
+            return ProtectedData.Unprotect(Convert.FromHexString(File.ReadAllText(path)), null, DataProtectionScope.CurrentUser);
         }
 
         /// <summary>
