@@ -130,7 +130,6 @@ namespace ASNAOrders.Web.ConfigServiceExtensions
 
                     Log.Information($"Administration configuration notification issued to admin interface @ factory {nameof(factory)} hostname {factory.HostName} port {factory.Port} vhost {factory.VirtualHost}");
                 }
-            }       
-        
+            }           
     }
 }
